@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Button, Container, Row, Col, Alert, FormGroup } from 'react-bootstrap';
+import '../css/Register.css';
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -46,7 +47,7 @@ function Register() {
   };
 
   return (
-    <Container>
+    <Container className='register-container'>
       <Row className='justify-content-center'>
         <Col md={8}>
 

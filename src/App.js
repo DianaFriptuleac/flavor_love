@@ -2,6 +2,7 @@
 import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import Register from './components/Register';
+import Login from './components/Login';
 
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
   return (
 <div>
   <Register/>
+  <Login/>
 </div>
   );
 }
