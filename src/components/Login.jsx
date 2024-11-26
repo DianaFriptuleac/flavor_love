@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../redux/actions/authActions";
 import { Container, Row,Col, Form, Button, Alert} from "react-bootstrap";
+import "../css/Login.css";
 
 const Login = () =>{
     const [userCredentials, setUserCredentials] = useState({email:'', password:''});
@@ -14,26 +15,27 @@ const Login = () =>{
         setUserCredentials({ ...userCredentials, [name]:value})
     }
 
-    const handleSubmit = (e) =>{
+    const handleSubmit = async(e) =>{
         e.preventDefault();
-        try{
-            dispatch(loginUser(userCredentials));
+        try {
+            await dispatch(loginUser(userCredentials));
             setMessage('Login effettuato con successo!');
             setVariant('success');
-        } catch(er){
-            setMessage('Errore durante il login! Riprova.');
+          } catch (error) {
+            setMessage(error.message || 'Errore durante il login! Riprova.');
             setVariant('danger');
-        }
+          }
     }
 
     return(
         <Container>
             <Row className = "justify-content-center" >
                 <Col md={6}>
-                <h1>Fai il Login</h1>
-                <Form onSubmit={handleSubmit} className="p-4 shadow rounded">
+                <h1 className="text-light mb-0 text-center mt-2 loginTitle">
+                    Fai il Login</h1>
+                    <Form onSubmit={handleSubmit} className="login-container">
             <Form.Group controlId="formEmail" className="mb-3">
-              <Form.Label>Email</Form.Label>
+            <Form.Label className="text-light">Email</Form.Label>
               <Form.Control
                 type="email"
                 name="email"
@@ -44,7 +46,7 @@ const Login = () =>{
               />
             </Form.Group>
             <Form.Group controlId="formPassword" className="mb-3">
-              <Form.Label>Password</Form.Label>
+            <Form.Label className="text-light">Password</Form.Label>
               <Form.Control
                 type="password"
                 name="password"
@@ -54,15 +56,24 @@ const Login = () =>{
                 required
               />
             </Form.Group>
-            <Button variant="primary" type="submit" className="w-100">
-              Accedi
-            </Button>
+            <div className="d-flex justify-content-end">
+              <Button type="submit" className="w-25 mt-3 loginButton">
+                Accedi
+              </Button>
+            </div>
           </Form>
-          {message && <Alert variant={variant} className="mt-3">{message}</Alert>}
-                </Col>
-
-            </Row>
-        </Container>
+          {message && (
+            <Alert
+              className={`mt-3 ${
+                variant === "success" ? "alert-success" : "alert-danger"
+              }`}
+            >
+              {message}
+            </Alert>
+          )}
+        </Col>
+      </Row>
+    </Container>
     );
 }
 

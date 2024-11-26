@@ -51,6 +51,7 @@ export const loginUser = (userCredentials) => async (dispatch) => {
         }
     } catch(er){
         console.log(er.message);
+        throw er;
     }
 }
 
