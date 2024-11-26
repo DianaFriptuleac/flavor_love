@@ -1,11 +1,10 @@
-import { Navbar, Container, Nav } from 'react-bootstrap'
-import { Link, useLocation } from "react-router-dom";
+import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap'
+import { Link, useLocation} from "react-router-dom";
 import '../css/CustomNavbar.css';
 
 const CustomNavbar = function () {
 
   const location = useLocation(); 
-  //classe active per i link
   const addActiveOrNot = (path) => {
     return location.pathname === '/' + path ? 'nav-link active' : 'nav-link'
   }
@@ -24,12 +23,16 @@ const CustomNavbar = function () {
           <Link to="/" className={addActiveOrNot('home')}>
              Home
             </Link>
-            <Link to="/meteo" className={addActiveOrNot('regioni')}>
-              Tutte le Regioni
-            </Link>
-            <Link to="/mondo" className={addActiveOrNot('mondo')}>
-              Mondo
-            </Link>
+            <NavDropdown title="Ricette" id="collapsible-nav-dropdown" className='nav-dropdown'>
+              <NavDropdown.Item href="#action/3.1">Antipasti</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.2">
+               Primi
+              </NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.3">Secondi</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.4">
+                Dolci
+              </NavDropdown.Item>
+            </NavDropdown>
           
           </Nav>
           <Nav className="ms-auto">

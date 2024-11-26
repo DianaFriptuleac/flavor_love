@@ -1,3 +1,15 @@
-.myNavbar{
-    background-color: #160d08;
+.myNavbar {
+  background-color: #160d08;
+}
+.nav-dropdown .dropdown-menu {
+  background-color: #160d08;
+  border: none;
+  opacity: 0.7;
+}
+
+.nav-dropdown .dropdown-menu .dropdown-item:hover {
+  background-color: #0d0500;
+  color: #fff; 
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+  
 }

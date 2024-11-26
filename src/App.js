@@ -5,6 +5,7 @@ import Login from "./components/Login";
 import { BrowserRouter,Routes, Route } from "react-router-dom";
 import CustomNavbar from "./components/CustomNavbar";
 import NotFound from "./components/NotFound";
+import Home from "./components/Home";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Routes>
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Home/>}/>
      
           <Route path="*" element={<NotFound />} />
         </Routes>
