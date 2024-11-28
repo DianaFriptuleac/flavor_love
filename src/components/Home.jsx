@@ -1,54 +1,73 @@
 import React, { useEffect, useState } from "react";
-import { Card, Container, Row, Col } from "react-bootstrap";
+import { Card, Container, Row, Col, Carousel} from "react-bootstrap";
+import "../css/Home.css";
 
 const Home = () => {
   const [ricette, setRicette] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/ricetteEsterne/allRicette")
+    fetch("http://localhost:3001/api/ricetteEsterne/allRicette?page=0&size=50")
       .then((response) => response.json())
       .then((data) => {
-        console.log("Dati ricevuti dal backend:", data);
-        setRicette(data);
+        if (data && data.content) {
+          const ricetteComplete = data.content.filter(
+            (ricetta) => ricetta.title && ricetta.instructions && ricetta.image
+          );
+          console.log("Ricette con dati completi:", ricetteComplete);
+          //salvo le ricette filtrate
+          setRicette(ricetteComplete);
+        } else {
+          console.error("Formato dei dati non valido:", data);
+        }
       })
-      .catch((error) => console.error("Errore:", error));
+      .catch((error) => console.error("Errore nel caricamento delle ricette:", error));
   }, []);
+
+  //divido le ricette in gruppi da 6
+  const carouselRows = (ricette, ricettaPerRow) => {
+    const rows = [];
+    for (let i = 0; i < ricette.length; i += ricettaPerRow) {
+      rows.push(ricette.slice(i, i + ricettaPerRow));
+    }
+    return rows;
+  };
+
+  // Righe da 6 ricette
+  const ricetteInRows = carouselRows(ricette, 6); 
+
   return (
-    <Container className="mt-5">
-      <h1 className="text-center mb-4">Le Nostre Ricette</h1>
-      <Row>
-        {ricette.length > 0 ? (
-          ricette.map((ricetta, index) => (
-            <Col md={4} sm={6} xs={12} className="mb-4" key={index}>
-              <Card>
-                <Card.Img
-                  variant="top"
-                  src={ricetta.image}
-                  alt={ricetta.title}
-                />
-                <Card.Body>
-                  <Card.Title>{ricetta.title}</Card.Title>
-                  <Card.Text>
-                    {ricetta.descrizione && ricetta.descrizione.length > 0
-                      ? ricetta.descrizione.length > 100
-                        ? `${ricetta.descrizione.substring(0, 100)}...`
-                        : ricetta.descrizione
-                      : "Descrizione non disponibile"}
-                  </Card.Text>
-                  <Card.Link href={`/ricetta/${ricetta.id}`}>
-                    Leggi di più
-                  </Card.Link>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))
-        ) : (
-          <Col>
-            <p className="text-center">Caricamento delle ricette in corso...</p>
-          </Col>
-        )}
-      </Row>
-    </Container>
+    <div className="home-background">
+      <Container className="mt-5">
+        <h1 className="mb-4 text-light homeTitle">Le Nostre Ricette</h1>
+        <Carousel interval={null} className="carousel-container">
+          {ricetteInRows.map((group, index) => (
+            <Carousel.Item key={index}>
+              <Row>
+                {group.map((ricetta) => (
+                  <Col xl= {4} md={6} sm={12} xs={12} key={ricetta.id} className="mb-4">
+                    <Card className="ricetta-card">
+                      <div className="img-container">
+                      <Card.Img
+                        variant="top"
+                        src={ricetta.image || "/assets/default_ricetta.jpg"} 
+                          alt={ricetta.title || "Ricetta"}
+                        className="ricetta-img"
+                      />
+                      <div className="title-card">
+                        <Card.Title className="ricetta-title">
+                          {ricetta.title}
+                        </Card.Title>
+                        </div>
+                      </div>
+                    </Card>
+                  </Col>
+                ))}
+              </Row>
+            </Carousel.Item>
+          ))}
+        </Carousel>
+      </Container>
+    </div>
   );
 };
 
