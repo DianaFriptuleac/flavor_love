@@ -1,36 +1,53 @@
-import { UPLOAD_AVATAR, DELETE_USER} from "../actions/profileActions";
+import {
+  UPLOAD_AVATAR,
+  DELETE_USER,
+  UPDATE_PROFILE,
+  FETCH_USER_PROFILE,
+} from "../actions/profileActions";
 
 const initialState = {
-    token: null,
-    user: {
-        id: null,
-        nome: "",
-        cognome: "",
-        email: "",
-        //avatar predefinito
-         avatar: "/assets/avatar_fragola.jpg",
-
-    }
+  token: null,
+  user: {
+    id: null,
+    nome: "",
+    cognome: "",
+    email: "",
+    avatar: "",
+  },
 };
 
 const profileReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case UPLOAD_AVATAR:
-            return {
-                ...state,
-                user: {
-                    ...state.user,
-                    // aggiorno solo l'avatar
-                    avatar: action.payload,
-                }
-            }
+  switch (action.type) {
+    case UPLOAD_AVATAR:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          avatar: action.payload,
+        },
+      };
 
-            case DELETE_USER:
-                return initialState;
+    case UPDATE_PROFILE:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          ...action.payload,
+        },
+      };
 
-            default:
-                return state;
-    }
-}
+    case DELETE_USER:
+      return initialState;
+
+    case FETCH_USER_PROFILE:
+      return {
+        ...state,
+        user: action.payload,
+      };
+
+    default:
+      return state;
+  }
+};
 
 export default profileReducer;
