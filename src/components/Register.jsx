@@ -56,6 +56,7 @@ function Register() {
   };
 
   return (
+    <div className="register-background">
     <Container>
       <Row className="justify-content-center">
         <Col md={6}>
@@ -129,6 +130,7 @@ function Register() {
         </Col>
       </Row>
     </Container>
+    </div>
   );
 }
 

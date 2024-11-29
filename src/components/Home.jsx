@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Container, Row, Col, Carousel} from "react-bootstrap";
+import { Card, Container, Row, Col, Carousel } from "react-bootstrap";
 import "../css/Home.css";
 
 const Home = () => {
@@ -20,7 +20,9 @@ const Home = () => {
           console.error("Formato dei dati non valido:", data);
         }
       })
-      .catch((error) => console.error("Errore nel caricamento delle ricette:", error));
+      .catch((error) =>
+        console.error("Errore nel caricamento delle ricette:", error)
+      );
   }, []);
 
   //divido le ricette in gruppi da 6
@@ -33,7 +35,7 @@ const Home = () => {
   };
 
   // Righe da 6 ricette
-  const ricetteInRows = carouselRows(ricette, 6); 
+  const ricetteInRows = carouselRows(ricette, 6);
 
   return (
     <div className="home-background">
@@ -44,19 +46,32 @@ const Home = () => {
             <Carousel.Item key={index}>
               <Row>
                 {group.map((ricetta) => (
-                  <Col xl= {4} md={6} sm={12} xs={12} key={ricetta.id} className="mb-4">
+                  <Col
+                    xl={4}
+                    md={6}
+                    sm={12}
+                    xs={12}
+                    key={ricetta.id}
+                    className="mb-4"
+                  >
                     <Card className="ricetta-card">
                       <div className="img-container">
-                      <Card.Img
-                        variant="top"
-                        src={ricetta.image || "/assets/default_ricetta.jpg"} 
+                        <Card.Img
+                          variant="top"
+                          src={ricetta.image || "/assets/default_ricetta.jpg"}
                           alt={ricetta.title || "Ricetta"}
-                        className="ricetta-img"
-                      />
-                      <div className="title-card">
-                        <Card.Title className="ricetta-title">
-                          {ricetta.title}
-                        </Card.Title>
+                          className="ricetta-img"
+                          //X URL dell'img errato o img. che non si carica -> onError x vedere img. di default
+                          onError={(e) => {
+                            // Previene il loop infinito
+                            e.target.onerror = null; 
+                            e.target.src = "/assets/default_ricetta.jpg";
+                          }}
+                        />
+                        <div className="title-card">
+                          <Card.Title className="ricetta-title">
+                            {ricetta.title}
+                          </Card.Title>
                         </div>
                       </div>
                     </Card>

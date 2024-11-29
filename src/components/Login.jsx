@@ -28,6 +28,7 @@ const Login = () =>{
     }
 
     return(
+      <div className="login-background">
         <Container>
             <Row className = "justify-content-center" >
                 <Col md={6}>
@@ -74,6 +75,7 @@ const Login = () =>{
         </Col>
       </Row>
     </Container>
+    </div>
     );
 }
 
