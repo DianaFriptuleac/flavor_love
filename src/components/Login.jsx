@@ -3,12 +3,14 @@ import { useDispatch } from "react-redux";
 import { loginUser } from "../redux/actions/authActions";
 import { Container, Row,Col, Form, Button, Alert} from "react-bootstrap";
 import "../css/Login.css";
+import { useNavigate } from "react-router-dom";
 
 const Login = () =>{
     const [userCredentials, setUserCredentials] = useState({email:'', password:''});
     const [message, setMessage] = useState('');
     const [variant, setVariant] = useState('success');
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleChange = (e) =>{
         const {name, value} = e.target;
@@ -21,6 +23,7 @@ const Login = () =>{
             await dispatch(loginUser(userCredentials));
             setMessage('Login effettuato con successo!');
             setVariant('success');
+            navigate("/userprofile");
           } catch (error) {
             setMessage(error.message || 'Errore durante il login! Riprova.');
             setVariant('danger');
