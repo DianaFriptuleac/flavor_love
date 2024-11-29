@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom";
 
 //Proteggo la rotta che richiede autenticazione
 const PrivateRouteUser = ({children}) => {
-    const token = useSelector((state) => state.token);
+    const token = useSelector((state) => state.auth);
     return token ? children : <Navigate to ="/login" />
 }
 

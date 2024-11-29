@@ -52,7 +52,8 @@ export const loginUser = (userCredentials) => async (dispatch) => {
                         id: data.id,
                         nome: data.nome,
                         cognome: data.cognome,
-                        email: data.email
+                        email: data.email,
+                        avata:data.avatar,
                     }
                 },
             });

@@ -1,0 +1,39 @@
+.userProfile_background {
+    background-image:url("/public/assets/user_profile_bg.jpg"); 
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+   /*h1*/
+.profileTitle{
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.5rem;
+    letter-spacing: 1px;
+    text-align: right;
+}
+
+.userProfile_container{
+    background-color: #e9e5d7;
+}
+
+.profile_card_footer{
+    background-color: #e9e5d7;
+}
+.save_annulla_button{
+    background: none;
+    border: none;
+    color: #6f42c1;
+    cursor: pointer;
+    font-size: 14px;
+    text-transform: uppercase;  
+}
+.avatar-img{
+    width: 12rem;
+    height: 12rem;
+    border-radius: 50%; 
+    object-fit: cover; 
+}
