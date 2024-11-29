@@ -1,6 +1,6 @@
 /*Bg- body*/
 .home-background {
-    background-image: url("../assets/fragole.bg.jpg"); 
+    background-image: url("/public/assets/fragole.bg.jpg"); 
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;

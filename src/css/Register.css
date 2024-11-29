@@ -1,6 +1,6 @@
 /*Bg- body*/
 .register-background {
-  background-image: url("../assets/pastabg.jpg"); 
+  background-image:url("/public/assets/pastabg.jpg"); 
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;

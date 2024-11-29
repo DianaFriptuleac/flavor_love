@@ -6,6 +6,8 @@ import { BrowserRouter,Routes, Route } from "react-router-dom";
 import CustomNavbar from "./components/CustomNavbar";
 import NotFound from "./components/NotFound";
 import Home from "./components/Home";
+import PrivateRouteUser from "./components/PrivateRouteUser";
+import UserProfile from "./components/UserProfile";
 
 function App() {
   return (
@@ -17,6 +19,7 @@ function App() {
       <Routes>
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/userprofile" element ={<PrivateRouteUser> <UserProfile/> </PrivateRouteUser>} />
           <Route path="/" element={<Home/>}/>
      
           <Route path="*" element={<NotFound />} />
