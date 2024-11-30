@@ -42,6 +42,9 @@ const CustomNavbar = function () {
             <Link to="/login" className={addActiveOrNot('login')}>
              Login
             </Link>
+            <Link to="/userprofile" className={addActiveOrNot('userprofile')}>
+            <img src="/assets/user.png" alt="user"className='user_png' />
+            </Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

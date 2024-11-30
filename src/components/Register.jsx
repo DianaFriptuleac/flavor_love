@@ -7,8 +7,10 @@ import {
   Col,
   FormGroup,
   Alert,
+  Spinner
 } from "react-bootstrap";
 import "../css/Register.css";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -20,6 +22,8 @@ function Register() {
 
   const [message, setMessage] = useState("");
   const [variant, setVariant] = useState("success");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   //Cambiamenti campi modulo
   const handleChange = (e) => {
@@ -30,6 +34,7 @@ function Register() {
   // Invio modulo
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const response = await fetch("http://localhost:3001/auth/register", {
         method: "POST",
@@ -44,13 +49,20 @@ function Register() {
         setMessage(
           `Registrazione completata! Ti diamo il benvenuto, ${data.nome}`
         );
+        setVariant("success");
+        setLoading(false);
+        //reindirizzo al Login
+        navigate("/login");
+        
       } else {
         const errorData = await response.json();
         setMessage(`Errore nella registrazione: ${errorData.message}`);
+        setLoading(false);
         setVariant("danger");
       }
     } catch (error) {
       setMessage("Errore di connessione al server.");
+      setLoading(false);
       setVariant("danger");
     }
   };

@@ -1,3 +1,4 @@
+import { fetchUserProfile } from './profileActions'; 
 export const REGISTER_USER = 'REGISTER_USER';
 export const LOGIN_USER = 'LOGIN_USER';
 export const LOGOUT_USER = 'LOGOUT_USER';
@@ -20,10 +21,12 @@ export const registerUser = (useData) => async (dispatch) => {
                 payload: data,
             });
         } else {
-            throw new Error('Errore nella registrazione!');
+            const er = await resp.json();
+            throw new Error(er.message || 'Errore nella registrazione!');
         }
     } catch(er){
         console.log(er.message);
+        throw er;
     }
 }
 
@@ -53,10 +56,11 @@ export const loginUser = (userCredentials) => async (dispatch) => {
                         nome: data.nome,
                         cognome: data.cognome,
                         email: data.email,
-                        avata:data.avatar,
+                        avatar:data.avatar,
                     }
                 },
             });
+            dispatch(fetchUserProfile());
         } else {
             throw new Error('Credenziali errate!');
         }

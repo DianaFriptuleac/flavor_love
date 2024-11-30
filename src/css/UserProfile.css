@@ -1,39 +1,168 @@
+/*userProfile-bg*/
 .userProfile_background {
-    background-image:url("/public/assets/user_profile_bg.jpg"); 
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center;
-    min-height: 100vh;
-    padding: 20px;
+  background-image: url("/public/assets/user_profile_bg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  min-height: 100vh;
+  padding: 20px;
+  position: relative;
+}
+/*h1*/
+.profileTitle {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  font-family: "Poppins", sans-serif;
+  font-size: 2.5rem;
+  letter-spacing: 1px;
+  text-align: right;
+  color: #fff;
+  transition: color 0.3s ease-in-out;
+}
+
+.profileTitle:hover {
+  color: #0f2b03;
+}
+/*user-card*/
+.userProfile_container {
+  background-color: #e9e5d7;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  border: 1px solid #e0e0e0;
+  position: relative;
+}
+
+/*btn-salva, annulla (nella modifica utente)*/
+.save_annulla_button,
+.modifica-button {
+  background: linear-gradient(45deg, #0f2b03, #b6c374);
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: background 0.3s ease-in-out, transform 0.2s ease;
+}
+
+.save_annulla_button:hover,
+.modifica-button:hover {
+  background: linear-gradient(45deg, #2a7709, #b6c374);
+  transform: translateY(-2px); /* hover */
+}
+
+/*logout e annulla-cancelazionne-btn*/
+.logout-button,
+.annulla-cancella-button {
+  background-color: #160d08;
+  padding: 10px 20px;
+}
+.logout-button:hover,
+.annulla-cancella-button:hover {
+  background-color: #2d2926;
+  transform: translateY(-2px);
+}
+/*cancella, conferma-cancella, annulla-logout btn*/
+.delete-button,
+.conferma-cancella-button,
+.annulla-logout-button {
+  background: linear-gradient(45deg, #e60a20, #160d08);
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 6px;
+  transition: background 0.3s ease-in-out, transform 0.2s ease;
+}
+
+.delete-button:hover,
+.conferma-cancella-button:hover,
+.annulla-logout-button:hover {
+  background: linear-gradient(45deg, #f2031b, #5f0202);
+  transform: translateY(-2px);
+}
+/*avatar/img account*/
+.avatar-img {
+  width: 12rem;
+  height: 12rem;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border: 3px solid #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.avatar-img:hover {
+  transform: scale(1.05); /* Ingrandisco img. */
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3); /*Shadow piu intensa*/
+}
+/*user-card-footer*/
+.profile_card_footer {
+  background-color: #e9e5d7;
+  border-top: 1px solid #7c7979;
+  padding: 15px;
+}
+/*Logout alert*/
+.logout-alert {
+  background-color: #e9e5d7;
+  border: none;
+  max-height: 15rem;
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centra*/
+  z-index: 1050; /* appare sopra la card */
+  width: 80%;
+  max-width: 30rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+/*sfondo semitrasparente all'alert*/
+.alert-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /*semitrasparente*/
+  z-index: 1049; /* Dietro l'alert */
+}
+
+/*delete-modal*/
+.delete-modal{
+    background-color: #e9e5d7;
+
+}
+/*Media query card x 576px*/
+@media (max-width: 576px) {
+  .responsive-layout {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
   }
-   /*h1*/
-.profileTitle{
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-    font-family: 'Poppins', sans-serif;
-    font-size: 2.5rem;
-    letter-spacing: 1px;
-    text-align: right;
-}
+  .userProfile_container {
+    padding: 1rem;
+  }
 
-.userProfile_container{
-    background-color: #e9e5d7;
-}
+  .userProfile_container .avatar-img {
+    width: 8rem;
+    height: 8rem;
+    margin-bottom: 1rem;
+  }
 
-.profile_card_footer{
-    background-color: #e9e5d7;
-}
-.save_annulla_button{
-    background: none;
-    border: none;
-    color: #6f42c1;
-    cursor: pointer;
-    font-size: 14px;
-    text-transform: uppercase;  
-}
-.avatar-img{
-    width: 12rem;
-    height: 12rem;
-    border-radius: 50%; 
-    object-fit: cover; 
+  .profileTitle {
+    font-size: 1.8rem;
+    text-align: center !important;
+  }
+
+  .profile_card_footer {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .save_annulla_button {
+    margin: 0 auto;
+  }
 }

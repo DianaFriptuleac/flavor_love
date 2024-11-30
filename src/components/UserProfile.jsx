@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Container, Card, Button, Form, Alert, Modal } from "react-bootstrap";
+
 import {
   uploadAvatar,
   deleteMe,
@@ -8,10 +9,13 @@ import {
   fetchUserProfile,
 } from "../redux/actions/profileActions";
 import "../css/UserProfile.css";
+import { useNavigate } from "react-router-dom";
+import { logoutUser } from "../redux/actions/authActions";
 
 const UserProfile = () => {
-  const user = useSelector((state) => state.profile?.user); 
+  const user = useSelector((state) => state.profile?.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // Stato locale per i dati utente
   const [data, setData] = useState({
@@ -70,25 +74,34 @@ const UserProfile = () => {
     });
   };
 
+  const handleLogout = () => {
+    //resetto lo stato di Redux
+    dispatch(logoutUser());
+    //chiudo l'alert
+    setShowLogoutAlert(false);
+    //reindirizzo alla Home
+    navigate("/");
+  };
+
   const handleDelete = () => {
     setShowDeleteModal(false);
-    dispatch(deleteMe());
+    dispatch(deleteMe()).then(() => {
+      navigate("/"); //dopo la cancellazione mi riporta alla Home
+    });
   };
 
   return (
     <div className="userProfile_background">
       <Container className="d-flex justify-content-center">
         <Card style={{ width: "50rem" }} className="userProfile_container">
-          <Card.Body className="d-flex">
-            <div style={{ flex: 1 }}>
-              <img
-                src={data.avatar}
-                alt="Avatar"
-                className="mb-3 avatar-img"
-              />
+          <Card.Body className="d-flex responsive-layout">
+            <div style={{ flex: 1 }} className="me-3">
+              <img src={data.avatar} alt="Avatar" className="mb-3 avatar-img" />
               {edit && (
                 <Form.Group>
-                  <Form.Label>Modifica Avatar</Form.Label>
+                  <Form.Label className="fw-bold mb-0">
+                    Modifica Avatar
+                  </Form.Label>
                   <Form.Control type="file" onChange={handleAvatarChange} />
                 </Form.Group>
               )}
@@ -98,7 +111,7 @@ const UserProfile = () => {
               {edit ? (
                 <Form onSubmit={handleSubmit}>
                   <Form.Group className="mb-3">
-                    <Form.Label>Nome</Form.Label>
+                    <Form.Label className="fw-bold mb-0">Nome</Form.Label>
                     <Form.Control
                       type="text"
                       name="nome"
@@ -107,7 +120,7 @@ const UserProfile = () => {
                     />
                   </Form.Group>
                   <Form.Group className="mb-3">
-                    <Form.Label>Cognome</Form.Label>
+                    <Form.Label className="fw-bold mb-0">Cognome</Form.Label>
                     <Form.Control
                       type="text"
                       name="cognome"
@@ -116,7 +129,7 @@ const UserProfile = () => {
                     />
                   </Form.Group>
                   <Form.Group className="mb-3">
-                    <Form.Label>Email</Form.Label>
+                    <Form.Label className="fw-bold mb-0">Email</Form.Label>
                     <Form.Control
                       type="email"
                       name="email"
@@ -176,36 +189,51 @@ const UserProfile = () => {
         </Card>
 
         {/* Modal -> conferma delete */}
-        <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
+        <Modal className="mt-3" show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
+          <div className="delete-modal" >
           <Modal.Header closeButton>
             <Modal.Title>Conferma Cancellazione</Modal.Title>
           </Modal.Header>
-          <Modal.Body>Sei sicuro di voler cancellare il tuo account?</Modal.Body>
+          <Modal.Body>
+            Sei sicuro di voler cancellare il tuo account?
+          </Modal.Body>
           <Modal.Footer>
             <Button
               variant="secondary"
               onClick={() => setShowDeleteModal(false)}
+              className="annulla-cancella-button"
             >
               Annulla
             </Button>
-            <Button variant="danger" onClick={handleDelete}>
+            <Button
+              variant="danger"
+              onClick={handleDelete}
+              className="conferma-cancella-button"
+            >
               Conferma
             </Button>
           </Modal.Footer>
+          </div>
         </Modal>
 
-        {/* Alert-> conferma logout */}
-        <Alert show={showLogoutAlert} variant="warning" className="mt-3">
+        {/* Alert-> conferma logout (con sfondo semitrasparente)*/}
+        {showLogoutAlert && <div className="alert-overlay"></div>}
+        <Alert show={showLogoutAlert} className="mt-3 logout-alert">
           <Alert.Heading>Conferma Logout</Alert.Heading>
           <p>Sei sicuro di voler uscire?</p>
-          <div className="d-flex justify-content-end">
+          <div className="d-flex justify-content-between">
             <Button
               onClick={() => setShowLogoutAlert(false)}
               variant="outline-secondary"
+              className="annulla-logout-button"
             >
               Annulla
             </Button>
-            <Button variant="danger" onClick={() => setShowLogoutAlert(false)}>
+            <Button
+              variant="danger"
+              className="logout-button"
+              onClick={handleLogout}
+            >
               Logout
             </Button>
           </div>
