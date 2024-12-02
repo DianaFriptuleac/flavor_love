@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Container, Card, Button, Form, Alert, Modal } from "react-bootstrap";
+import { fetchRicette } from "../redux/actions/fetchRicetteAction";
+import RicetteUtente from "../components/RicetteUtente";
 
 import {
   uploadAvatar,
@@ -16,6 +18,8 @@ const UserProfile = () => {
   const user = useSelector((state) => state.profile?.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const ricette = useSelector((state) => state.ricette?.ricette || []);
+  const error = useSelector((state) => state.ricette?.error || null);
 
   // Stato locale per i dati utente
   const [data, setData] = useState({
@@ -41,6 +45,8 @@ const UserProfile = () => {
     } else {
       dispatch(fetchUserProfile()); // Recupero i dati se non disponibili
     }
+    // Fetch delle ricette
+    dispatch(fetchRicette());
   }, [user, dispatch]);
 
   const handleChange = (e) => {
@@ -80,7 +86,7 @@ const UserProfile = () => {
     //chiudo l'alert
     setShowLogoutAlert(false);
     //reindirizzo alla Home
-    navigate("/");
+    navigate("/login");
   };
 
   const handleDelete = () => {
@@ -178,9 +184,7 @@ const UserProfile = () => {
             >
               Cancella Account
             </Button>
-            <Button variant="success" onClick={() => navigate("/creaRicetta")}>
-              Crea Ricetta
-            </Button>
+          
 
             <Button
               variant="secondary"
@@ -246,6 +250,10 @@ const UserProfile = () => {
             </Button>
           </div>
         </Alert>
+      </Container>
+      <Container>
+        {error && <Alert variant="danger">Errore: {error}</Alert>}
+        <RicetteUtente ricette={ricette} />
       </Container>
     </div>
   );

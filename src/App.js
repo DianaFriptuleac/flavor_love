@@ -9,6 +9,7 @@ import Home from "./components/Home";
 import PrivateRouteUser from "./components/PrivateRouteUser";
 import UserProfile from "./components/UserProfile";
 import CreaRicetta from "./components/CreaRicetta";
+import RicetteUtente from "./components/RicetteUtente";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/userprofile" element ={<PrivateRouteUser> <UserProfile/> </PrivateRouteUser>} />
           <Route path="/" element={<Home/>}/>
           <Route path="/creaRicetta" element={<CreaRicetta/>}/>
+          <Route path = "/ricetteUtente" element = {<RicetteUtente/>}/>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

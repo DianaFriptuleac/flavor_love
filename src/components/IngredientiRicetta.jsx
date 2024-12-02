@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button, ListGroup } from "react-bootstrap";
-const IngredientiRicetta = ({ingrediente, addIngrediente, removeIngrediente}) =>{
+const IngredientiRicetta = ({ ingrediente = [], addIngrediente, removeIngrediente }) => {
     const [currentSezione, setCurrentSezione] = useState("");
     const [ingredientData, setIngredientData] = useState({
         nome: "",

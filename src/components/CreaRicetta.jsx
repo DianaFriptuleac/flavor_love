@@ -1,18 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addIngrediente,
   creaRicetta,
   addImage,
   removeIngrediente,
+  removeImage,
 } from "../redux/actions/creaRicetta";
-import { Container, Form, Button, Alert, ListGroup } from "react-bootstrap";
+import { Container, Form, Button, Alert } from "react-bootstrap";
 import IngredientiRicetta from "./IngredientiRicetta";
 import ImgRicetta from "./ImgRicetta";
+import "../css/CreaRicetta.css";
+
 
 const CreaRicetta = () => {
   const dispatch = useDispatch();
   const ricettaState = useSelector((state) => state.ricetta);
+  const token = useSelector((state) => state.auth.token);
 
   const [ricettaData, setRicettaData] = useState({
     titolo: "",
@@ -21,14 +25,48 @@ const CreaRicetta = () => {
     tempoPreparazioneMinuti: 1,
     tempoCotturaMinuti: 0,
     costoRicetta: "BASSO",
-    nomeCategorieRicette: ["PRIMI"],
+    nomeCategorieRicette: [],
   });
 
+  const [categorie, setCategorie] = useState([]);
   const [alert, setAlert] = useState({ message: "", variant: "" });
+
+  // Fetch categorie
+  const fetchCategorie = async () => {
+    try {
+      if (!token) throw new Error("Token mancante!");
+
+      const response = await fetch("http://localhost:3001/api/categorie", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setCategorie(data.content);
+      } else {
+        throw new Error("Errore nel fetch delle categorie");
+      }
+    } catch (error) {
+      setAlert({ message: error.message, variant: "danger" });
+    }
+  };
+  useEffect(() => {
+    fetchCategorie(); 
+  }, [token]);
+  
 
   const handleRicettaChange = (e) => {
     const { name, value } = e.target;
     setRicettaData({ ...ricettaData, [name]: value });
+  };
+
+  const handleCategoryChange = (e) => {
+    setRicettaData({
+      ...ricettaData,
+      nomeCategorieRicette: [e.target.value],
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -47,6 +85,7 @@ const CreaRicetta = () => {
   };
 
   return (
+    <div className="creaRicetta_background">
     <Container>
       <h2 className="text-center my-4">Crea una nuova ricetta</h2>
       {alert.message && <Alert variant={alert.variant}>{alert.message}</Alert>}
@@ -72,10 +111,27 @@ const CreaRicetta = () => {
             required
           />
         </Form.Group>
+
+        {/*categorie */}
+        <Form.Group className="mb-3">
+          <Form.Label>Categoria</Form.Label>
+          <Form.Select
+            value={ricettaData.nomeCategorieRicette[0] || ""}
+            onChange={handleCategoryChange}
+            required
+          >
+            <option value="">Seleziona una categoria</option>
+            {categorie.map((categoria) => (
+              <option key={categoria.nome} value={categoria.nome}>
+                {categoria.nome}
+              </option>
+            ))}
+          </Form.Select>
+        </Form.Group>
         {/*ingredienti */}
 
         <IngredientiRicetta
-          ingrediente={ricettaState.ingrediente}
+          ingrediente={ricettaState.ingredienti} // Corretto
           addIngrediente={(ingrediente) =>
             dispatch(addIngrediente(ingrediente))
           }
@@ -84,13 +140,11 @@ const CreaRicetta = () => {
 
         {/* immagini */}
         <ImgRicetta
-          images={ricettaState.images}
+          images={ricettaState.image} // Corretto
           addImage={(file) =>
-            dispatch(addImage(ricettaState.ricetta?.iid, file))
+            dispatch(addImage(ricettaState.ricetta?.id, file))
           }
-          removeImage={(index) =>
-            dispatch({ type: "REMOVE_IMAGE", payload: index })
-          }
+          removeImage={(index) => dispatch(removeImage(index))}
         />
         <div className="mt-4">
           <Button type="submit" variant="primary">
@@ -99,6 +153,7 @@ const CreaRicetta = () => {
         </div>
       </Form>
     </Container>
+    </div>
   );
 };
 

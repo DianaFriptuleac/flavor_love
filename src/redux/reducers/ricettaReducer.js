@@ -2,7 +2,8 @@ import {
   CREA_RICETTA,
   ADD_INGREDIENTI,
   ADD_IMG,
-  REMOVE_INGREDIENTE
+  REMOVE_INGREDIENTE,
+ REMOVE_IMAGE
 } from "../actions/creaRicetta";
 
 const initialState = {
@@ -34,6 +35,11 @@ const ricettaReducer = (state = initialState, action) => {
         ...state,
         image: [...state.image, action.payload],
       };
+      case REMOVE_IMAGE:
+        return {
+          ...state,
+          image: state.image.filter((_, i) => i !== action.payload),
+        };
     default:
       return state;
   }

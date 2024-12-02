@@ -2,6 +2,7 @@ export const CREA_RICETTA = "CREA_RICETTA";
 export const ADD_INGREDIENTI = "ADD_INGREDIENTI";
 export const ADD_IMG = "ADD_IMG";
 export const REMOVE_INGREDIENTE = "REMOVE_INGREDIENTE";
+export const REMOVE_IMAGE = "REMOVE_IMAGE";
 
 //Creo una nuova ricetta
 export const creaRicetta = (ricettaData) => async (dispatch, getState) => {
@@ -79,3 +80,9 @@ export const addImage = (ricettaId, file) => async (dispatch, getState) => {
       throw er;
     }
   };
+
+  //rimuovo img
+  export const removeImage = (index) => ({
+    type: REMOVE_IMAGE,
+    payload: index,
+  });
