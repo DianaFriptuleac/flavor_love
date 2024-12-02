@@ -7,10 +7,11 @@ import {
   Col,
   FormGroup,
   Alert,
-  Spinner
 } from "react-bootstrap";
 import "../css/Register.css";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutUser } from "../redux/actions/authActions";
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -24,6 +25,39 @@ function Register() {
   const [variant, setVariant] = useState("success");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  if(isAuthenticated){
+    return(
+      <div className="register-background">
+      <Container>
+        <Row className="justify-content-center">
+          <Col md={6}>
+          <Alert className="register-container mt-3 border border-0">
+            <h4 className="registerTitle text-light">
+              Logout necessario!
+            </h4>
+            <p className="alert-p text-light">
+            È necessario effettuare il logout per registrare un altro utente.
+            </p>
+            <div className="d-flex justify-content-end">
+              <Button
+                className="alert-auth-btn"
+                onClick={()=>{
+                  dispatch(logoutUser());
+                  navigate("/register")
+                }}>
+                  Effettua logout
+              </Button>
+              </div>
+
+          </Alert>
+          </Col>
+        </Row>
+      </Container>
+      </div>
+    )
+  }
 
   //Cambiamenti campi modulo
   const handleChange = (e) => {

@@ -18,6 +18,7 @@ const persistConfig = {
     //funzione per togliere l'errore del browser
     middleware: (getDefaultMiddleware) => {
       return getDefaultMiddleware({
+        //evito avvisi x oggetti non sensibilizzati
         serializableCheck: false,
       })
     }

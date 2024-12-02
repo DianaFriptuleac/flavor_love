@@ -3,6 +3,7 @@ import { REGISTER_USER, LOGIN_USER, LOGOUT_USER } from "../actions/authActions";
 const initialState = {
     token: null,
     user: null,
+    isAuthenticated: false,
 }
 
 const authReducer = (state = initialState, action) => {
@@ -11,6 +12,7 @@ const authReducer = (state = initialState, action) => {
         return {
           ...state,
           user: action.payload,
+          isAuthenticated: true,
         }
 
         case LOGIN_USER:
@@ -18,6 +20,7 @@ const authReducer = (state = initialState, action) => {
                 ...state,
                 token: action.payload.token,
                 user: action.payload.user,
+                isAuthenticated: true,
             }
 
             case LOGOUT_USER:

@@ -6,7 +6,6 @@ import {
 } from "../actions/profileActions";
 
 const initialState = {
-  token: null,
   user: {
     id: null,
     nome: "",

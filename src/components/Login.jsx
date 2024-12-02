@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../redux/actions/authActions";
 import { Container, Row,Col, Form, Button, Alert} from "react-bootstrap";
 import "../css/Login.css";
@@ -11,6 +11,29 @@ const Login = () =>{
     const [variant, setVariant] = useState('success');
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
+    if(isAuthenticated){
+      return(
+        <div className="login-background">
+        <Container>
+           <Row className="justify-content-center">
+          <Col md={6}>
+            <Alert variant="info" className="mt-3 login-container border border-0">
+              <h4 className="text-light mb-0 mt-2 loginTitle">Sei già autenticato!</h4>
+              <p className="text-light alert-p">Hai già effettuato il login. Torna alla pagina del tuo profilo.</p>
+              <div className="d-flex justify-content-end">
+                <Button className="alert-auth-btn" onClick={() => navigate("/userprofile")}>
+                  Vai al Profilo
+                </Button>
+              </div>
+            </Alert>
+          </Col>
+        </Row>
+        </Container>
+        </div>
+      )
+    }
 
     const handleChange = (e) =>{
         const {name, value} = e.target;
