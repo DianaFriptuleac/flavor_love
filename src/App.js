@@ -8,6 +8,7 @@ import NotFound from "./components/NotFound";
 import Home from "./components/Home";
 import PrivateRouteUser from "./components/PrivateRouteUser";
 import UserProfile from "./components/UserProfile";
+import CreaRicetta from "./components/CreaRicetta";
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/userprofile" element ={<PrivateRouteUser> <UserProfile/> </PrivateRouteUser>} />
           <Route path="/" element={<Home/>}/>
-     
+          <Route path="/creaRicetta" element={<CreaRicetta/>}/>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

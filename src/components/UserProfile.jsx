@@ -178,6 +178,10 @@ const UserProfile = () => {
             >
               Cancella Account
             </Button>
+            <Button variant="success" onClick={() => navigate("/creaRicetta")}>
+              Crea Ricetta
+            </Button>
+
             <Button
               variant="secondary"
               onClick={() => setShowLogoutAlert(true)}
@@ -189,30 +193,34 @@ const UserProfile = () => {
         </Card>
 
         {/* Modal -> conferma delete */}
-        <Modal className="mt-3" show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
-          <div className="delete-modal" >
-          <Modal.Header closeButton>
-            <Modal.Title>Conferma Cancellazione</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            Sei sicuro di voler cancellare il tuo account?
-          </Modal.Body>
-          <Modal.Footer>
-            <Button
-              variant="secondary"
-              onClick={() => setShowDeleteModal(false)}
-              className="annulla-cancella-button"
-            >
-              Annulla
-            </Button>
-            <Button
-              variant="danger"
-              onClick={handleDelete}
-              className="conferma-cancella-button"
-            >
-              Conferma
-            </Button>
-          </Modal.Footer>
+        <Modal
+          className="mt-3"
+          show={showDeleteModal}
+          onHide={() => setShowDeleteModal(false)}
+        >
+          <div className="delete-modal">
+            <Modal.Header closeButton>
+              <Modal.Title>Conferma Cancellazione</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              Sei sicuro di voler cancellare il tuo account?
+            </Modal.Body>
+            <Modal.Footer>
+              <Button
+                variant="secondary"
+                onClick={() => setShowDeleteModal(false)}
+                className="annulla-cancella-button"
+              >
+                Annulla
+              </Button>
+              <Button
+                variant="danger"
+                onClick={handleDelete}
+                className="conferma-cancella-button"
+              >
+                Conferma
+              </Button>
+            </Modal.Footer>
           </div>
         </Modal>
 
