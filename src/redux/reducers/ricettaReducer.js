@@ -5,12 +5,16 @@ import {
   REMOVE_INGREDIENTE,
   REMOVE_IMAGE,
   RESET_RICETTA,
+  REMOVE_RICETTA,
+  ADD_INGREDIENTI_ERROR,
+  
 } from "../actions/creaRicetta";
 
 const initialState = {
   ricetta: null,
   ingredienti: [],
   image: [],
+  ricette:[],
 };
 
 const ricettaReducer = (state = initialState, action) => {
@@ -21,11 +25,16 @@ const ricettaReducer = (state = initialState, action) => {
         ricetta: action.payload,
       };
 
-    case ADD_INGREDIENTI:
-      return {
-        ...state,
-        ingredienti: [...state.ingredienti, action.payload],
-      };
+      case ADD_INGREDIENTI:
+        return {
+          ...state,
+          ingredienti: [...state.ingredienti, ...action.payload], 
+        };;
+      case ADD_INGREDIENTI_ERROR:
+        return {
+          ...state,
+          error: action.payload, 
+        };
     case REMOVE_INGREDIENTE:
       return {
         ...state,
@@ -45,6 +54,12 @@ const ricettaReducer = (state = initialState, action) => {
       return {
         ...initialState,
       };
+      case REMOVE_RICETTA:
+        return {
+          ...state,
+          ricette: state.ricette.filter((ricetta) => ricetta.id !== action.payload),
+        };
+      
     default:
       return state;
   }

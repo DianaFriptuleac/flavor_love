@@ -4,6 +4,8 @@ export const ADD_IMG = "ADD_IMG";
 export const REMOVE_INGREDIENTE = "REMOVE_INGREDIENTE";
 export const REMOVE_IMAGE = "REMOVE_IMAGE";
 export const RESET_RICETTA = "RESET_RICETTA";
+export const REMOVE_RICETTA ="REMOVE_RICETTA";
+export const ADD_INGREDIENTI_ERROR = "ADD_INGREDIENTI_ERROR";
 
 // Creo una ricetta e aggiungo l'img - se presente
 export const creaRicettaConImmagine = (ricettaData, file) => async (dispatch, getState) => {
@@ -90,10 +92,73 @@ export const addImage = (ricettaId, file) => async (dispatch, getState) => {
 };
 
 // Aggiungo ingrediente alla ricetta
-export const addIngrediente = (ingredienteData) => ({
-    type: ADD_INGREDIENTI,
-    payload: ingredienteData,
-});
+export const addIngredienti = (ricettaId, ingredienti) => async (dispatch, getState) => {
+  try {
+    const { token } = getState().auth;
+
+    if (!ricettaId || typeof ricettaId !== "string") {
+      throw new Error("ID ricetta non valido!");
+    }
+
+    console.log("Ingredienti inviati:", ingredienti);
+
+    const response = await fetch(`http://localhost:3001/api/ricette/${ricettaId}/ingredienti`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(ingredienti),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Errore: ${errorText}`);
+    }
+
+    const data = await response.json();
+    dispatch({
+      type: ADD_INGREDIENTI,
+      payload: data,
+    });
+  } catch (error) {
+    console.error("Errore durante l'aggiunta degli ingredienti:", error.message);
+    throw error; // Rilancia l'errore per catturarlo nel componente
+  }
+};
+
+
+//prendo gli ingredienti
+ export const fetchIngredienti = (ricettaId) => async (dispatch, getState) => {
+  try {
+    const { token } = getState().auth;
+
+    if (!ricettaId) {
+      throw new Error("ID ricetta non valido!");
+    }
+
+    const response = await fetch(`http://localhost:3001/api/ricette/${ricettaId}/ingredienti`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Errore durante il recupero degli ingredienti");
+    }
+
+    const data = await response.json();
+    dispatch({
+      type: "SET_INGREDIENTI",
+      payload: data,
+    });
+  } catch (error) {
+    console.error("Errore durante il recupero degli ingredienti:", error.message);
+  }
+};
+//cancello
+
 
 // Cancello ingrediente
 export const removeIngrediente = (index) => ({
@@ -105,6 +170,10 @@ export const removeIngrediente = (index) => ({
 export const removeImage = (index) => ({
     type: REMOVE_IMAGE,
     payload: index,
+});
+export const removeRicetta = (index) => ({
+  type: REMOVE_RICETTA,
+  payload: index,
 });
 
 // Resetto lo stato della ricetta

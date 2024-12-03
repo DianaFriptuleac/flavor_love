@@ -5,6 +5,7 @@ import "../css/RicetteUtente.css";
 const RicetteUtente = ({ ricette = [] }) => {
   const navigate = useNavigate();
   console.log("Ricette:", ricette);
+ // const ricetteVisibili = ricette.filter((ricetta) => ricetta !== null && ricetta.id);
 
   return (
     <Container>

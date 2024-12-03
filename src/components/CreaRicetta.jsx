@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  addIngrediente,
+  addIngredienti,
   addImage,
   removeIngrediente,
   removeImage,
@@ -91,11 +91,12 @@ const CreaRicetta = () => {
       if (!response.payload?.id) {
         throw new Error("Errore durante la creazione della ricetta.");
       }
+
       // Salvo la ricetta creata
       setCreatedRicetta(response.payload);
 
       // Resetto ricetta
-      dispatch(resetRicetta());
+      // dispatch(resetRicetta());
 
       // Resetto i campi locali
       setRicettaData({
@@ -112,6 +113,56 @@ const CreaRicetta = () => {
         message: "Ricetta creata con successo! Ora puoi caricare un'immagine.",
         variant: "success",
       });
+    } catch (error) {
+      setAlert({ message: error.message, variant: "danger" });
+    }
+  };
+
+  const handleAddIngredienti = async () => {
+    try {
+      if (!createdRicetta?.id) {
+        throw new Error("ID ricetta mancante!");
+      }
+
+      if (ricettaState.ingredienti.length === 0) {
+        throw new Error("Non ci sono ingredienti da aggiungere.");
+      }
+
+      const ingredientiPayload = ricettaState.ingredienti.map(
+        (ingrediente) => ({
+          nome: ingrediente.nome,
+          dosaggio: ingrediente.dosaggio,
+          sezione: ingrediente.sezione,
+        })
+      );
+
+      // Aggiungo ingredienti
+      await dispatch(addIngredienti(createdRicetta.id, ingredientiPayload));
+      setAlert({
+        message: "Ingredienti aggiunti con successo alla ricetta!",
+        variant: "success",
+      });
+    } catch (error) {
+      setAlert({ message: error.message, variant: "danger" });
+    }
+  };
+
+  //salvaro e navigo
+  const handleSaveAndNavigate = async () => {
+    try {
+      if (createdRicetta?.id && ricettaState.ingredienti.length > 0) {
+        // Invio un array di ingredienti
+        const ingredientiPayload = ricettaState.ingredienti.map(
+          (ingrediente) => ({
+            nome: ingrediente.nome,
+            dosaggio: ingrediente.dosaggio,
+            sezione: ingrediente.sezione,
+          })
+        );
+
+        await dispatch(addIngredienti(createdRicetta.id, ingredientiPayload));
+      }
+      navigate("/userprofile");
     } catch (error) {
       setAlert({ message: error.message, variant: "danger" });
     }
@@ -162,14 +213,6 @@ const CreaRicetta = () => {
               required
             />
 
-            {/*ingredienti */}
-            <IngredientiRicetta
-              ingrediente={ricettaState.ingredienti}
-              addIngrediente={(ingrediente) =>
-                dispatch(addIngrediente(ingrediente))
-              }
-              removeIngrediente={(index) => dispatch(removeIngrediente(index))}
-            />
             {/*tempo di preparazione */}
             <Form.Group className="mb-3">
               <Form.Label>Tempo di preparazione (minuti)</Form.Label>
@@ -263,6 +306,19 @@ const CreaRicetta = () => {
           </div>
         </Form>
 
+        {/*ingredienti */}
+
+        {createdRicetta && (
+          <IngredientiRicetta
+          ricettaId={createdRicetta.id}
+            ingrediente={ricettaState.ingredienti}
+            addIngrediente={(ingrediente) =>
+              dispatch(addIngredienti(createdRicetta.id, [ingrediente]))
+            }
+            removeIngrediente={(index) => dispatch(removeIngrediente(index))}
+          />
+        )}
+
         {/* carico l'immagine solo se la ricetta e stata creata */}
         {createdRicetta && (
           <ImgRicetta
@@ -275,7 +331,7 @@ const CreaRicetta = () => {
         <Button
           variant="success"
           className="mt-3"
-          onClick={() => navigate("/userprofile")}
+          onClick={() => navigate(handleSaveAndNavigate)}
         >
           Salva e torna al Profilo
         </Button>

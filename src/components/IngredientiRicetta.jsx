@@ -1,35 +1,75 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchIngredienti, removeIngrediente, addIngredienti } from "../redux/actions/creaRicetta";
 import { Form, Button, ListGroup } from "react-bootstrap";
-const IngredientiRicetta = ({ ingrediente = [], addIngrediente, removeIngrediente }) => {
-    const [currentSezione, setCurrentSezione] = useState("");
-    const [ingredientData, setIngredientData] = useState({
-        nome: "",
-        dosaggio: "",
-        sezione: "",
-      });
 
-      const handleInputChangeIngredient = (e) =>{
-        const {name, value} = e.target;
-        setIngredientData({...ingredientData, [name]:value});
-      };
+const IngredientiRicetta = ({ ricettaId }) => {
+  const dispatch = useDispatch();
+  const ingredienti = useSelector((state) => state.ricetta.ingredienti);
+  const [currentSezione, setCurrentSezione] = useState("");
+  const [ingredientData, setIngredientData] = useState({
+    nome: "",
+    dosaggio: "",
+    sezione: "",
+  });
+  const [message, setMessage] = useState("");
 
-      const handleAddIngredient=()=>{
-        addIngrediente({...ingredientData, sezione:currentSezione});
-        setIngredientData({nome:"", dosaggio:"", sezione:""});
-      };
-      return(
-        <div>
-            <h4>Ingredienti:</h4>
-            <Form.Group className="mb-3">
+  // Fetch ingredienti all'avvio
+  useEffect(() => {
+    if (ricettaId) {
+      dispatch(fetchIngredienti(ricettaId));
+    }
+  }, [ricettaId, dispatch]);
+
+  const handleInputChangeIngredient = (e) => {
+    const { name, value } = e.target;
+    setIngredientData({ ...ingredientData, [name]: value });
+  };
+
+  const handleAddIngredient = () => {
+    if (!currentSezione.trim()) {
+      setMessage("Inserisci una sezione prima di aggiungere l'ingrediente.");
+      return;
+    }
+    if (!ingredientData.nome.trim() || !ingredientData.dosaggio.trim()) {
+      setMessage("Completa tutti i campi per aggiungere un ingrediente.");
+      return;
+    }
+
+    dispatch(
+      addIngredienti(ricettaId, [{ ...ingredientData, sezione: currentSezione }])
+    );
+
+    setIngredientData({ nome: "", dosaggio: "", sezione: "" });
+    setMessage("Ingrediente aggiunto con successo!");
+    setTimeout(() => setMessage(""), 3000);
+  };
+
+  const handleDeleteIngrediente = (ingredienteIndex) => {
+    dispatch(removeIngrediente(ingredienteIndex));
+};
+
+
+  const groupedIngredients = ingredienti.reduce((acc, curr) => {
+    if (!acc[curr.sezione]) {
+      acc[curr.sezione] = [];
+    }
+    acc[curr.sezione].push(curr);
+    return acc;
+  }, {});
+
+  return (
+    <div>
+      <h4>Ingredienti:</h4>
+      {message && <div className="alert alert-info mt-2">{message}</div>}
+      <Form.Group className="mb-3">
         <Form.Label>Sezione</Form.Label>
         <Form.Control
           type="text"
           value={currentSezione}
+          placeholder="Inserisci la sezione"
           onChange={(e) => setCurrentSezione(e.target.value)}
         />
-        <Button variant="info" className="mt-2" onClick={() => setCurrentSezione(currentSezione)}>
-          Cambia Sezione
-        </Button>
       </Form.Group>
       <Form.Group className="mb-3">
         <Form.Label>Nome</Form.Label>
@@ -37,6 +77,7 @@ const IngredientiRicetta = ({ ingrediente = [], addIngrediente, removeIngredient
           type="text"
           name="nome"
           value={ingredientData.nome}
+          placeholder="Es. Farina"
           onChange={handleInputChangeIngredient}
         />
       </Form.Group>
@@ -46,24 +87,36 @@ const IngredientiRicetta = ({ ingrediente = [], addIngrediente, removeIngredient
           type="text"
           name="dosaggio"
           value={ingredientData.dosaggio}
+          placeholder="Es. 500g"
           onChange={handleInputChangeIngredient}
         />
       </Form.Group>
       <Button variant="secondary" onClick={handleAddIngredient}>
         Aggiungi Ingrediente
       </Button>
-      <ListGroup className="mt-3">
-        {ingrediente.map((ingrediente, index) => (
-          <ListGroup.Item key={index} className="d-flex justify-content-between">
-            {`${ingrediente.nome} - ${ingrediente.dosaggio} (${ingrediente.sezione})`}
-            <Button variant="danger" size="sm" onClick={() => removeIngrediente(index)}>
-              Rimuovi
-            </Button>
-          </ListGroup.Item>
-        ))}
-      </ListGroup>
+      {Object.entries(groupedIngredients).map(([sezione, ingredients]) => (
+  <div key={sezione} className="mt-3">
+    <h5>{sezione}</h5>
+    <ListGroup>
+      {ingredients.map((ingrediente, index) => (
+        <ListGroup.Item key={`${ingrediente.id}-${index}`} className="d-flex justify-content-between">
+          {`${ingrediente.nome} - ${ingrediente.dosaggio}`}
+          <Button
+            variant="danger"
+            size="sm"
+            onClick={() => handleDeleteIngrediente(ingrediente.id)}
+          >
+            Rimuovi
+          </Button>
+        </ListGroup.Item>
+      ))}
+    </ListGroup>
+  </div>
+))}
+
     </div>
   );
 };
 
 export default IngredientiRicetta;
+
