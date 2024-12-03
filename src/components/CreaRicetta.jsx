@@ -6,6 +6,7 @@ import {
   removeIngrediente,
   removeImage,
   creaRicetta,
+  resetRicetta,
 } from "../redux/actions/creaRicetta";
 import { Container, Form, Button, Alert } from "react-bootstrap";
 import IngredientiRicetta from "./IngredientiRicetta";
@@ -92,6 +93,20 @@ const CreaRicetta = () => {
       }
       // Salvo la ricetta creata
       setCreatedRicetta(response.payload);
+
+      // Resetto ricetta
+      dispatch(resetRicetta());
+
+      // Resetto i campi locali
+      setRicettaData({
+        titolo: "",
+        procedimento: "",
+        difficoltaRicetta: "FACILE",
+        tempoPreparazioneMinuti: 1,
+        tempoCotturaMinuti: 0,
+        costoRicetta: "BASSO",
+        nomeCategorieRicette: [],
+      });
 
       setAlert({
         message: "Ricetta creata con successo! Ora puoi caricare un'immagine.",
@@ -256,7 +271,7 @@ const CreaRicetta = () => {
             removeImage={(index) => dispatch(removeImage(index))}
           />
         )}
-          {/* salvo ancle l'img. e torno al profilo */}
+        {/* salvo ancle l'img. e torno al profilo */}
         <Button
           variant="success"
           className="mt-3"
