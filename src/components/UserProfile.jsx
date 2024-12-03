@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Container, Card, Button, Form, Alert, Modal } from "react-bootstrap";
-import { fetchRicette } from "../redux/actions/fetchRicetteAction";
+import {
+  fetchRicette,
+  fetchRicetteUtente,
+} from "../redux/actions/fetchRicetteAction";
 import RicetteUtente from "../components/RicetteUtente";
 
 import {
@@ -49,6 +52,12 @@ const UserProfile = () => {
     dispatch(fetchRicette());
   }, [user, dispatch]);
 
+  //Fetch delle ricette per account utente
+  useEffect(() => {
+    dispatch(fetchRicetteUtente());
+  }, [dispatch]);
+
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
@@ -184,7 +193,6 @@ const UserProfile = () => {
             >
               Cancella Account
             </Button>
-          
 
             <Button
               variant="secondary"
