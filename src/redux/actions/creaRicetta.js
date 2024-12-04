@@ -122,18 +122,17 @@ export const addIngredienti =
         const data = await response.json();
         console.log("Dati ricevuti dal backend:", data);
 
-        /*  const mappedData = data.map((ing) => ({
-          id: ing.id || null,
-          nome: ing.nome || "Nome non disponibile",
-          dosaggio: ing.dosaggio || "Dosaggio non disponibile",
+        const mappedData = data.ingredienti.map((ing) => ({
+          id: ing.id,
+          nome: ing.nome,
+          dosaggio: ing.dosaggio,
+          sezione: ing.sezione,
         }));
-*/ 
-const mappedData = Array.isArray(data) ? data : [data];
         console.log("Dati mappati per il reducer:", mappedData);
 
         dispatch({
           type: ADD_INGREDIENTI,
-          payload: [...mappedData],
+          payload:mappedData,
         });
       } else {
         const errorText = await response.text();
@@ -168,7 +167,7 @@ export const fetchIngredienti = (ricettaId) => async (dispatch, getState) => {
 
     if (response.ok) {
       const data = await response.json();
-      const ingredienti = data.ingredienti || [];
+      const ingredienti = Array.isArray(data.ingredienti) ? data.ingredienti : [];
       console.log("Ingredienti estratti:", ingredienti);
       dispatch({
         type: SET_INGREDIENTI,

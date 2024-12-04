@@ -25,13 +25,16 @@ const ricettaReducer = (state = initialState, action) => {
         ricetta: action.payload,
       };
       case ADD_INGREDIENTI:
-        const ingredientiDaAggiungere = Array.isArray(action.payload)
-          ? action.payload
-          : [action.payload];
-        console.log("Ingredienti aggiunti:", ingredientiDaAggiungere);
+        const ingredientiUnici = [
+          ...state.ingredienti,
+          ...action.payload.filter(
+            (newIng) => !state.ingredienti.some((ing) => ing.id === newIng.id)
+          ),
+        ];
+        console.log("Reducer: Ingredienti unici aggiunti:", ingredientiUnici);
         return {
           ...state,
-          ingredienti: [...state.ingredienti, ...ingredientiDaAggiungere],
+          ingredienti: ingredientiUnici,
         };
       
       
