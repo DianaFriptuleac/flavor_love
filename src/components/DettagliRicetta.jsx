@@ -33,7 +33,7 @@ const DettagliRicetta = () => {
           message: "Ricetta cancellata con successo.",
           variant: "success",
         });
-        //  dispatch({ type: "REMOVE_RICETTA", payload: id });
+
         navigate("/userprofile");
       } else {
         throw new Error("Errore nella cancellazione della ricetta");

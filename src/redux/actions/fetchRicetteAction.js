@@ -45,6 +45,7 @@ export const fetchRicetteUtente = () => async (dispatch, getState) => {
     return;
   }
 
+  
   const params = new URLSearchParams({
     size: 1000,
     page: 0,

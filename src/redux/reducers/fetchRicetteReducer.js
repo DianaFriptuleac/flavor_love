@@ -11,6 +11,7 @@ const initialState = {
     dettagli:null,
     error: null,
     loading:false,
+    
   };
   
   const ricetteReducer = (state = initialState, action) => {

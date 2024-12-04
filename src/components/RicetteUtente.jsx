@@ -10,7 +10,9 @@ const RicetteUtente = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const ricette = useSelector((state) => state.ricette.ricette);
+  const ricette = useSelector((state) => state.ricette.ricetteUtente);
+  console.log("Ricette visualizzate nel componente:", ricette);
+
   const auth = useSelector((state) => state.auth);
 
   console.log("Stato auth nel componente RicetteUtente:", auth);

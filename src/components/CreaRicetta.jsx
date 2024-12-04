@@ -331,7 +331,7 @@ const CreaRicetta = () => {
         <Button
           variant="success"
           className="mt-3"
-          onClick={() => navigate(handleSaveAndNavigate)}
+          onClick={handleSaveAndNavigate}
         >
           Salva e torna al Profilo
         </Button>
