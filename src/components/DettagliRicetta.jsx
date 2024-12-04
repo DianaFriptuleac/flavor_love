@@ -16,7 +16,9 @@ const DettagliRicetta = () => {
   const [alert, setAlert] = useState({ message: "", variant: "" });
 
   const handleDelete = async () => {
-    const confermaDelete = window.confirm("Sei sicuro di voler cancellare questa ricetta?");
+    const confermaDelete = window.confirm(
+      "Sei sicuro di voler cancellare questa ricetta?"
+    );
     if (!confermaDelete) return;
     try {
       const response = await fetch(`http://localhost:3001/api/ricette/${id}`, {
@@ -25,10 +27,13 @@ const DettagliRicetta = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-  
+
       if (response.ok) {
-        setAlert({ message: "Ricetta cancellata con successo.", variant: "success" });
-      //  dispatch({ type: "REMOVE_RICETTA", payload: id });
+        setAlert({
+          message: "Ricetta cancellata con successo.",
+          variant: "success",
+        });
+        //  dispatch({ type: "REMOVE_RICETTA", payload: id });
         navigate("/userprofile");
       } else {
         throw new Error("Errore nella cancellazione della ricetta");
@@ -37,7 +42,6 @@ const DettagliRicetta = () => {
       console.error("Errore:", error.message);
     }
   };
-  
 
   useEffect(() => {
     if (id) {
@@ -74,10 +78,12 @@ const DettagliRicetta = () => {
             <strong>Difficoltà:</strong> {dettagli.difficoltaRicetta}
           </Card.Text>
           <Card.Text>
-            <strong>Tempo di Preparazione:</strong> {dettagli.tempoPreparazioneMinuti} minuti
+            <strong>Tempo di Preparazione:</strong>{" "}
+            {dettagli.tempoPreparazioneMinuti} minuti
           </Card.Text>
           <Card.Text>
-            <strong>Tempo di Cottura:</strong> {dettagli.tempoCotturaMinuti} minuti
+            <strong>Tempo di Cottura:</strong> {dettagli.tempoCotturaMinuti}{" "}
+            minuti
           </Card.Text>
           <Card.Text>
             <strong>Costo:</strong> {dettagli.costoRicetta}
@@ -85,12 +91,16 @@ const DettagliRicetta = () => {
           <strong>Ingredienti:</strong>
           <ListGroup className="mb-3">
             {(dettagli.ingredienti || []).map((ing, index) => (
-              <ListGroup.Item key={index}>{ing.nome}</ListGroup.Item>
+              <ListGroup.Item key={ing.id}>{ing.nome} {ing.dosaggio}</ListGroup.Item>
             ))}
           </ListGroup>
+    
           {dettagli.utenteId === userId && ( // Controllo se l'utente e il creatore
             <div className="d-flex justify-content-between">
-              <Button variant="warning" onClick={() => navigate(`/updateRicetta/${id}`)}>
+              <Button
+                variant="warning"
+                onClick={() => navigate(`/updateRicetta/${id}`)}
+              >
                 Modifica
               </Button>
               <Button variant="danger" onClick={handleDelete}>
@@ -105,5 +115,3 @@ const DettagliRicetta = () => {
 };
 
 export default DettagliRicetta;
-
-
