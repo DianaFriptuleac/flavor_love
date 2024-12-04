@@ -48,6 +48,12 @@ const IngredientiRicetta = ({ ricettaId }) => {
     setTimeout(() => setMessage(""), 2000);
   };
 
+  const handleDeleteIngrediente = (ingredienteId) => {
+    console.log("Deleting ingredienteId:", ingredienteId);
+    dispatch(removeIngrediente(ricettaId, ingredienteId));
+  };
+  
+
   const groupedIngredients = ingredienti.reduce((acc, curr) => {
     if (!acc[curr.sezione]) {
       acc[curr.sezione] = [];
@@ -112,7 +118,7 @@ const IngredientiRicetta = ({ ricettaId }) => {
                 <Button
                   variant="danger"
                   size="sm"
-                  onClick={() => dispatch(removeIngrediente(ingredienti.id))}
+                  onClick={() => handleDeleteIngrediente(ingredienti.id)}
                 >
                   Rimuovi
                 </Button>

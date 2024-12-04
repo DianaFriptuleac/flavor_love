@@ -184,22 +184,39 @@ export const fetchIngredienti = (ricettaId) => async (dispatch, getState) => {
   }
 };
 
-/*fetch("http://localhost:3001/api/ricette/5d24bff8-204e-4564-9d54-024c109b4f4a/ingredienti", {
-  method: "GET",
-  headers: {
-    Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MzMxOTc5MDMsImV4cCI6MTczMzgwMjcwMywic3ViIjoiMmU1OTliOWUtM2M1NC00ZWQ5LWE0ZjctOTY2NjExYzZmNzA3IiwicnVvbG8iOiJBRE1JTiJ9.gK2mESDY29Wr2oxVpqq6Y9OeSdx1L1BOoZBeqLlPNMk",
-  },
-})
-  .then((res) => res.json())
-  .then((data) => console.log("Ingredienti dal backend:", data))
-  .catch((err) => console.error("Errore:", err.message));
-*/
 
 // Cancello ingrediente
-export const removeIngrediente = (index) => ({
-  type: REMOVE_INGREDIENTE,
-  payload: index,
-});
+export const removeIngrediente =
+  (ricettaId, ingredienteId) => async (dispatch, getState) => {
+    try {
+      if (!ingredienteId) throw new Error("Ingrediente ID mancante!");
+      const { token } = getState().auth;
+
+      const response = await fetch(
+        `http://localhost:3001/api/ricette/${ricettaId}/ingredienti/${ingredienteId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.ok) {
+        dispatch({
+          type: REMOVE_INGREDIENTE,
+          payload: ingredienteId,
+        });
+      } else {
+        const errorText = await response.text();
+        throw new Error(`Errore dal server: ${errorText}`);
+      }
+    } catch (error) {
+      console.error("Errore durante la cancellazione dell'ingrediente:", error);
+      throw error;
+    }
+  };
 
 // Rimuovo immagine
 export const removeImage = (index) => ({
