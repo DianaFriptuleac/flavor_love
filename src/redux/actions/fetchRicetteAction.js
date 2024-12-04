@@ -17,7 +17,9 @@ export const fetchRicette = () => async (dispatch, getState) => {
 
     if (response.ok) {
       const data = await response.json();
-      dispatch({ type: FETCH_RICETTE_SUCCESS, payload: data.content });
+      dispatch({ 
+        type: FETCH_RICETTE_SUCCESS, 
+        payload: data.content || data }); //adatto alla rsp. del backend
     } else {
       const errorText = await response.text();
       throw new Error(errorText || "Errore nel fetch delle ricette");

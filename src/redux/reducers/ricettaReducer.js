@@ -25,14 +25,19 @@ const ricettaReducer = (state = initialState, action) => {
         ricetta: action.payload,
       };
 
-    case ADD_INGREDIENTI:
-      const ingredientiDaAggiungere = Array.isArray(action.payload)
-        ? action.payload
-        : [action.payload]; // Se non e un array -> trasformiamo
-      return {
-        ...state,
-        ingredienti: [...state.ingredienti, ...ingredientiDaAggiungere],
-      };
+      case ADD_INGREDIENTI:
+        const ingredientiDaAggiungere = Array.isArray(action.payload)
+          ? action.payload
+          : [action.payload];
+        console.log("Nuovo stato ingredienti:", [
+          ...state.ingredienti,
+          ...ingredientiDaAggiungere,
+        ]);
+        return {
+          ...state,
+          ingredienti: [...state.ingredienti, ...ingredientiDaAggiungere],
+        };
+      
 
     case ADD_INGREDIENTI_ERROR:
       return {
@@ -43,7 +48,7 @@ const ricettaReducer = (state = initialState, action) => {
         console.log("Payload ricevuto per gli ingredienti:", action.payload); 
         return {
           ...state,
-          ingredienti: Array.isArray(action.payload) ? action.payload : [], 
+          ingredienti: Array.isArray(action.payload) ? action.payload : [],
         };
       
     case REMOVE_INGREDIENTE:

@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchIngredienti, removeIngrediente, addIngredienti } from "../redux/actions/creaRicetta";
+import {
+  fetchIngredienti,
+  removeIngrediente,
+  addIngredienti,
+} from "../redux/actions/creaRicetta";
 import { Form, Button, ListGroup } from "react-bootstrap";
 
 const IngredientiRicetta = ({ ricettaId }) => {
@@ -16,7 +20,6 @@ const IngredientiRicetta = ({ ricettaId }) => {
 
   useEffect(() => {
     if (ricettaId) {
-      console.log("ID Ricetta:", ricettaId);
       dispatch(fetchIngredienti(ricettaId));
     }
   }, [ricettaId, dispatch]);
@@ -41,7 +44,9 @@ const IngredientiRicetta = ({ ricettaId }) => {
     }
 
     dispatch(
-      addIngredienti(ricettaId, [{ ...ingredientData, sezione: currentSezione }])
+      addIngredienti(ricettaId, [
+        { ...ingredientData, sezione: currentSezione },
+      ])
     );
 
     setIngredientData({ nome: "", dosaggio: "", sezione: "" });
@@ -51,16 +56,18 @@ const IngredientiRicetta = ({ ricettaId }) => {
 
   const handleDeleteIngrediente = (ingredienteIndex) => {
     dispatch(removeIngrediente(ingredienteIndex));
-};
+  };
 
+  const groupedIngredients = Array.isArray(ingredienti)
+  ? ingredienti.reduce((acc, curr) => {
+      if (!acc[curr.sezione]) {
+        acc[curr.sezione] = [];
+      }
+      acc[curr.sezione].push(curr);
+      return acc;
+    }, {})
+  : {};
 
-  const groupedIngredients = ingredienti.reduce((acc, curr) => {
-    if (!acc[curr.sezione]) {
-      acc[curr.sezione] = [];
-    }
-    acc[curr.sezione].push(curr);
-    return acc;
-  }, {});
 
   return (
     <div>
@@ -98,13 +105,19 @@ const IngredientiRicetta = ({ ricettaId }) => {
       <Button variant="secondary" onClick={handleAddIngredient}>
         Aggiungi Ingrediente
       </Button>
+      
       {Object.entries(groupedIngredients).map(([sezione, ingredients]) => (
   <div key={sezione} className="mt-3">
     <h5>{sezione}</h5>
     <ListGroup>
       {ingredients.map((ingrediente, index) => (
-        <ListGroup.Item key={`${ingrediente.id}-${index}`} className="d-flex justify-content-between">
-          {`${ingrediente.nome} - ${ingrediente.dosaggio}`}
+        <ListGroup.Item
+          key={index}
+          className="d-flex justify-content-between"
+        >
+          {`${ingrediente.nome || "Nome non disponibile"} - ${
+            ingrediente.dosaggio || "Dosaggio non disponibile"
+          }`}
           <Button
             variant="danger"
             size="sm"
@@ -123,4 +136,3 @@ const IngredientiRicetta = ({ ricettaId }) => {
 };
 
 export default IngredientiRicetta;
-
