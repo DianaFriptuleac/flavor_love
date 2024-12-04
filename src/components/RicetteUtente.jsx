@@ -1,14 +1,27 @@
 import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, Card, Alert, Button } from "react-bootstrap";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchRicetteUtente } from "../redux/actions/fetchRicetteAction";
 import "../css/RicetteUtente.css";
 
-const RicetteUtente = ({ ricette = [] }) => {
-  const navigate = useNavigate();
-  console.log("Ricette utete:", ricette);
- // const ricetteVisibili = ricette.filter((ricetta) => ricetta !== null && ricetta.id);
-   // Estrarre le ricette da _embedded.ricettaList se esistono
-  
 
+const RicetteUtente = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const ricette = useSelector((state) => state.ricette.ricette);
+  const auth = useSelector((state) => state.auth);
+
+  console.log("Stato auth nel componente RicetteUtente:", auth);
+
+  useEffect(() => {
+    if (auth.token && auth.user?.id) {
+      dispatch(fetchRicetteUtente());
+    }
+  }, [auth.token, auth.user?.id, dispatch]);
+  
+  
   return (
     <Container>
       <div className="d-flex justify-content-between my-1">

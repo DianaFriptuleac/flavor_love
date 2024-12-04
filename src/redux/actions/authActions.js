@@ -60,6 +60,7 @@ export const loginUser = (userCredentials) => async (dispatch) => {
                     }
                 },
             });
+    
             dispatch(fetchUserProfile());
         } else {
             throw new Error('Credenziali errate!');

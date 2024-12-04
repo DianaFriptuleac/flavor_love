@@ -24,39 +24,39 @@ const ricettaReducer = (state = initialState, action) => {
         ...state,
         ricetta: action.payload,
       };
-      case ADD_INGREDIENTI:
-        const ingredientiUnici = [
-          ...state.ingredienti,
-          ...action.payload.filter(
-            (newIng) => !state.ingredienti.some((ing) => ing.id === newIng.id)
-          ),
-        ];
-        console.log("Reducer: Ingredienti unici aggiunti:", ingredientiUnici);
-        return {
-          ...state,
-          ingredienti: ingredientiUnici,
-        };
-      
-      
+    case ADD_INGREDIENTI:
+      const ingredientiUnici = [
+        ...state.ingredienti,
+        ...action.payload.filter(
+          (newIng) => !state.ingredienti.some((ing) => ing.id === newIng.id)
+        ),
+      ];
+      console.log("Reducer: Ingredienti unici aggiunti:", ingredientiUnici);
+      return {
+        ...state,
+        ingredienti: ingredientiUnici,
+      };
 
     case ADD_INGREDIENTI_ERROR:
       return {
         ...state,
         error: action.payload,
       };
-      case SET_INGREDIENTI:
-        console.log("Payload ricevuto per gli ingredienti:", action.payload); 
-        return {
-          ...state,
-          ingredienti: Array.isArray(action.payload) ? action.payload : [],
-        };
-      
-        case REMOVE_INGREDIENTE:
-          return {
-            ...state,
-            ingredienti: state.ingredienti.filter((ingrediente, i) => ingrediente.id !== action.payload),
-          };
-        
+    case SET_INGREDIENTI:
+      console.log("Payload ricevuto per gli ingredienti:", action.payload);
+      return {
+        ...state,
+        ingredienti: Array.isArray(action.payload) ? action.payload : [],
+      };
+
+    case REMOVE_INGREDIENTE:
+      return {
+        ...state,
+        ingredienti: state.ingredienti.filter(
+          (ingrediente, i) => ingrediente.id !== action.payload
+        ),
+      };
+
     case ADD_IMG:
       return {
         ...state,
