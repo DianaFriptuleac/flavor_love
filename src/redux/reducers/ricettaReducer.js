@@ -7,14 +7,14 @@ import {
   RESET_RICETTA,
   REMOVE_RICETTA,
   ADD_INGREDIENTI_ERROR,
-  
+  SET_INGREDIENTI,
 } from "../actions/creaRicetta";
 
 const initialState = {
   ricetta: null,
   ingredienti: [],
   image: [],
-  ricette:[],
+  ricette: [],
 };
 
 const ricettaReducer = (state = initialState, action) => {
@@ -25,16 +25,27 @@ const ricettaReducer = (state = initialState, action) => {
         ricetta: action.payload,
       };
 
-      case ADD_INGREDIENTI:
+    case ADD_INGREDIENTI:
+      const ingredientiDaAggiungere = Array.isArray(action.payload)
+        ? action.payload
+        : [action.payload]; // Se non e un array -> trasformiamo
+      return {
+        ...state,
+        ingredienti: [...state.ingredienti, ...ingredientiDaAggiungere],
+      };
+
+    case ADD_INGREDIENTI_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+      };
+      case SET_INGREDIENTI:
+        console.log("Payload ricevuto per gli ingredienti:", action.payload); 
         return {
           ...state,
-          ingredienti: [...state.ingredienti, ...action.payload], 
-        };;
-      case ADD_INGREDIENTI_ERROR:
-        return {
-          ...state,
-          error: action.payload, 
+          ingredienti: Array.isArray(action.payload) ? action.payload : [], 
         };
+      
     case REMOVE_INGREDIENTE:
       return {
         ...state,
@@ -54,12 +65,14 @@ const ricettaReducer = (state = initialState, action) => {
       return {
         ...initialState,
       };
-      case REMOVE_RICETTA:
-        return {
-          ...state,
-          ricette: state.ricette.filter((ricetta) => ricetta.id !== action.payload),
-        };
-      
+    case REMOVE_RICETTA:
+      return {
+        ...state,
+        ricette: state.ricette.filter(
+          (ricetta) => ricetta.id !== action.payload
+        ),
+      };
+
     default:
       return state;
   }

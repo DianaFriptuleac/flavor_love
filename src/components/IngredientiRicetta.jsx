@@ -14,12 +14,16 @@ const IngredientiRicetta = ({ ricettaId }) => {
   });
   const [message, setMessage] = useState("");
 
-  // Fetch ingredienti all'avvio
   useEffect(() => {
     if (ricettaId) {
+      console.log("ID Ricetta:", ricettaId);
       dispatch(fetchIngredienti(ricettaId));
     }
   }, [ricettaId, dispatch]);
+
+  useEffect(() => {
+    console.log("Ingredienti caricati:", ingredienti); // Debug degli ingredienti caricati
+  }, [ingredienti]);
 
   const handleInputChangeIngredient = (e) => {
     const { name, value } = e.target;

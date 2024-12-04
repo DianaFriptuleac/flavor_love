@@ -6,6 +6,7 @@ export const REMOVE_IMAGE = "REMOVE_IMAGE";
 export const RESET_RICETTA = "RESET_RICETTA";
 export const REMOVE_RICETTA ="REMOVE_RICETTA";
 export const ADD_INGREDIENTI_ERROR = "ADD_INGREDIENTI_ERROR";
+export const SET_INGREDIENTI = "SET_INGREDIENTI";
 
 // Creo una ricetta e aggiungo l'img - se presente
 export const creaRicettaConImmagine = (ricettaData, file) => async (dispatch, getState) => {
@@ -123,13 +124,13 @@ export const addIngredienti = (ricettaId, ingredienti) => async (dispatch, getSt
     });
   } catch (error) {
     console.error("Errore durante l'aggiunta degli ingredienti:", error.message);
-    throw error; // Rilancia l'errore per catturarlo nel componente
+    throw error; 
   }
 };
 
 
 //prendo gli ingredienti
- export const fetchIngredienti = (ricettaId) => async (dispatch, getState) => {
+export const fetchIngredienti = (ricettaId) => async (dispatch, getState) => {
   try {
     const { token } = getState().auth;
 
@@ -149,16 +150,27 @@ export const addIngredienti = (ricettaId, ingredienti) => async (dispatch, getSt
     }
 
     const data = await response.json();
+    console.log("Dati ricevuti dal backend:", data);
+
     dispatch({
-      type: "SET_INGREDIENTI",
+      type: SET_INGREDIENTI,
       payload: data,
     });
   } catch (error) {
     console.error("Errore durante il recupero degli ingredienti:", error.message);
   }
 };
-//cancello
 
+/*fetch("http://localhost:3001/api/ricette/5d24bff8-204e-4564-9d54-024c109b4f4a/ingredienti", {
+  method: "GET",
+  headers: {
+    Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MzMxOTc5MDMsImV4cCI6MTczMzgwMjcwMywic3ViIjoiMmU1OTliOWUtM2M1NC00ZWQ5LWE0ZjctOTY2NjExYzZmNzA3IiwicnVvbG8iOiJBRE1JTiJ9.gK2mESDY29Wr2oxVpqq6Y9OeSdx1L1BOoZBeqLlPNMk",
+  },
+})
+  .then((res) => res.json())
+  .then((data) => console.log("Ingredienti dal backend:", data))
+  .catch((err) => console.error("Errore:", err.message));
+*/
 
 // Cancello ingrediente
 export const removeIngrediente = (index) => ({
