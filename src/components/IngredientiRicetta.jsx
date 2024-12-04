@@ -43,6 +43,11 @@ const IngredientiRicetta = ({ ricettaId }) => {
       return;
     }
 
+    const nuovoIngrediente = {
+      ...ingredientData,
+      sezione: currentSezione,
+    };
+
     dispatch(
       addIngredienti(ricettaId, [
         { ...ingredientData, sezione: currentSezione },
@@ -51,12 +56,13 @@ const IngredientiRicetta = ({ ricettaId }) => {
 
     setIngredientData({ nome: "", dosaggio: "", sezione: "" });
     setMessage("Ingrediente aggiunto con successo!");
-    setTimeout(() => setMessage(""), 3000);
+    setTimeout(() => setMessage(""), 2000);
   };
 
-  const handleDeleteIngrediente = (ingredienteIndex) => {
-    dispatch(removeIngrediente(ingredienteIndex));
+  const handleDeleteIngrediente = (ingredienteId) => {
+    dispatch(removeIngrediente(ingredienteId));
   };
+  
 
   const groupedIngredients = Array.isArray(ingredienti)
   ? ingredienti.reduce((acc, curr) => {
@@ -67,6 +73,7 @@ const IngredientiRicetta = ({ ricettaId }) => {
       return acc;
     }, {})
   : {};
+
 
 
   return (
@@ -110,19 +117,19 @@ const IngredientiRicetta = ({ ricettaId }) => {
   <div key={sezione} className="mt-3">
     <h5>{sezione}</h5>
     <ListGroup>
-      {ingredients.map((ingrediente, index) => (
-        <ListGroup.Item
-          key={index}
-          className="d-flex justify-content-between"
-        >
-          {`${ingrediente.nome || "Nome non disponibile"} - ${
-            ingrediente.dosaggio || "Dosaggio non disponibile"
-          }`}
-          <Button
-            variant="danger"
-            size="sm"
-            onClick={() => handleDeleteIngrediente(ingrediente.id)}
-          >
+      {ingredients.map((ingredienti, index) => (
+     <ListGroup.Item
+     key={ingredienti.id}
+     className="d-flex justify-content-between"
+   >
+     {`${ingredienti.nome || "Nome non disponibile"} - ${
+       ingredienti.dosaggio || "Dosaggio non disponibile"
+     }`}
+     <Button
+       variant="danger"
+       size="sm"
+       onClick={() => handleDeleteIngrediente(ingredienti.id)}
+     >
             Rimuovi
           </Button>
         </ListGroup.Item>

@@ -46,20 +46,22 @@ export const fetchRicetteUtente = () => async (dispatch, getState) => {
     if (response.ok) {
       const data = await response.json();
       dispatch({
-        type: "FETCH_RICETTE_SUCCESS",
-        payload: data.content,
+        type: FETCH_RICETTE_SUCCESS,
+        payload: data.content || [], 
       });
     } else {
-      throw new Error("Errore nel recupero delle ricette.");
+      const errorText = await response.text();
+      throw new Error(errorText || "Errore nel recupero delle ricette.");
     }
   } catch (err) {
     console.error("Errore fetch ricette:", err.message);
     dispatch({
-      type: "FETCH_RICETTE_ERROR",
+      type: FETCH_RICETTE_ERROR,
       payload: err.message,
     });
   }
 };
+
 
 //dettagli ricetta
 export const fetchDettagliRicetta = (id) => async (dispatch, getState) => {

@@ -4,8 +4,10 @@ import "../css/RicetteUtente.css";
 
 const RicetteUtente = ({ ricette = [] }) => {
   const navigate = useNavigate();
-  console.log("Ricette:", ricette);
+  console.log("Ricette utete:", ricette);
  // const ricetteVisibili = ricette.filter((ricetta) => ricetta !== null && ricetta.id);
+   // Estrarre le ricette da _embedded.ricettaList se esistono
+  
 
   return (
     <Container>

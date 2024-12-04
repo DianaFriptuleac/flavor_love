@@ -127,12 +127,13 @@ export const addIngredienti =
           nome: ing.nome || "Nome non disponibile",
           dosaggio: ing.dosaggio || "Dosaggio non disponibile",
         }));
-*/ const mappedData = Array.isArray(data) ? data : [data];
+*/ 
+const mappedData = Array.isArray(data) ? data : [data];
         console.log("Dati mappati per il reducer:", mappedData);
 
         dispatch({
           type: ADD_INGREDIENTI,
-          payload: mappedData,
+          payload: [...mappedData],
         });
       } else {
         const errorText = await response.text();
@@ -167,11 +168,11 @@ export const fetchIngredienti = (ricettaId) => async (dispatch, getState) => {
 
     if (response.ok) {
       const data = await response.json();
-      const ingredienti = Array.isArray(data.ingredienti) ? data.ingredienti : [];
+      const ingredienti = data.ingredienti || [];
       console.log("Ingredienti estratti:", ingredienti);
       dispatch({
         type: SET_INGREDIENTI,
-        payload: Array.isArray(data) ? data : [],
+        payload: ingredienti,
       });
     } else {
       throw new Error("Errore durante il recupero degli ingredienti");

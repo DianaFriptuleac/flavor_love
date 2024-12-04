@@ -24,19 +24,16 @@ const ricettaReducer = (state = initialState, action) => {
         ...state,
         ricetta: action.payload,
       };
-
       case ADD_INGREDIENTI:
         const ingredientiDaAggiungere = Array.isArray(action.payload)
           ? action.payload
           : [action.payload];
-        console.log("Nuovo stato ingredienti:", [
-          ...state.ingredienti,
-          ...ingredientiDaAggiungere,
-        ]);
+        console.log("Ingredienti aggiunti:", ingredientiDaAggiungere);
         return {
           ...state,
           ingredienti: [...state.ingredienti, ...ingredientiDaAggiungere],
         };
+      
       
 
     case ADD_INGREDIENTI_ERROR:
@@ -51,11 +48,12 @@ const ricettaReducer = (state = initialState, action) => {
           ingredienti: Array.isArray(action.payload) ? action.payload : [],
         };
       
-    case REMOVE_INGREDIENTE:
-      return {
-        ...state,
-        ingredienti: state.ingredienti.filter((_, i) => i !== action.payload),
-      };
+        case REMOVE_INGREDIENTE:
+          return {
+            ...state,
+            ingredienti: state.ingredienti.filter((ingrediente, i) => ingrediente.id !== action.payload),
+          };
+        
     case ADD_IMG:
       return {
         ...state,
