@@ -1,5 +1,5 @@
 import { Form, Button, ListGroup } from "react-bootstrap";
-//passo 3 pprops-> array img, addimg e remove
+//passo 3 props-> array img, addimg e remove
 const ImgRicetta = ({ images = [], addImage, removeImage }) => {
   const handleImageChange = (e) => {
     const file = e.target.files[0];

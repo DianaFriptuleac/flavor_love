@@ -99,7 +99,7 @@ const DettagliRicetta = () => {
             <div className="d-flex justify-content-between">
               <Button
                 variant="warning"
-                onClick={() => navigate(`/updateRicetta/${id}`)}
+                onClick={() => navigate(`/ricette/${id}/update`)} 
               >
                 Modifica
               </Button>

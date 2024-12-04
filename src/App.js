@@ -11,6 +11,7 @@ import UserProfile from "./components/UserProfile";
 import CreaRicetta from "./components/CreaRicetta";
 import RicetteUtente from "./components/RicetteUtente";
 import DettagliRicetta from "./components/DettagliRicetta";
+import ModificaRicetta from "./components/ModificaRicetta";
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
           <Route path="/creaRicetta" element={<CreaRicetta/>}/>
           <Route path = "/ricetteUtente" element = {<RicetteUtente/>}/>
           <Route path="/ricette/:id" element={<DettagliRicetta />} />
+          <Route path="/ricette/:id/update" element={<ModificaRicetta />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Container, Row, Col, Card, Alert, Button } from "react-bootstrap";
+import { Container, Row, Col, Card, Alert, Button, Carousel } from "react-bootstrap";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchRicetteUtente } from "../redux/actions/fetchRicetteAction";
@@ -23,6 +23,16 @@ const RicetteUtente = () => {
     }
   }, [auth.token, auth.user?.id, dispatch]);
   
+  //divido le ricette 
+  const divRicette = (array, size) =>{
+    const res=[];
+    for(let i = 0; i< array.length; i += size){
+      res.push(array.slice(i, i + size));
+    }
+    return res;
+  }
+
+  const gruppiRicette = divRicette(ricette, 6);
   
   return (
     <Container>
@@ -34,28 +44,38 @@ const RicetteUtente = () => {
       </div>
       {ricette.length > 0 ? (
         <Row>
-          {ricette.map((ricetta) => (
-            <Col key={ricetta.id} md={4} className="mb-4">
-              <Card
-                onClick={() => navigate(`/ricette/${ricetta.id}`)}
-                style={{ cursor: "pointer" }}
-              >
-                <Card.Img
-                  variant="top"
-                  src={
-                    (ricetta.img &&
-                      ricetta.img.length > 0 &&
-                      ricetta.img[0].url) ||
-                    "/assets/default_ricetta.jpg"
-                  }
-                  alt={ricetta.titolo}
-                />
-                <Card.Body>
-                  <Card.Title>{ricetta.titolo}</Card.Title>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
+          <Col md={6} lg={10}>
+         <Carousel>
+         {gruppiRicette.map((gruppo, index) => (
+           <Carousel.Item key={index}>
+             <div className="d-flex flex-wrap justify-content-center">
+               {gruppo.map((ricetta) => (
+                 <Card
+                   key={ricetta.id}
+                   className="m-2"
+                   style={{ width: "18rem", cursor: "pointer" }}
+                   onClick={() => navigate(`/ricette/${ricetta.id}`)}
+                 >
+                   <Card.Img
+                     variant="top"
+                     src={
+                       (ricetta.img &&
+                         ricetta.img.length > 0 &&
+                         ricetta.img[0].url) ||
+                       "/assets/default_ricetta.jpg"
+                     }
+                     alt={ricetta.titolo}
+                   />
+                   <Card.Body>
+                     <Card.Title>{ricetta.titolo}</Card.Title>
+                   </Card.Body>
+                 </Card>
+               ))}
+             </div>
+           </Carousel.Item>
+         ))}
+       </Carousel>
+       </Col>
         </Row>
       ) : (
         <Alert variant="info" className="text-center mt-4">
