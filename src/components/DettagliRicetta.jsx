@@ -95,7 +95,7 @@ const DettagliRicetta = () => {
             ))}
           </ListGroup>
     
-          {dettagli.utenteId === userId && ( // Controllo se l'utente e il creatore
+          {dettagli.utenteId === userId ? ( // Mostra solo se e creatore
             <div className="d-flex justify-content-between">
               <Button
                 variant="warning"
@@ -107,7 +107,8 @@ const DettagliRicetta = () => {
                 Cancella
               </Button>
             </div>
-          )}
+          ) : null 
+          }
         </Card.Body>
       </Card>
     </Container>

@@ -13,6 +13,7 @@ import RicetteUtente from "./components/RicetteUtente";
 import DettagliRicetta from "./components/DettagliRicetta";
 import ModificaRicetta from "./components/ModificaRicetta";
 import Ricettario from "./components/Ricettario";
+import AllRicette from "./components/AllRicette";
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
           <Route path="/" element={<Home/>}/>
           <Route path="/creaRicetta" element={<CreaRicetta/>}/>
           <Route path = "/ricetteUtente" element = {<RicetteUtente/>}/>
+          <Route path="/ricette" element = {<AllRicette/>}/>
           <Route path="/ricette/:id" element={<DettagliRicetta />} />
           <Route path="/ricette/:id/update" element={<ModificaRicetta />} />
           <Route path="/ricettario" element={<Ricettario/>} />

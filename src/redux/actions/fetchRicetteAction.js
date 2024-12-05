@@ -5,12 +5,12 @@ export const FETCH_DETTAGLI_RICETTA_SUCCESS = "FETCH_DETTAGLI_RICETTA_SUCCESS";
 export const FETCH_DETTAGLI_RICETTA_ERROR = "FETCH_DETTAGLI_RICETTA_ERROR";
 export const FETCH_RICETTE_UTENTE_SUCCESS = "FETCH_RICETTE_UTENTE_SUCCESS";
 
-export const fetchRicette = () => async (dispatch, getState) => {
+export const fetchRicette =  (page = 0, size = 12) => async (dispatch, getState) => {
   try {
     const { token } = getState().auth;
     if (!token) throw new Error("Token mancante!");
 
-    const response = await fetch("http://localhost:3001/api/ricette", {
+    const response = await fetch(`http://localhost:3001/api/ricette?page=${page}&size=${size}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -18,10 +18,15 @@ export const fetchRicette = () => async (dispatch, getState) => {
 
     if (response.ok) {
       const data = await response.json();
+      console.log("All ricette restituite:", data)
       dispatch({
         type: FETCH_RICETTE_SUCCESS,
-        payload: data.content || data,
-      }); //adatto alla rsp. del backend
+        payload: {
+        content: data.content,
+        totalPages: data.totalPages,
+        currentPage: page,
+        },
+      }); 
     } else {
       const errorText = await response.text();
       throw new Error(errorText || "Errore nel fetch delle ricette");
