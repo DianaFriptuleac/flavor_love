@@ -16,6 +16,7 @@ import {
 import "../css/UserProfile.css";
 import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../redux/actions/authActions";
+import Ricettario from "./Ricettario";
 
 const UserProfile = () => {
   const user = useSelector((state) => state.profile?.user);
@@ -262,6 +263,9 @@ const UserProfile = () => {
       <Container>
         {error && <Alert variant="danger">Errore: {error}</Alert>}
         <RicetteUtente ricette={ricette} />
+      </Container>
+      <Container>
+        <Ricettario/>
       </Container>
     </div>
   );

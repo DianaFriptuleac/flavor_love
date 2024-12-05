@@ -2,14 +2,21 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Modal, Form, ListGroup } from "react-bootstrap";
 import { setRicettari, addRicettario, removeRicettario } from "../redux/actions/ricettarioActions";
+import { Pagination } from "react-bootstrap";
 
 const Ricettario = () => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.auth.token);
   const ricettari = useSelector((state) => state.ricettari.list); 
+  const [selectedRicettario, setSelectedRicettario] = useState(null);
+  const [ricette, setRicette] = useState([]); 
+  const [totalPages, setTotalPages] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [ricettarioName, setRicettarioName] = useState("");
   const [alert, setAlert] = useState("");
+
+
 
   // Fetch -> get ricettari
   const fetchRicettari = async () => {
@@ -28,6 +35,28 @@ const Ricettario = () => {
       console.error("Errore nel fetch:", error.message);
     }
   };
+
+    // Fetch -> get ricettario con ricette
+    const fetchRicettarioConRicette = async (ricettarioId, page = 0, size = 10) => {
+      try {
+        const response = await fetch(`http://localhost:3001/api/ricettari/${ricettarioId}?page=${page}&size=${size}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (response.ok) {
+          const data = await response.json();
+          console.log("Ricettario con ricette:", data);
+          setSelectedRicettario(data);
+          setRicette(data.ricette.content);
+          setTotalPages(data.ricette.totalPages);
+          setCurrentPage(data.ricette.number);
+        }
+      } catch (error) {
+        console.error("Errore nel fetch del ricettario:", error.message);
+      }
+    };
+  
 
   // Creo  ricettario
   const handleCreateRicettario = async () => {
@@ -72,9 +101,15 @@ const Ricettario = () => {
     }
   };
 
+  const handlePageChange = (page) => {
+    if (selectedRicettario) {
+      fetchRicettarioConRicette(selectedRicettario.id, page);
+    }
+  };
+  
   useEffect(() => {
     fetchRicettari();
-  }, []); // 
+  }, []); 
 
   return (
     <div>
@@ -93,6 +128,26 @@ const Ricettario = () => {
           <p>Nessun ricettario trovato.</p>
         )}
       </ListGroup>
+      {selectedRicettario && (
+        <div>
+          <h3>Ricette nel Ricettario: {selectedRicettario.nome}</h3>
+          <ListGroup>
+            {ricette.map((ricetta) => (
+              <ListGroup.Item key={ricetta.id}>
+                <strong>{ricetta.titolo}</strong>
+                {ricetta.immagineUrl && <img src={ricetta.immagineUrl} alt={ricetta.titolo} style={{ width: "100px", marginLeft: "10px" }} />}
+              </ListGroup.Item>
+            ))}
+          </ListGroup>
+          <Pagination>
+            {[...Array(totalPages).keys()].map((page) => (
+              <Pagination.Item key={page} active={page === currentPage} onClick={() => handlePageChange(page)}>
+                {page + 1}
+              </Pagination.Item>
+            ))}
+          </Pagination>
+        </div>
+      )}
       {/* Modale per ricettario */}
       <Button variant="primary" className="mt-3" onClick={() => setShowCreateModal(true)}>
         Crea Ricettario
