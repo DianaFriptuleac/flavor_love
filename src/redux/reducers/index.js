@@ -4,6 +4,7 @@ import profileReducer from "./profileReducer";
 import ricettaReducer from "./ricettaReducer";
 import ricetteReducer from "./fetchRicetteReducer";
 import { ricettaReducer as updateRicettaReducer } from "./updateRicettaReducer";
+import ricettarioReducer from "./ricettarioReducer";
 
 
 const rootReducer = combineReducers({
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
     ricetta: ricettaReducer,
     ricette: ricetteReducer,
     updateRicetta: updateRicettaReducer,
+    ricettari: ricettarioReducer,
 });
 
 export default rootReducer;

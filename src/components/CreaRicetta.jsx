@@ -6,7 +6,6 @@ import {
   removeIngrediente,
   removeImage,
   creaRicetta,
-  resetRicetta,
 } from "../redux/actions/creaRicetta";
 import { Container, Form, Button, Alert } from "react-bootstrap";
 import IngredientiRicetta from "./IngredientiRicetta";
@@ -95,9 +94,6 @@ const CreaRicetta = () => {
       // Salvo la ricetta creata
       setCreatedRicetta(response.payload);
 
-      // Resetto ricetta
-      // dispatch(resetRicetta());
-
       // Resetto i campi locali
       setRicettaData({
         titolo: "",
@@ -111,35 +107,6 @@ const CreaRicetta = () => {
 
       setAlert({
         message: "Ricetta creata con successo! Ora puoi caricare un'immagine.",
-        variant: "success",
-      });
-    } catch (error) {
-      setAlert({ message: error.message, variant: "danger" });
-    }
-  };
-
-  const handleAddIngredienti = async () => {
-    try {
-      if (!createdRicetta?.id) {
-        throw new Error("ID ricetta mancante!");
-      }
-
-      if (ricettaState.ingredienti.length === 0) {
-        throw new Error("Non ci sono ingredienti da aggiungere.");
-      }
-
-      const ingredientiPayload = ricettaState.ingredienti.map(
-        (ingrediente) => ({
-          nome: ingrediente.nome,
-          dosaggio: ingrediente.dosaggio,
-          sezione: ingrediente.sezione,
-        })
-      );
-
-      // Aggiungo ingredienti
-      await dispatch(addIngredienti(createdRicetta.id, ingredientiPayload));
-      setAlert({
-        message: "Ingredienti aggiunti con successo alla ricetta!",
         variant: "success",
       });
     } catch (error) {

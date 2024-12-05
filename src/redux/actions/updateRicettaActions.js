@@ -134,7 +134,7 @@ export const removeIngrediente = (ricettaId, ingredienteId) => async (dispatch, 
   }
 };
 
-//recupera immagini
+//recupero immagini
 export const fetchImagesByRicettaId = (ricettaId) => async (dispatch, getState) => {
   const { token } = getState().auth;
 
