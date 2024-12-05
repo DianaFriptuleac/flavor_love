@@ -100,7 +100,7 @@ const ModificaRicetta = () => {
   useEffect(() => {
     const fetchCategorie = async () => {
       try {
-        const response = await fetch("http://localhost:3001/api/categorie", {
+        const response = await fetch("http://localhost:3001/api/categorie?page=0&size=100", {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",

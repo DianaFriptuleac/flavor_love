@@ -39,7 +39,7 @@ const CreaRicetta = () => {
     try {
       if (!token) throw new Error("Token mancante!");
 
-      const response = await fetch("http://localhost:3001/api/categorie", {
+      const response = await fetch("http://localhost:3001/api/categorie?page=0&size=100", {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -48,6 +48,7 @@ const CreaRicetta = () => {
 
       if (response.ok) {
         const data = await response.json();
+        console.log("CATEGORIE", data);
         setCategorie(data.content);
       } else {
         throw new Error("Errore nel fetch delle categorie");
