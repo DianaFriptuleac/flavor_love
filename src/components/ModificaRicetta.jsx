@@ -3,29 +3,30 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   updateRicetta,
-  addImage,
   removeImage,
-  fetchImagesByRicettaId
+  fetchImagesByRicettaId,
 } from "../redux/actions/updateRicettaActions";
+import { addImage } from "../redux/actions/creaRicetta";
 import { fetchDettagliRicetta } from "../redux/actions/fetchRicetteAction";
-import { Container, Form, Button, Alert} from "react-bootstrap";
+import { Container, Form, Button, Alert, Spinner } from "react-bootstrap";
 import IngredientiRicetta from "./IngredientiRicetta";
-
 
 import ImgRicetta from "./ImgRicetta";
 import { addIngredienti } from "../redux/actions/creaRicetta";
 
-
 const ModificaRicetta = () => {
-  const { id } = useParams(); 
+  const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { dettagli, loading, error } = useSelector((state) => state.ricette);
-  const images = useSelector((state) => state.ricette.dettagli?.img || []);
-  const ingredienti = useSelector((state) => state.ricette.dettagli?.ingredienti || []);
-  const token = useSelector((state) => state.auth.token);
+  const images = useSelector((state) => state.ricette.dettagli?.img?.content || []);
 
+  // const ingredienti = useSelector((state) => state.ricette.dettagli?.ingredienti || []);
+  //const images = dettagli?.img || [];
+  const ingredienti = dettagli?.ingredienti || [];
+  const token = useSelector((state) => state.auth.token);
+ 
 
   const [formData, setFormData] = useState({
     titolo: "",
@@ -36,11 +37,12 @@ const ModificaRicetta = () => {
     costoRicetta: "BASSO",
     nomeCategorieRicette: [],
     ingredienti: [],
-    img: [],
+    // img: [],
   });
 
   const [categorie, setCategorie] = useState([]);
   const [alert, setAlert] = useState({ message: "", variant: "" });
+  const [isProcessing, setIsProcessing] = useState(false);
 
   // Fetch dettagli ricetta
   useEffect(() => {
@@ -50,10 +52,12 @@ const ModificaRicetta = () => {
     }
   }, [dispatch, id]);
 
+  
   // Popolo il form con i dettagli ricetta
   useEffect(() => {
     if (dettagli) {
       setFormData({
+        ...formData,
         titolo: dettagli.titolo,
         procedimento: dettagli.procedimento,
         difficoltaRicetta: dettagli.difficoltaRicetta,
@@ -62,10 +66,35 @@ const ModificaRicetta = () => {
         costoRicetta: dettagli.costoRicetta,
         nomeCategorieRicette: dettagli.nomeCategorieRicette || [],
         ingredienti: dettagli.ingredienti || [],
-    
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dettagli]);
+
+  //gestisco le immagini
+  const handleImageAdd = async (file) => {
+    setIsProcessing(true);
+    try {
+      await dispatch(addImage(id, file));
+      dispatch(fetchImagesByRicettaId(id)); 
+      setIsProcessing(false);
+    } catch (error) {
+      console.error("Errore aggiunta immagine:", error.message);
+      setIsProcessing(false);
+    }
+  };
+
+  const handleImageRemove = async (imageId) => {
+    setIsProcessing(true);
+    try {
+      await dispatch(removeImage(id, imageId));
+      dispatch(fetchImagesByRicettaId(id)); 
+      setIsProcessing(false);
+    } catch (error) {
+      console.error("Errore rimozione immagine:", error.message);
+      setIsProcessing(false);
+    }
+  };
 
   // Fetch categorie
   useEffect(() => {
@@ -104,7 +133,10 @@ const ModificaRicetta = () => {
   // Aggiungo categoria
   const handleAddCategory = (e) => {
     const selectedCategory = e.target.value;
-    if (selectedCategory && !formData.nomeCategorieRicette.includes(selectedCategory)) {
+    if (
+      selectedCategory &&
+      !formData.nomeCategorieRicette.includes(selectedCategory)
+    ) {
       setFormData((prev) => ({
         ...prev,
         nomeCategorieRicette: [...prev.nomeCategorieRicette, selectedCategory],
@@ -122,24 +154,37 @@ const ModificaRicetta = () => {
     }));
   };
 
-
   // Salvo modifiche
   const handleUpdate = async (e) => {
     e.preventDefault();
+    setIsProcessing(true);
     try {
       const response = await dispatch(updateRicetta(id, formData));
       if (response.payload) {
-        setAlert({ message: "Ricetta aggiornata con successo!", variant: "success" });
+        setAlert({
+          message: "Ricetta aggiornata con successo!",
+          variant: "success",
+        });
         navigate(`/ricette/${id}`);
       } else {
         throw new Error("Errore durante l'aggiornamento della ricetta.");
       }
     } catch (error) {
       setAlert({ message: error.message, variant: "danger" });
+    } finally {
+      setIsProcessing(false);
     }
   };
 
-  if (loading) return <Alert variant="info">Caricamento dettagli ricetta...</Alert>;
+  //if (loading) return <Alert variant="info">Caricamento dettagli ricetta...</Alert>;
+  if (loading) {
+    return (
+      <div className="d-flex justify-content-center align-items-center">
+        <Spinner animation="border" role="status" />
+        <span className="ms-2">Caricamento...</span>
+      </div>
+    );
+  }
   if (error) return <Alert variant="danger">{error}</Alert>;
 
   return (
@@ -153,7 +198,9 @@ const ModificaRicetta = () => {
             type="text"
             name="titolo"
             value={formData.titolo}
-            onChange={handleChange}
+            onChange={(e) =>
+              setFormData({ ...formData, titolo: e.target.value })
+            }
             required
           />
         </Form.Group>
@@ -235,10 +282,9 @@ const ModificaRicetta = () => {
             <option value="ALTO">Alto</option>
           </Form.Select>
         </Form.Group>
-        <Button type="submit">Salva Modifiche</Button>
-      </Form>
-     {/* Ingredienti */}
-     {id && (
+
+        {/* Ingredienti */}
+        {id && (
           <IngredientiRicetta
             ricettaId={id}
             ingrediente={ingredienti}
@@ -257,16 +303,16 @@ const ModificaRicetta = () => {
             <Form.Label>Immagini</Form.Label>
             <ImgRicetta
               images={images}
-              addImage={(file) => dispatch(addImage(id, file))}
-              removeImage={(index) => {
-                const imageId = images[index]?.id;
-                if (imageId) dispatch(removeImage(id, imageId));
-              }}
+              addImage={handleImageAdd} 
+              removeImage={handleImageRemove}
             />
           </Form.Group>
         )}
+        <Button type="submit" disabled={isProcessing}>
+          {isProcessing ? "Salvataggio..." : "Salva Modifiche"}
+        </Button>
+      </Form>
     </Container>
   );
 };
 export default ModificaRicetta;
-

@@ -28,20 +28,20 @@ export const updateRicetta = (id, data) => async (dispatch, getState) => {
     const result = await response.json();
     dispatch({
       type: "UPDATE_RICETTA_SUCCESS",
-      payload: result, // La risposta del server
+      payload: result, 
     });
 
-    return { payload: result }; // Assicura che ritorni un oggetto con payload
+    return { payload: result };
   } catch (error) {
     console.error("Errore durante l'aggiornamento della ricetta:", error.message);
     dispatch({ type: "UPDATE_RICETTA_ERROR", payload: error.message });
 
-    return { error: error.message }; // Ritorna un oggetto con un errore
+    return { error: error.message }; 
   }
 };
 
 
-// Aggiungo un ingrediente
+/*Aggiungo un ingrediente
 export const addIngrediente = (ricettaId, newIngrediente) => async (dispatch, getState) => {
   const { token } = getState().auth;
 
@@ -69,7 +69,7 @@ export const addIngrediente = (ricettaId, newIngrediente) => async (dispatch, ge
     console.error("Errore aggiunta ingrediente:", error.message);
   }
 };
-
+*/
 //update di un ingrediente
 export const updateIngrediente = (ricettaId, ingredienteId, updatedData) => async (dispatch, getState) => {
     const { token } = getState().auth;
@@ -109,6 +109,7 @@ export const updateIngrediente = (ricettaId, ingredienteId, updatedData) => asyn
   };
   
 // Rimuovo un ingrediente
+/*
 export const removeIngrediente = (ricettaId, ingredienteId) => async (dispatch, getState) => {
   const { token } = getState().auth;
 
@@ -133,7 +134,7 @@ export const removeIngrediente = (ricettaId, ingredienteId) => async (dispatch, 
     console.error("Errore rimozione ingrediente:", error.message);
   }
 };
-
+*/
 //recupero immagini
 export const fetchImagesByRicettaId = (ricettaId) => async (dispatch, getState) => {
   const { token } = getState().auth;
@@ -155,12 +156,13 @@ export const fetchImagesByRicettaId = (ricettaId) => async (dispatch, getState) 
       }
       return data.content; // Restituisce le immagini o un array vuoto
     */
+   
       if (response.ok) {
         const data = await response.json();
-        console.log("Immagini estratte dal backend:", data);
+        console.log("Immagini estratte dal backend:", data.content.url);
         dispatch({
           type: FETCH_IMAGES_SUCCESS,
-          payload: data, 
+          payload: data.content.url, 
         });
     } else {
       const errorText = await response.text();
@@ -171,6 +173,8 @@ export const fetchImagesByRicettaId = (ricettaId) => async (dispatch, getState) 
     console.error("Errore nel recupero delle immagini:", error.message);
   }
 };
+
+/*
 // Aggiungo un immagine
 export const addImage = (ricettaId, imageFile) => async (dispatch, getState) => {
   const { token } = getState().auth;
@@ -179,7 +183,7 @@ export const addImage = (ricettaId, imageFile) => async (dispatch, getState) => 
   formData.append("image", imageFile);
 
   try {
-    const response = await fetch(`http://localhost:3001/api/ricette/${ricettaId}/images`, {
+    const response = await fetch(`http://localhost:3001/api/imgRicette/${ricettaId}`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -189,6 +193,7 @@ export const addImage = (ricettaId, imageFile) => async (dispatch, getState) => 
 
     if (response.ok) {
       const data = await response.json();
+      console.log("Immagine caricata con successo:", data);
       dispatch({ type: ADD_IMAGE_SUCCESS, payload: data });
     } else {
       const errorText = await response.text();
@@ -198,7 +203,7 @@ export const addImage = (ricettaId, imageFile) => async (dispatch, getState) => 
     console.error("Errore aggiunta immagine:", error.message);
   }
 };
-
+*/
 // Rimuovo un immagine
 export const removeImage = (ricettaId, imageId) => async (dispatch, getState) => {
   const { token } = getState().auth;

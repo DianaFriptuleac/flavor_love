@@ -22,7 +22,7 @@ export const ricettaReducer = (state = initialState, action) => {
         dettagli: action.payload,
         successMessage: "Ricetta aggiornata con successo!",
       };
-    case ADD_INGREDIENTE_SUCCESS:
+    /*case ADD_INGREDIENTE_SUCCESS:
       return {
         ...state,
         dettagli: {
@@ -47,7 +47,7 @@ export const ricettaReducer = (state = initialState, action) => {
           ...state.dettagli,
           img: [...state.dettagli.img, action.payload],
         },
-      };
+      };*/
       case FETCH_IMAGES_SUCCESS:
         return {
           ...state,
