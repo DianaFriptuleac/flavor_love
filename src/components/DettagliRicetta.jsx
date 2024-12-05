@@ -46,7 +46,7 @@ const DettagliRicetta = () => {
 
   useEffect(() => {
     if (id) {
-      dispatch(fetchDettagliRicetta(id)); // Fetch dettagli ricetta
+      dispatch(fetchDettagliRicetta(id)); 
     }
   }, [dispatch, id]);
 

@@ -14,6 +14,8 @@ import DettagliRicetta from "./components/DettagliRicetta";
 import ModificaRicetta from "./components/ModificaRicetta";
 import Ricettario from "./components/Ricettario";
 import AllRicette from "./components/AllRicette";
+import SelectRicetteFromModal from "./components/SelectRicetteFromModal";
+import DettagliRicettario from "./components/DettagliRicettario";
 
 
 function App() {
@@ -34,6 +36,8 @@ function App() {
           <Route path="/ricette/:id" element={<DettagliRicetta />} />
           <Route path="/ricette/:id/update" element={<ModificaRicetta />} />
           <Route path="/ricettario" element={<Ricettario/>} />
+          <Route path="ricetteRRicettario" element={<SelectRicetteFromModal/>}/>
+          <Route path="/ricettari/:id" element={<DettagliRicettario/>}/>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

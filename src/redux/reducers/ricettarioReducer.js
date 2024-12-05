@@ -2,6 +2,7 @@ import {
   SET_RICETTARI,
   ADD_RICETTARIO,
   REMOVE_RICETTARIO,
+  ADD_RICETTA_TO_RICETTARIO,
 } from "../actions/ricettarioActions";
 
 const initialState = {
@@ -28,6 +29,19 @@ export default function ricettarioReducer(state = initialState, action) {
       return {
         ...state,
         list: state.list.filter((r) => r.id !== action.payload),
+      };
+
+    case ADD_RICETTA_TO_RICETTARIO:
+      return {
+        ...state,
+        list: state.list.map((ricettario) =>
+          ricettario.id === action.payload.ricettarioId
+            ? {
+                ...ricettario,
+                ricette: [...ricettario.ricette, action.payload.ricettaId],
+              }
+            : ricettario
+        ),
       };
 
     default:
