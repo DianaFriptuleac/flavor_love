@@ -11,9 +11,10 @@ const DettagliRicetta = () => {
   const dispatch = useDispatch();
 
   const { dettagli, loading, error } = useSelector((state) => state.ricette);
-  const userId = useSelector((state) => state.auth.userId); //id utente
+  const userId = useSelector((state) => state.auth.user?.id); //id utente
   const token = useSelector((state) => state.auth.token); // token
   const [alert, setAlert] = useState({ message: "", variant: "" });
+  
 
   const handleDelete = async () => {
     const confermaDelete = window.confirm(
@@ -60,7 +61,9 @@ const DettagliRicetta = () => {
   if (!dettagli) {
     return <Alert variant="info">Nessuna ricetta trovata.</Alert>;
   }
-
+  
+  console.log("ID utente loggato:", userId);
+  console.log("ID creatore ricetta:", dettagli.utente?.id);
   return (
     <Container>
       <Card className="mt-3">
@@ -91,15 +94,19 @@ const DettagliRicetta = () => {
           <strong>Ingredienti:</strong>
           <ListGroup className="mb-3">
             {(dettagli.ingredienti || []).map((ing, index) => (
-              <ListGroup.Item key={ing.id}>{ing.nome} {ing.dosaggio}</ListGroup.Item>
+              <ListGroup.Item key={ing.id}>
+                {ing.nome} {ing.dosaggio}
+              </ListGroup.Item>
             ))}
           </ListGroup>
-    
-          {dettagli.utenteId === userId ? ( // Mostra solo se e creatore
+
+          {dettagli.utente?.id === userId ? (
+            // Mostra solo se e creatore
+
             <div className="d-flex justify-content-between">
               <Button
                 variant="warning"
-                onClick={() => navigate(`/ricette/${id}/update`)} 
+                onClick={() => navigate(`/ricette/${id}/update`)}
               >
                 Modifica
               </Button>
@@ -107,8 +114,7 @@ const DettagliRicetta = () => {
                 Cancella
               </Button>
             </div>
-          ) : null 
-          }
+          ) : null}
         </Card.Body>
       </Card>
     </Container>
