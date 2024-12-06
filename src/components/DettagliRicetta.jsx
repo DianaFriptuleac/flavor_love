@@ -62,8 +62,6 @@ const DettagliRicetta = () => {
     return <Alert variant="info">Nessuna ricetta trovata.</Alert>;
   }
   
- // console.log("ID utente loggato:", userId);
-//  console.log("ID creatore ricetta:", dettagli.utente?.id);
   return (
     <Container>
       <Card className="mt-3">
