@@ -14,6 +14,7 @@ const CustomNavbar = function () {
 
   const token = useSelector((state) => state.auth.token);
 
+
   const addActiveOrNot = (path) => {
     return location.pathname === "/" + path ? "nav-link active" : "nav-link";
   };
@@ -52,7 +53,7 @@ const CustomNavbar = function () {
 
   const handleEnter = (e) => {
     if (e.key === "Enter") {
-      e.preventDefault();
+      e.preventDefault(); 
       handleSearch();
     }
   };
@@ -83,22 +84,23 @@ const CustomNavbar = function () {
             <DropdownRicettePerCategorie />
           </Nav>
           <Form className="d-flex">
-            <Form.Control
+          <Form.Control
               type="text"
               placeholder="Cerca ricette..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onKeyDown={handleEnter}
               className="me-2"
+              
             />
             <Button
               variant="outline-secondary"
               onClick={handleSearch}
-              disabled={searchQuery.length < 2} // Disabilita se meno di 2 caratteri
+              disabled={searchQuery.length < 2} // Disabilito se meno di 2 caratteri
             >
               Cerca
             </Button>
-          </Form>
+            </Form>
           <Nav className="ms-auto">
             <Link to="/register" className={addActiveOrNot("register")}>
               Registrati
