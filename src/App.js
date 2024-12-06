@@ -16,6 +16,7 @@ import Ricettario from "./components/Ricettario";
 import AllRicette from "./components/AllRicette";
 import SelectRicetteFromModal from "./components/SelectRicetteFromModal";
 import DettagliRicettario from "./components/DettagliRicettario";
+import RicettePerCategorie from "./components/RicettePerCategorie";
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
           <Route path="/ricettario" element={<Ricettario/>} />
           <Route path="ricetteRRicettario" element={<SelectRicetteFromModal/>}/>
           <Route path="/ricettari/:id" element={<DettagliRicettario/>}/>
+          <Route path="/ricette/categoria/:categoria" element={<RicettePerCategorie />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

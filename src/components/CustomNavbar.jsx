@@ -1,5 +1,6 @@
-import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
+import { Navbar, Container, Nav } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
+import DropdownRicettePerCategorie from "./DropdownRicettePerCategorie";
 import "../css/CustomNavbar.css";
 
 const CustomNavbar = function () {
@@ -31,17 +32,7 @@ const CustomNavbar = function () {
             <Link to="/" className={addActiveOrNot("home")}>
               Home
             </Link>
-            <NavDropdown
-              title="Ricette"
-              id="collapsible-nav-dropdown"
-              className="nav-dropdown"
-            >
-              <NavDropdown.Item href="/ricette">Tutte le Ricette</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.1">Antipasti</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">Primi</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Secondi</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.4">Dolci</NavDropdown.Item>
-            </NavDropdown>
+            <DropdownRicettePerCategorie />
           </Nav>
           <Nav className="ms-auto">
             <Link to="/register" className={addActiveOrNot("register")}>
