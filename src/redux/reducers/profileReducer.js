@@ -35,7 +35,6 @@ const profileReducer = (state = initialState, action) => {
         },
       };
 
-
     case DELETE_USER:
       return initialState;
 

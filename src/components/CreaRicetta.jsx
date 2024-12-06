@@ -153,6 +153,7 @@ const CreaRicetta = () => {
 
       // Invio il file tramite addImage
       await dispatch(addImage(createdRicetta.id, file));
+      console.log("Immagini nello stato Redux:", ricettaState.image);
       setAlert({
         message: "Immagine caricata con successo!",
         variant: "success",
@@ -294,6 +295,7 @@ const CreaRicetta = () => {
             images={ricettaState.image}
             addImage={(file) => handleImageUpload(file)} // Passo  l'upload
             removeImage={(index) => dispatch(removeImage(index))}
+            isEditing={false}
           />
         )}
         {/* salvo ancle l'img. e torno al profilo */}

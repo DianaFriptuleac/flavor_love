@@ -132,7 +132,7 @@ export const addIngredienti =
 
         dispatch({
           type: ADD_INGREDIENTI,
-          payload:mappedData,
+          payload: mappedData,
         });
       } else {
         const errorText = await response.text();
@@ -147,7 +147,7 @@ export const addIngredienti =
     }
   };
 
-//prendo gli ingredienti
+//prendo ingredienti
 export const fetchIngredienti = (ricettaId) => async (dispatch, getState) => {
   try {
     const { token } = getState().auth;
@@ -167,7 +167,9 @@ export const fetchIngredienti = (ricettaId) => async (dispatch, getState) => {
 
     if (response.ok) {
       const data = await response.json();
-      const ingredienti = Array.isArray(data.ingredienti) ? data.ingredienti : [];
+      const ingredienti = Array.isArray(data.ingredienti)
+        ? data.ingredienti
+        : [];
       console.log("Ingredienti estratti:", ingredienti);
       dispatch({
         type: SET_INGREDIENTI,
@@ -183,7 +185,6 @@ export const fetchIngredienti = (ricettaId) => async (dispatch, getState) => {
     );
   }
 };
-
 
 // Cancello ingrediente
 export const removeIngrediente =
@@ -208,6 +209,7 @@ export const removeIngrediente =
           type: REMOVE_INGREDIENTE,
           payload: ingredienteId,
         });
+        // dispatch(fetchIngredienti(ricettaId));
       } else {
         const errorText = await response.text();
         throw new Error(`Errore dal server: ${errorText}`);

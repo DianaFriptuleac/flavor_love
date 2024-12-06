@@ -6,14 +6,13 @@ import ricetteReducer from "./fetchRicetteReducer";
 import { ricettaReducer as updateRicettaReducer } from "./updateRicettaReducer";
 import ricettarioReducer from "./ricettarioReducer";
 
-
 const rootReducer = combineReducers({
-    auth: authReducer,
-    profile: profileReducer,
-    ricetta: ricettaReducer,
-    ricette: ricetteReducer,
-    updateRicetta: updateRicettaReducer,
-    ricettari: ricettarioReducer,
+  auth: authReducer,
+  profile: profileReducer,
+  ricetta: ricettaReducer,
+  ricette: ricetteReducer,
+  updateRicetta: updateRicettaReducer,
+  ricettari: ricettarioReducer,
 });
 
 export default rootReducer;

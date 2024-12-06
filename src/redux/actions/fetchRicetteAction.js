@@ -4,38 +4,45 @@ export const FETCH_DETTAGLI_RICETTA_PENDING = "FETCH_DETTAGLI_RICETTA_PENDING";
 export const FETCH_DETTAGLI_RICETTA_SUCCESS = "FETCH_DETTAGLI_RICETTA_SUCCESS";
 export const FETCH_DETTAGLI_RICETTA_ERROR = "FETCH_DETTAGLI_RICETTA_ERROR";
 export const FETCH_RICETTE_UTENTE_SUCCESS = "FETCH_RICETTE_UTENTE_SUCCESS";
+export const FETCH_SET_INGREDIENTI = "FETCH_SET_INGREDIENTI";
+export const FETCH_IMAGES_SUCCESS_UPDATE = "FETCH_IMAGES_SUCCESS_UPDATE";
 
-export const fetchRicette =  (page = 0, size = 12) => async (dispatch, getState) => {
-  try {
-    const { token } = getState().auth;
-    if (!token) throw new Error("Token mancante!");
+export const fetchRicette =
+  (page = 0, size = 12) =>
+  async (dispatch, getState) => {
+    try {
+      const { token } = getState().auth;
+      if (!token) throw new Error("Token mancante!");
 
-    const response = await fetch(`http://localhost:3001/api/ricette?page=${page}&size=${size}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+      const response = await fetch(
+        `http://localhost:3001/api/ricette?page=${page}&size=${size}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-    if (response.ok) {
-      const data = await response.json();
-      console.log("All ricette restituite:", data)
-      dispatch({
-        type: FETCH_RICETTE_SUCCESS,
-        payload: {
-        content: data.content,
-        totalPages: data.totalPages,
-        currentPage: page,
-        },
-      }); 
-    } else {
-      const errorText = await response.text();
-      throw new Error(errorText || "Errore nel fetch delle ricette");
+      if (response.ok) {
+        const data = await response.json();
+        console.log("All ricette restituite:", data);
+        dispatch({
+          type: FETCH_RICETTE_SUCCESS,
+          payload: {
+            content: data.content,
+            totalPages: data.totalPages,
+            currentPage: page,
+          },
+        });
+      } else {
+        const errorText = await response.text();
+        throw new Error(errorText || "Errore nel fetch delle ricette");
+      }
+    } catch (error) {
+      console.error("Errore nel fetch delle ricette:", error.message);
+      dispatch({ type: FETCH_RICETTE_ERROR, payload: error.message });
     }
-  } catch (error) {
-    console.error("Errore nel fetch delle ricette:", error.message);
-    dispatch({ type: FETCH_RICETTE_ERROR, payload: error.message });
-  }
-};
+  };
 
 //fetch ricette dell'utente
 export const fetchRicetteUtente = () => async (dispatch, getState) => {
@@ -50,7 +57,6 @@ export const fetchRicetteUtente = () => async (dispatch, getState) => {
     return;
   }
 
-  
   const params = new URLSearchParams({
     size: 1000,
     page: 0,
@@ -91,6 +97,7 @@ export const fetchRicetteUtente = () => async (dispatch, getState) => {
 };
 
 //dettagli ricetta
+
 export const fetchDettagliRicetta = (id) => async (dispatch, getState) => {
   dispatch({ type: FETCH_DETTAGLI_RICETTA_PENDING }); // Stato iniziale di caricamento
   try {
@@ -106,7 +113,13 @@ export const fetchDettagliRicetta = (id) => async (dispatch, getState) => {
 
     if (response.ok) {
       const data = await response.json();
-      dispatch({ type: FETCH_DETTAGLI_RICETTA_SUCCESS, payload: data }); // Salvo i dati
+      console.log("COMPONENTI RICETTA", data);
+      dispatch({ type: FETCH_DETTAGLI_RICETTA_SUCCESS, payload: data });
+      dispatch({
+        type: FETCH_SET_INGREDIENTI,
+        payload: data.ingredienti || [],
+      });
+      dispatch({ type: FETCH_IMAGES_SUCCESS_UPDATE, payload: data.img || [] });
     } else {
       const errorText = await response.text();
       throw new Error(
@@ -115,6 +128,6 @@ export const fetchDettagliRicetta = (id) => async (dispatch, getState) => {
     }
   } catch (error) {
     console.error("Errore fetch dettagli ricetta:", error.message);
-    dispatch({ type: FETCH_DETTAGLI_RICETTA_ERROR, payload: error.message }); // Salvo l'errore
+    dispatch({ type: FETCH_DETTAGLI_RICETTA_ERROR, payload: error.message });
   }
 };

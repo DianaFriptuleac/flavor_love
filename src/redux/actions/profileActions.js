@@ -32,43 +32,41 @@ export const uploadAvatar = (formData) => async (dispatch, getState) => {
   }
 };
 
-
 //update me
 export const updateProfile = (profileData) => async (dispatch, getState) => {
-    try {
-        const { token } = getState().auth;
-        if (!token) throw new Error("Token mancante!");
+  try {
+    const { token } = getState().auth;
+    if (!token) throw new Error("Token mancante!");
 
-        const resp = await fetch("http://localhost:3001/utenti/me", {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify(profileData),
-        });
+    const resp = await fetch("http://localhost:3001/utenti/me", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(profileData),
+    });
 
-        if (resp.ok) {
-            const updatedUser = await resp.json();
-            console.log("Profilo aggiornato:", updatedUser);
-            dispatch({
-                type: UPDATE_PROFILE,
-                payload: updatedUser, 
-            });
-        } else {
-            const errorMessage = await resp.text();
-            throw new Error(`Errore dal server: ${errorMessage}`);
-        }
-    } catch (error) {
-        console.error("Errore durante l'aggiornamento del profilo:", error.message);
+    if (resp.ok) {
+      const updatedUser = await resp.json();
+      console.log("Profilo aggiornato:", updatedUser);
+      dispatch({
+        type: UPDATE_PROFILE,
+        payload: updatedUser,
+      });
+    } else {
+      const errorMessage = await resp.text();
+      throw new Error(`Errore dal server: ${errorMessage}`);
     }
+  } catch (error) {
+    console.error("Errore durante l'aggiornamento del profilo:", error.message);
+  }
 };
 
 //delete me
 export const deleteMe = () => async (dispatch, getState) => {
   try {
     const { token } = getState().auth;
-    
 
     const resp = await fetch(`http://localhost:3001/utenti/me`, {
       method: "DELETE",
@@ -118,4 +116,3 @@ export const fetchUserProfile = () => async (dispatch, getState) => {
     console.error("Errore durante il recupero del profilo:", error.message);
   }
 };
-

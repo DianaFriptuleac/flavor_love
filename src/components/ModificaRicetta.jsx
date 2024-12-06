@@ -12,7 +12,10 @@ import { Container, Form, Button, Alert, Spinner } from "react-bootstrap";
 import IngredientiRicetta from "./IngredientiRicetta";
 
 import ImgRicetta from "./ImgRicetta";
-import { addIngredienti } from "../redux/actions/creaRicetta";
+import {
+  addIngredienti,
+  removeIngrediente,
+} from "../redux/actions/creaRicetta";
 
 const ModificaRicetta = () => {
   const { id } = useParams();
@@ -20,13 +23,12 @@ const ModificaRicetta = () => {
   const dispatch = useDispatch();
 
   const { dettagli, loading, error } = useSelector((state) => state.ricette);
-  const images = useSelector((state) => state.ricette.dettagli?.img?.content || []);
 
-  // const ingredienti = useSelector((state) => state.ricette.dettagli?.ingredienti || []);
-  //const images = dettagli?.img || [];
-  const ingredienti = dettagli?.ingredienti || [];
+  const ingredienti = useSelector(
+    (state) => state.ricette.dettagli?.ingredienti || []
+  );
+  const images = dettagli?.img || [];
   const token = useSelector((state) => state.auth.token);
- 
 
   const [formData, setFormData] = useState({
     titolo: "",
@@ -52,7 +54,6 @@ const ModificaRicetta = () => {
     }
   }, [dispatch, id]);
 
-  
   // Popolo il form con i dettagli ricetta
   useEffect(() => {
     if (dettagli) {
@@ -68,6 +69,7 @@ const ModificaRicetta = () => {
         ingredienti: dettagli.ingredienti || [],
       });
     }
+    console.log("Stato aggiornato:", dettagli?.img);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dettagli]);
 
@@ -76,7 +78,7 @@ const ModificaRicetta = () => {
     setIsProcessing(true);
     try {
       await dispatch(addImage(id, file));
-      dispatch(fetchImagesByRicettaId(id)); 
+      dispatch(fetchImagesByRicettaId(id));
       setIsProcessing(false);
     } catch (error) {
       console.error("Errore aggiunta immagine:", error.message);
@@ -84,7 +86,7 @@ const ModificaRicetta = () => {
     }
   };
 
-  const handleImageRemove = async (imageId) => {
+  /* const handleImageRemove = async (imageId) => {
     setIsProcessing(true);
     try {
       await dispatch(removeImage(id, imageId));
@@ -94,18 +96,21 @@ const ModificaRicetta = () => {
       console.error("Errore rimozione immagine:", error.message);
       setIsProcessing(false);
     }
-  };
+  };*/
 
   // Fetch categorie
   useEffect(() => {
     const fetchCategorie = async () => {
       try {
-        const response = await fetch("http://localhost:3001/api/categorie?page=0&size=100", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await fetch(
+          "http://localhost:3001/api/categorie?page=0&size=100",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
 
         if (response.ok) {
           const data = await response.json();
@@ -176,7 +181,6 @@ const ModificaRicetta = () => {
     }
   };
 
-  //if (loading) return <Alert variant="info">Caricamento dettagli ricetta...</Alert>;
   if (loading) {
     return (
       <div className="d-flex justify-content-center align-items-center">
@@ -292,7 +296,7 @@ const ModificaRicetta = () => {
               dispatch(addIngredienti(id, [ingrediente]))
             }
             removeIngrediente={(ingredienteId) =>
-              dispatch(removeImage(id, ingredienteId))
+              dispatch(removeIngrediente(id, ingredienteId))
             }
           />
         )}
@@ -303,8 +307,9 @@ const ModificaRicetta = () => {
             <Form.Label>Immagini</Form.Label>
             <ImgRicetta
               images={images}
-              addImage={handleImageAdd} 
-              removeImage={handleImageRemove}
+              addImage={handleImageAdd}
+              removeImage={(imageId) => dispatch(removeImage(id, imageId))}
+              isEditing={true}
             />
           </Form.Group>
         )}

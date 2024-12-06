@@ -6,7 +6,7 @@ const Home = () => {
   const [ricette, setRicette] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/ricetteEsterne/allRicette?page=0&size=50")
+    fetch("http://localhost:3001/api/ricetteEsterne/allRicette?page=0&size=1000")
       .then((response) => response.json())
       .then((data) => {
         if (data && data.content) {

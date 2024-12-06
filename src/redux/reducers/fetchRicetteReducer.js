@@ -5,6 +5,8 @@ import {
   FETCH_DETTAGLI_RICETTA_SUCCESS,
   FETCH_DETTAGLI_RICETTA_ERROR,
   FETCH_RICETTE_UTENTE_SUCCESS,
+  FETCH_SET_INGREDIENTI,
+  FETCH_IMAGES_SUCCESS_UPDATE,
 } from "../actions/fetchRicetteAction";
 const initialState = {
   ricette: [],
@@ -53,6 +55,21 @@ const ricetteReducer = (state = initialState, action) => {
         loading: false,
         error: action.payload,
       };
+    case FETCH_SET_INGREDIENTI:
+      console.log("Payload ricevuto per gli ingredienti:", action.payload);
+      return {
+        ...state,
+        ingredienti: Array.isArray(action.payload) ? action.payload : [],
+      };
+    case FETCH_IMAGES_SUCCESS_UPDATE:
+      return {
+        ...state,
+        dettagli: {
+          ...state.dettagli,
+          img: action.payload,
+        },
+      };
+
     default:
       return state;
   }

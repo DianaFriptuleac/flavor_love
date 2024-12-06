@@ -22,58 +22,34 @@ export const updateRicetta = (id, data) => async (dispatch, getState) => {
 
     if (!response.ok) {
       const errorText = await response.text();
-      throw new Error(errorText || "Errore durante l'aggiornamento della ricetta");
+      throw new Error(
+        errorText || "Errore durante l'aggiornamento della ricetta"
+      );
     }
 
     const result = await response.json();
     dispatch({
       type: "UPDATE_RICETTA_SUCCESS",
-      payload: result, 
+      payload: result,
     });
 
     return { payload: result };
   } catch (error) {
-    console.error("Errore durante l'aggiornamento della ricetta:", error.message);
+    console.error(
+      "Errore durante l'aggiornamento della ricetta:",
+      error.message
+    );
     dispatch({ type: "UPDATE_RICETTA_ERROR", payload: error.message });
 
-    return { error: error.message }; 
+    return { error: error.message };
   }
 };
 
-
-/*Aggiungo un ingrediente
-export const addIngrediente = (ricettaId, newIngrediente) => async (dispatch, getState) => {
-  const { token } = getState().auth;
-
-  try {
-    const response = await fetch(
-      `http://localhost:3001/api/ricette/${ricettaId}/ingredienti`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newIngrediente),
-      }
-    );
-
-    if (response.ok) {
-      const data = await response.json();
-      dispatch({ type: ADD_INGREDIENTE_SUCCESS, payload: data });
-    } else {
-      const errorText = await response.text();
-      throw new Error(errorText);
-    }
-  } catch (error) {
-    console.error("Errore aggiunta ingrediente:", error.message);
-  }
-};
-*/
 //update di un ingrediente
-export const updateIngrediente = (ricettaId, ingredienteId, updatedData) => async (dispatch, getState) => {
+export const updateIngrediente =
+  (ricettaId, ingredienteId, updatedData) => async (dispatch, getState) => {
     const { token } = getState().auth;
-  
+
     try {
       const response = await fetch(
         `http://localhost:3001/api/ricette/${ricettaId}/ingredienti/${ingredienteId}`,
@@ -86,7 +62,7 @@ export const updateIngrediente = (ricettaId, ingredienteId, updatedData) => asyn
           body: JSON.stringify(updatedData),
         }
       );
-  
+
       if (response.ok) {
         const data = await response.json();
         dispatch({
@@ -96,136 +72,87 @@ export const updateIngrediente = (ricettaId, ingredienteId, updatedData) => asyn
         return data;
       } else {
         const errorText = await response.text();
-        throw new Error(errorText || "Errore durante l'aggiornamento dell'ingrediente.");
+        throw new Error(
+          errorText || "Errore durante l'aggiornamento dell'ingrediente."
+        );
       }
     } catch (error) {
       dispatch({
         type: "UPDATE_INGREDIENTE_ERROR",
         payload: error.message,
       });
-      console.error("Errore durante l'aggiornamento dell'ingrediente:", error.message);
+      console.error(
+        "Errore durante l'aggiornamento dell'ingrediente:",
+        error.message
+      );
       throw error;
     }
   };
-  
-// Rimuovo un ingrediente
-/*
-export const removeIngrediente = (ricettaId, ingredienteId) => async (dispatch, getState) => {
-  const { token } = getState().auth;
 
-  try {
-    const response = await fetch(
-      `http://localhost:3001/api/ricette/${ricettaId}/ingredienti/${ingredienteId}`,
-      {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    if (response.ok) {
-      dispatch({ type: REMOVE_INGREDIENTE_SUCCESS, payload: ingredienteId });
-    } else {
-      const errorText = await response.text();
-      throw new Error(errorText);
-    }
-  } catch (error) {
-    console.error("Errore rimozione ingrediente:", error.message);
-  }
-};
-*/
 //recupero immagini
-export const fetchImagesByRicettaId = (ricettaId) => async (dispatch, getState) => {
-  const { token } = getState().auth;
+export const fetchImagesByRicettaId =
+  (ricettaId) => async (dispatch, getState) => {
+    const { token } = getState().auth;
 
-  try {
-    const response = await fetch(`http://localhost:3001/api/imgRicette/ricetta/${ricettaId}`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-/*
-    if (response.ok) {
-      const data = await response.json();
-      if (data.content && data.content.length > 0) {
-        dispatch({ type: FETCH_IMAGES_SUCCESS, payload: data.content });
-      } else {
-        dispatch({ type: FETCH_IMAGES_SUCCESS, payload: [] }); // Nessuna immagine trovata
-      }
-      return data.content; // Restituisce le immagini o un array vuoto
-    */
-   
+    try {
+      const response = await fetch(
+        `http://localhost:3001/api/imgRicette/ricetta/${ricettaId}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (response.ok) {
         const data = await response.json();
-        console.log("Immagini estratte dal backend:", data.content.url);
+        console.log("Immagini estratte dal backend:", data.content);
         dispatch({
           type: FETCH_IMAGES_SUCCESS,
-          payload: data.content.url, 
+          payload: data.content,
         });
-    } else {
-      const errorText = await response.text();
-      throw new Error(errorText);
-    }
-  } catch (error) {
-    dispatch({ type: FETCH_IMAGES_ERROR, payload: error.message });
-    console.error("Errore nel recupero delle immagini:", error.message);
-  }
-};
-
-/*
-// Aggiungo un immagine
-export const addImage = (ricettaId, imageFile) => async (dispatch, getState) => {
-  const { token } = getState().auth;
-
-  const formData = new FormData();
-  formData.append("image", imageFile);
-
-  try {
-    const response = await fetch(`http://localhost:3001/api/imgRicette/${ricettaId}`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      body: formData,
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-      console.log("Immagine caricata con successo:", data);
-      dispatch({ type: ADD_IMAGE_SUCCESS, payload: data });
-    } else {
-      const errorText = await response.text();
-      throw new Error(errorText);
-    }
-  } catch (error) {
-    console.error("Errore aggiunta immagine:", error.message);
-  }
-};
-*/
-// Rimuovo un immagine
-export const removeImage = (ricettaId, imageId) => async (dispatch, getState) => {
-  const { token } = getState().auth;
-
-  try {
-    const response = await fetch(
-      `http://localhost:3001/api/ricette/${ricettaId}/images/${imageId}`,
-      {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      } else {
+        const errorText = await response.text();
+        throw new Error(errorText);
       }
-    );
-
-    if (response.ok) {
-      dispatch({ type: REMOVE_IMAGE_SUCCESS, payload: imageId });
-    } else {
-      const errorText = await response.text();
-      throw new Error(errorText);
+    } catch (error) {
+      dispatch({ type: FETCH_IMAGES_ERROR, payload: error.message });
+      console.error("Errore nel recupero delle immagini:", error.message);
     }
-  } catch (error) {
-    console.error("Errore rimozione immagine:", error.message);
-  }
-};
+  };
+
+// Rimuovo un immagine
+export const removeImage =
+  (ricettaId, imageId) => async (dispatch, getState) => {
+    console.log("ID Ricetta:", ricettaId);
+    console.log("ID Immagine:", imageId);
+    const { token } = getState().auth;
+
+    try {
+      const response = await fetch(
+        `http://localhost:3001/api/imgRicette/${imageId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(
+          errorText || "Errore durante la rimozione dell'immagine"
+        );
+      }
+
+      console.log("Immagine rimossa con successo");
+      dispatch({ type: REMOVE_IMAGE_SUCCESS, payload: imageId });
+      dispatch(fetchImagesByRicettaId(ricettaId));
+    } catch (error) {
+      console.error(
+        "Errore durante la rimozione dell'immagine:",
+        error.message
+      );
+    }
+  };

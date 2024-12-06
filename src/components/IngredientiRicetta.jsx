@@ -28,12 +28,12 @@ const IngredientiRicetta = ({ ricettaId }) => {
   }, [ingredienti]);
 
   const handleAddIngredient = () => {
-    if (!currentSezione.trim()) {
-      setMessage("Inserisci una sezione prima di aggiungere l'ingrediente.");
-      return;
-    }
-    if (!ingredientData.nome.trim() || !ingredientData.dosaggio.trim()) {
-      setMessage("Completa tutti i campi per aggiungere un ingrediente.");
+    if (
+      !currentSezione.trim() ||
+      !ingredientData.nome.trim() ||
+      !ingredientData.dosaggio.trim()
+    ) {
+      setMessage("Completa tutti i campi.");
       return;
     }
 
@@ -44,15 +44,12 @@ const IngredientiRicetta = ({ ricettaId }) => {
     );
 
     setIngredientData({ nome: "", dosaggio: "", sezione: "" });
-    setMessage("Ingrediente aggiunto con successo!");
-    setTimeout(() => setMessage(""), 2000);
+    setMessage("Ingrediente aggiunto!");
   };
 
   const handleDeleteIngrediente = (ingredienteId) => {
-    console.log("Deleting ingredienteId:", ingredienteId);
     dispatch(removeIngrediente(ricettaId, ingredienteId));
   };
-  
 
   const groupedIngredients = ingredienti.reduce((acc, curr) => {
     if (!acc[curr.sezione]) {
@@ -109,7 +106,7 @@ const IngredientiRicetta = ({ ricettaId }) => {
           <ListGroup>
             {ingredients.map((ingredienti, i) => (
               <ListGroup.Item
-              key={`${ingredienti.id}-${i}`} 
+                key={`${ingredienti.id}-${i}`}
                 className="d-flex justify-content-between"
               >
                 {`${ingredienti.nome || "Nome non disponibile"} - ${
