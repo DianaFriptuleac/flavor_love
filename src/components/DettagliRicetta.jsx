@@ -13,8 +13,7 @@ const DettagliRicetta = () => {
   const { dettagli, loading, error } = useSelector((state) => state.ricette);
   const userId = useSelector((state) => state.auth.user?.id); //id utente
   const token = useSelector((state) => state.auth.token); // token
-  const [alert, setAlert] = useState({ message: "", variant: "" });
-  
+  const [notification, setNotification] = useState({ message: "", variant: "" });
 
   const handleDelete = async () => {
     const confermaDelete = window.confirm(
@@ -30,7 +29,7 @@ const DettagliRicetta = () => {
       });
 
       if (response.ok) {
-        setAlert({
+        setNotification({
           message: "Ricetta cancellata con successo.",
           variant: "success",
         });
@@ -41,12 +40,43 @@ const DettagliRicetta = () => {
       }
     } catch (error) {
       console.error("Errore:", error.message);
+      setNotification({
+        message: "Errore nella cancellazione della ricetta.",
+        variant: "danger",
+      });
     }
   };
 
+  //aggiungo ricetta alla lista spesa
+  const aggiungiAllaListaSpesa = async () => {
+    try {
+      const response = await fetch(`http://localhost:3001/api/lista-spesa/${id}`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (response.ok) {
+        setNotification({
+          message: "Ingredienti aggiunti alla lista della spesa!",
+          variant: "success",
+        });
+        navigate("/listaSpesa");
+      } else {
+        throw new Error("Errore nell'aggiunta degli ingredienti.");
+      }
+    } catch (err) {
+      console.error(err.message);
+      setNotification({
+        message: "Errore nell'aggiunta degli ingredienti.",
+        variant: "danger",
+      });
+    }
+  };
+
+
   useEffect(() => {
     if (id) {
-      dispatch(fetchDettagliRicetta(id)); 
+      dispatch(fetchDettagliRicetta(id));
     }
   }, [dispatch, id]);
 
@@ -61,9 +91,11 @@ const DettagliRicetta = () => {
   if (!dettagli) {
     return <Alert variant="info">Nessuna ricetta trovata.</Alert>;
   }
-  
+
   return (
     <Container>
+       {notification.message && <Alert variant={notification.variant}>{notification.message}</Alert>}
+
       <Card className="mt-3">
         <Card.Img
           variant="top"
@@ -96,7 +128,11 @@ const DettagliRicetta = () => {
                 {ing.nome} {ing.dosaggio}
               </ListGroup.Item>
             ))}
-          </ListGroup>
+              </ListGroup>
+            <Button variant="success" onClick={aggiungiAllaListaSpesa}>
+            Aggiungi alla Lista Spesa
+            </Button>
+        
 
           {dettagli.utente?.id === userId ? (
             // Mostra solo se e creatore
