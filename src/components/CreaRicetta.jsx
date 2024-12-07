@@ -6,8 +6,9 @@ import {
   removeIngrediente,
   removeImage,
   creaRicetta,
+  resetRicetta,
 } from "../redux/actions/creaRicetta";
-import { Container, Form, Button, Alert } from "react-bootstrap";
+import { Container, Form, Button, Alert, Spinner } from "react-bootstrap";
 import IngredientiRicetta from "./IngredientiRicetta";
 import ImgRicetta from "./ImgRicetta";
 import { useNavigate } from "react-router-dom";
@@ -18,6 +19,7 @@ const CreaRicetta = () => {
   const navigate = useNavigate();
   const ricettaState = useSelector((state) => state.ricetta); //accedo allo stato ricetta
   const token = useSelector((state) => state.auth.token); //accedo al token
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
 
   //stato locale per la ricetta, categorie, alert e ricettta creata
   const [ricettaData, setRicettaData] = useState({
@@ -39,12 +41,15 @@ const CreaRicetta = () => {
     try {
       if (!token) throw new Error("Token mancante!");
 
-      const response = await fetch("http://localhost:3001/api/categorie?page=0&size=100", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        "http://localhost:3001/api/categorie?page=0&size=100",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();
@@ -59,7 +64,7 @@ const CreaRicetta = () => {
   };
   useEffect(() => {
     fetchCategorie();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
   // aggiorno la ricetta in base agli input
@@ -87,6 +92,9 @@ const CreaRicetta = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      if (ricettaData.nomeCategorieRicette.length === 0) {
+        throw new Error("Seleziona almeno una categoria!");
+      }
       // Creazione della ricetta
       const response = await dispatch(creaRicetta(ricettaData));
       if (!response.payload?.id) {
@@ -106,6 +114,9 @@ const CreaRicetta = () => {
         costoRicetta: "BASSO",
         nomeCategorieRicette: [],
       });
+
+      // Resetto il reducer
+      dispatch(resetRicetta());
 
       setAlert({
         message: "Ricetta creata con successo! Ora puoi caricare un'immagine.",
@@ -148,6 +159,7 @@ const CreaRicetta = () => {
         throw new Error("ID ricetta mancante!");
       }
 
+      setIsUploadingImage(true);
       console.log("Caricamento immagine per ricetta ID:", createdRicetta.id);
       console.log("File selezionato:", file);
 
@@ -161,6 +173,8 @@ const CreaRicetta = () => {
     } catch (error) {
       console.error("Errore caricamento immagine:", error.message);
       setAlert({ message: error.message, variant: "danger" });
+    } finally {
+      setIsUploadingImage(false);
     }
   };
 
@@ -280,7 +294,7 @@ const CreaRicetta = () => {
 
         {createdRicetta && (
           <IngredientiRicetta
-          ricettaId={createdRicetta.id}
+            ricettaId={createdRicetta.id}
             ingrediente={ricettaState.ingredienti}
             addIngrediente={(ingrediente) =>
               dispatch(addIngredienti(createdRicetta.id, [ingrediente]))
@@ -290,14 +304,22 @@ const CreaRicetta = () => {
         )}
 
         {/* carico l'immagine solo se la ricetta e stata creata */}
-        {createdRicetta && (
-          <ImgRicetta
-            images={ricettaState.image}
-            addImage={(file) => handleImageUpload(file)} // Passo  l'upload
-            removeImage={(index) => dispatch(removeImage(index))}
-            isEditing={false}
-          />
-        )}
+        {createdRicetta &&
+          (isUploadingImage ? (
+            <div className="text-center my-3">
+              <Spinner animation="border" role="status">
+                <span className="visually-hidden">Caricamento...</span>
+              </Spinner>
+            </div>
+          ) : (
+            <ImgRicetta
+              images={ricettaState.image}
+              addImage={(file) => handleImageUpload(file)} // Passo l'upload
+              removeImage={(index) => dispatch(removeImage(index))}
+              isEditing={false}
+            />
+          ))}
+
         {/* salvo ancle l'img. e torno al profilo */}
         <Button
           variant="success"
