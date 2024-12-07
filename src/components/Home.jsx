@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Card, Container, Row, Col, Carousel } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import "../css/Home.css";
 
 const Home = () => {
   const [ricette, setRicette] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("http://localhost:3001/api/ricetteEsterne/allRicette?page=0&size=1000")
@@ -54,7 +56,9 @@ const Home = () => {
                     key={ricetta.id}
                     className="mb-4"
                   >
-                    <Card className="ricetta-card">
+                    <Card className="ricetta-card"
+                    onClick={() => navigate(`/ricetteEsterne/${ricetta.id}`)} // dettagli ricetta
+                    >
                       <div className="img-container">
                         <Card.Img
                           variant="top"

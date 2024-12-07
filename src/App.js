@@ -19,6 +19,7 @@ import DettagliRicettario from "./components/DettagliRicettario";
 import RicettePerCategorie from "./components/RicettePerCategorie";
 import Liked from "./components/Liked";
 import SearchResults from "./components/SearchResults";
+import DettagliRicetteEsterne from "./components/DettagliRicetteEsterne";
 
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
           <Route path="/ricette/categoria/:categoria" element={<RicettePerCategorie />} />
           <Route path="ricette/liked" element={<Liked/>}/>
           <Route path="ricette/search" element={<SearchResults/>}/>
+          <Route path="/ricetteEsterne/:id" element={<DettagliRicetteEsterne/>}/>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
