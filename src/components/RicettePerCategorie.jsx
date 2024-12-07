@@ -111,6 +111,9 @@ const RicettePerCategorie = () => {
               <Card.Img
                 variant="top"
                 src={ricetta.img[0]?.url || "/assets/default_ricetta.jpg"}
+                key={ricetta.id}
+                style={{ cursor: "pointer" }}
+                onClick={() => navigate(`/ricette/${ricetta.id}`)}
               />
               <Card.Body>
                 <Card.Title>{ricetta.titolo}</Card.Title>

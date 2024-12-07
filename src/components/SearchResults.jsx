@@ -1,9 +1,10 @@
-
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Card, Container, Row, Col } from "react-bootstrap";
 
 const SearchResults = () => {
   const searchResults = useSelector((state) => state.searched?.searchResults || []);
+  const navigate = useNavigate();
 
   return (
     <Container>
@@ -16,6 +17,9 @@ const SearchResults = () => {
                   variant="top"
                   src={ricetta.img[0]?.url || "/assets/default_ricetta.jpg"}
                   alt={ricetta.titolo}
+                  key={ricetta.id}
+                  style={{ cursor: "pointer" }}
+                  onClick={() => navigate(`/ricette/${ricetta.id}`)}
                 />
                 <Card.Body>
                 <Card.Title>{ricetta.titolo}</Card.Title>
