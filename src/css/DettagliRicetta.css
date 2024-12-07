@@ -1,0 +1,140 @@
+/* background */
+.bg-dettagliRicetta {
+  background: linear-gradient(135deg, #f1e7e4, #f2c9c0);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  min-height: 100vh;
+  padding: 20px;
+  color: #160d08;
+  font-family: "Roboto", sans-serif;
+}
+/* h1 */
+.titleCard {
+  font-weight: bold;
+  font-size: 2.9rem;
+  letter-spacing: 1px;
+}
+/* card */
+.dettagli-ricetta {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.dettagli-ricetta .card {
+  background-color: #ffffff;
+  border-radius: 12px;
+}
+/*lista ingredienti*/
+.ingredienti-list .list-group-item {
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  background-color: #f1f3f5;
+}
+
+.ingredienti-list .list-group-item:not(:last-child) {
+  margin-bottom: 10px;
+}
+/* h2 -> ingredienti, preparazione */
+.dettagli-ricetta h2 {
+  color: #d30316;
+  border-bottom: 3px solid #d30316;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+/* icone */
+.list-unstyled svg {
+  font-size: 1.3rem;
+  color: #d30316;
+  font-weight: bold;
+}
+/* testo ingredienti */
+.ingredienti-nome {
+  border-bottom: 1px solid black;
+  display: inline-block;
+}
+/* btn add. alla lista spesa */
+.shopping-btn {
+  background: linear-gradient(45deg, #e60a20, #160d08);
+  border: none;
+  color: #fff;
+  padding: 0.8rem 2.8rem;
+  border-radius: 25px;
+  transition: background 0.3s ease-in-out, transform 0.2s ease;
+}
+.shopping-btn:hover {
+  background: linear-gradient(45deg, #f2031b, #5f0202);
+  transform: translateY(-2px);
+}
+/*  testo preparazione ricetta */
+.preparazione {
+  word-spacing: 0.5rem;
+  line-height: 1.3;
+}
+/*  btn modifica/ elimina */
+.modifica-ricetta-btn {
+  background: linear-gradient(45deg, #0f2b03, #b6c374);
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  text-transform: uppercase;
+  padding: 10px 14px;
+  border-radius: 6px;
+  transition: background 0.3s ease-in-out, transform 0.2s ease;
+}
+
+.modifica-ricetta-btn:hover {
+  background: linear-gradient(45deg, #2a7709, #b6c374);
+  transform: translateY(-2px);
+}
+.elimina-ricetta-btn {
+  background: linear-gradient(45deg, #e60a20, #160d08);
+  border: none;
+  color: #fff;
+  padding: 10px 26px;
+  border-radius: 6px;
+  transition: background 0.3s ease-in-out, transform 0.2s ease;
+}
+
+.elimina-ricetta-btn:hover {
+  background: linear-gradient(45deg, #f2031b, #5f0202);
+  transform: translateY(-2px);
+}
+
+/* container btn modifica/ elimina*/
+.btn-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/*Media query card x 576px*/
+@media (max-width: 576px) {
+  @media (max-width: 576px) {
+    /* container btn modifica/ elimina*/
+    .btn-container {
+      flex-direction: column;
+    }
+
+    /*  btn modifica/ elimina */
+    .modifica-ricetta-btn,
+    .elimina-ricetta-btn {
+      width: 90%;
+      text-align: center;
+      display: block; /*nuova riga */
+      padding: 0.6rem 1rem;
+    }
+  }
+
+  /* btn add. alla lista spesa */
+  .shopping-btn {
+    width: 90%;
+    font-size: 0.9rem;
+    padding: 0.6rem 1.5rem;
+    margin: 0 auto;
+    margin-bottom: 0.3rem;
+  }
+}
