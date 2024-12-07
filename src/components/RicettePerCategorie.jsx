@@ -82,14 +82,37 @@ const RicettePerCategorie = () => {
     }
   }, [categoria, currentPage, token, navigate]);
 
-  const toggleLike = (ricetta) => {
-    dispatch(likedRicette(ricetta));
+
+  // Liked
+  const toggleLike = async (ricetta) => {
+    try {
+      const isCurrentlyLiked = likedRicetteState.some((liked) => liked.id === ricetta.id);
+
+      const response = await fetch(
+        `http://localhost:3001/api/liked/${ricetta.id}`,
+        {
+          method: isCurrentlyLiked ? "DELETE" : "POST",
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      if (response.ok) {
+        dispatch(likedRicette(ricetta));
+      } else {
+        throw new Error(
+          isCurrentlyLiked
+            ? "Errore nella rimozione della ricetta dai preferiti."
+            : "Errore nell'aggiunta della ricetta ai preferiti."
+        );
+      }
+    } catch (err) {
+      console.error(err.message);
+    }
   };
 
   const isLiked = (ricettaId) => {
-    return Array.isArray(likedRicetteState) && likedRicetteState.some((ricetta) => ricetta.id === ricettaId);
+    return likedRicetteState.some((ricetta) => ricetta.id === ricettaId);
   };
-  
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
