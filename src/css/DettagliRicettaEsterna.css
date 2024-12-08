@@ -1,0 +1,68 @@
+/* background */
+.bg-dettagliRicettaEsterna {
+    background: linear-gradient(135deg, #f1e7e4, #f2c9c0);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    min-height: 100vh;
+    padding: 20px;
+    color: #160d08;
+    font-family: "Roboto", sans-serif;
+  }/* titolo */
+.titleCard {
+    font-weight: bold;
+    font-size: 2.9rem;
+    letter-spacing: 1px;
+  }
+  
+  /* container dettagli */
+  .dettagli-ricetta {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .dettagli-ricetta .card {
+    background-color: #ffffff;
+    border-radius: 12px;
+  }
+  
+  /* lista ingredienti */
+  .ingredienti-list .list-group-item {
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    background-color: #f1f3f5;
+  }
+  
+  .ingredienti-list .list-group-item:not(:last-child) {
+    margin-bottom: 10px;
+  }
+  
+ /* h2 -> ingredienti, preparazione */
+  .dettagli-ricetta h2 {
+    color: #d30316;
+    border-bottom: 3px solid #d30316;
+    display: inline-block;
+    margin-bottom: 20px;
+  }
+  
+  /* icone */
+  .list-unstyled svg {
+    font-size: 1.3rem;
+    color: #d30316;
+    font-weight: bold;
+  }
+  
+  /* testo ingredienti */
+  .ingredienti-nome {
+    border-bottom: 1px solid black;
+    display: inline-block;
+  }
+  
+/*  testo preparazione ricetta */
+  .preparazione {
+    word-spacing: 0.5rem;
+    line-height: 1.3;
+  }

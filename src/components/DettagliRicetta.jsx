@@ -128,7 +128,7 @@ const DettagliRicetta = () => {
         )}
 
         <Row>
-          {/* Immagine e Titolo */}
+          {/* Img. /Titolo */}
           <Col md={6}>
             <Card className="shadow-sm border-0">
               <Card.Img
@@ -187,7 +187,7 @@ const DettagliRicetta = () => {
         </Row>
         <Row></Row>
 
-        <Row className="mt-5">
+        <Row className="mt-4">
           <Col>
             <h2 className="fw-bold ms-1">Ingredienti:</h2>
             {ingredientiPerSezione &&
@@ -222,15 +222,16 @@ const DettagliRicetta = () => {
           </Col>
         </Row>
 
-        <div>
-          {" "}
+        <Row className="mt-4">
+          <Col>
           <h2 className="fw-bold mb-0 ms-1">Preparazione:</h2>
           <Card className="my-3">
             <Card.Text className="p-3 preparazione">
               {dettagli.procedimento}
             </Card.Text>
           </Card>
-        </div>
+          </Col>
+        </Row>
       </Container>
     </div>
   );
