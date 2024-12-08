@@ -1,0 +1,214 @@
+/*bg*/
+.bg-Allricette {
+  background-image: url("/public/assets/allRicette-bg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  min-height: 100vh;
+  padding: 20px;
+  position: relative;
+}
+/*titolo*/
+.title-AllRicette {
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  font-family: "Poppins", sans-serif;
+  font-size: 2.5rem;
+  letter-spacing: 1px;
+}
+
+/* card */
+.allRicette-card {
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+  background-color: transparent !important;
+}
+
+.allRicette-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+/*img. card*/
+.AllRicette-card-img {
+  height: 180px;
+  object-fit: cover;
+}
+
+.card-Title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  font-family: "Poppins", sans-serif;
+  text-align: center;
+  white-space: nowrap; /* non va accapo */
+  overflow: hidden; 
+  text-overflow: ellipsis; /* (...) */
+  max-width: 100%; 
+  display: block; 
+  color:#333!important;
+}
+.custom-card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 0 0 12px 12px;
+  min-height: 100px;
+ 
+}
+
+/* btn cuore*/
+.heart-btn {
+  border: 2px solid #e60a20;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.heart-btn:hover {
+  background-color: #e60a20;
+  color: white;
+  transform: scale(1.1);
+}
+
+/*paginatione */
+.allRicette-pagination {
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination-item {
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  text-align: center;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+
+}
+.allRicette-pagination .page-link {
+  color: #333 !important;
+}
+
+.allRicette-pagination .page-link:hover {
+  background-color: #f2c9c0 !important; 
+  color: #d30316 !important; 
+  transform: scale(1.1);
+}
+
+.allRicette-pagination .active > .page-link {
+  background-color: #d30316 !important; 
+  color: white !important; 
+  border-color: #d30316 !important; 
+  z-index: 3;
+}
+
+/*Modal add ricettario*/
+.AllRicette-Modal {
+  background-color: rgba(255, 255, 255, 0.2); /* trasparente */
+}
+
+.AllRicette-Modal .modal-content {
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.2
+  ) !important; 
+  backdrop-filter: blur(10px); /*  vetro sempitaspatrente*/
+  -webkit-backdrop-filter: blur(10px); /* x Safari */
+  border-radius: 12px; 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+  border: none; 
+  color:white
+}
+
+.AllRicette-Modal .modal-header,
+.AllRicette-Modal .modal-footer {
+  background-color: rgba(255, 255, 255, 0.2); 
+  border: none; 
+}
+
+.AllRicette-Modal .modal-title {
+  color:white;
+  font-weight: bold;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); 
+}
+
+.AllRicette-Modal .modal-btn {
+    background: linear-gradient(45deg, #e60a20, #160d08);
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 6px;
+    transition: background 0.3s ease-in-out, transform 0.2s ease;
+}
+
+.AllRicette-Modal .modal-btn:hover {
+    background: linear-gradient(45deg, #f2031b, #5f0202);
+    transform: translateY(-2px);
+}
+
+.AllRicette-Modal .form-modal-control {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(230, 10, 32, 0.5);
+  color: #333;
+  font-family: "Poppins", sans-serif;
+  border-radius: 6px;
+}
+
+.AllRicette-Modal .form-modal-control:focus {
+  background-color: rgba(255, 255, 255, 0.4);
+  border-color: rgba(230, 10, 32, 0.8);
+  box-shadow: none;
+}
+
+.AllRicette-Modal .alert {
+  background-color: #216b10;
+  color: #fff;
+  border: 1px solid #184e0c;
+  border-radius: 5px;
+  padding: 15px;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  opacity: 0.8;
+}
+.ricettari-btn {
+  background: linear-gradient(45deg, #0f2b03, #b6c374);
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: background 0.3s ease-in-out, transform 0.2s ease;
+}
+.ricettari-btn:hover {
+  background: linear-gradient(45deg, #2a7709, #b6c374);
+  transform: translateY(-2px);
+  cursor: pointer;
+}
+
+/* media query */
+@media (max-width: 576px) {
+  .AllRicette-card-img {
+    height: 140px;
+  }
+
+  .card-Title {
+    font-size: 1rem;
+  }
+}
