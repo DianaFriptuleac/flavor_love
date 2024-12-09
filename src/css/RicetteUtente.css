@@ -1,5 +1,4 @@
 /*btn- crea Ricetta*/
-
 .creaRicetta-btn {
   background: linear-gradient(45deg, #0f2b03, #b6c374);
   border: none;
@@ -21,7 +20,7 @@
 .ricetteUtenteTitle {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
     font-family: "Poppins", sans-serif;
-    font-size: 2rem;
+    font-size: 2.5rem;
     letter-spacing: 1px;
     text-align: right;
     color: #fff;
@@ -30,4 +29,77 @@
   
   .ricetteUtenteTitle:hover {
     color: #0f2b03;
+
   }
+
+  /* Carosello */
+.ricetteUtente-carousel{
+ width: 100%; 
+position: relative;
+}
+
+.ricetteUtente-carousel .carousel-control-prev-icon,
+.ricetteUtente-carousel .carousel-control-next-icon {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+}
+
+/* Card */
+.ricetteUtente-card {
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: rgba(21, 21, 21, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.ricetteUtente-card:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+.rUtente-img {
+  position: relative;
+  min-height: 18rem;
+  object-fit: cover;
+  width: 100%;
+}
+
+.uRicette-title {
+  position: absolute;
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%); /* Allineo al centro */
+  background-color: rgba(24, 23, 23, 0.7); /* Sfondo semitrasparente */
+  padding: 10px 10px;
+  border-radius: 5px;
+  z-index: 2; /*titolo sopra l'immagine */
+  color:white;
+  text-align: center;
+  overflow: hidden; 
+  text-overflow: ellipsis; /* (...) */
+  white-space: nowrap;
+  max-width: 90%;
+
+}
+
+/* Media Query */
+@media (max-width: 768px) {
+  .ricetteUtente-carousel {
+    width: 100%;
+  }
+
+  .rUtente-img {
+    height: 150px;
+  }
+
+  .ricetteUtenteTitle {
+    text-align: center;
+    font-size: 1.8rem;
+  }
+
+  .creaRicetta-btn {
+    width: 100%;
+    margin-top: 10px;
+  }
+}

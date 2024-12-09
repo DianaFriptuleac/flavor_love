@@ -43,20 +43,21 @@ const RicetteUtente = () => {
         </Button>
       </div>
       {ricette.length > 0 ? (
-        <Row>
-          <Col md={6} lg={10}>
-         <Carousel>
+        <Row className="justify-content-center mx-0">
+          <Col md={6} lg={10}  className="p-0">
+         <Carousel className="ricetteUtente-carousel">
          {gruppiRicette.map((gruppo, index) => (
-           <Carousel.Item key={index}>
+           <Carousel.Item key={index} className="rUtente-item">
              <div className="d-flex flex-wrap justify-content-center">
                {gruppo.map((ricetta) => (
                  <Card
                    key={ricetta.id}
-                   className="m-2"
+                   className="m-2 ricetteUtente-card"
                    style={{ width: "18rem", cursor: "pointer" }}
                    onClick={() => navigate(`/ricette/${ricetta.id}`)}
                  >
                    <Card.Img
+                   className="rUtente-img"
                      variant="top"
                      src={
                        (ricetta.img &&
@@ -66,8 +67,8 @@ const RicetteUtente = () => {
                      }
                      alt={ricetta.titolo}
                    />
-                   <Card.Body>
-                     <Card.Title>{ricetta.titolo}</Card.Title>
+                   <Card.Body className="p-0">
+                     <Card.Title className="uRicette-title">{ricetta.titolo}</Card.Title>
                    </Card.Body>
                  </Card>
                ))}
