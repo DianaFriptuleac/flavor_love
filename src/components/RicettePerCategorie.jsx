@@ -28,6 +28,14 @@ const RicettePerCategorie = () => {
   const token = useSelector((state) => state.auth.token);
   const likedRicetteState = useSelector((state) => state.liked.ricette);
 
+  //img. diverse per ogni categoria
+  const categoryImg = {
+    antipasti: "/assets/bg-antipasti.jpg",
+    primi: "/assets/bg-primi.jpg",
+    secondi: "/assets/bg-secondi.jpg",
+    dolci: "/assets/bg-dolci.jpg",
+  };
+
   useEffect(() => {
     const fetchRicettaByCategorie = async (page) => {
       setLoading(true);
@@ -40,7 +48,7 @@ const RicettePerCategorie = () => {
         }
 
         const resp = await fetch(
-          `http://localhost:3001/api/ricette/categoria?categoria=${categoria}&page=${page}&size=10&sortBy=titolo`,
+          `http://localhost:3001/api/ricette/categoria?categoria=${categoria}&page=${page}&size=12&sortBy=titolo`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -121,7 +129,7 @@ const RicettePerCategorie = () => {
 
   return (
     <div className="bg-categorie">
-    <Container>
+    <Container fluid>
       <h2 className="categorie-title">Ricette per Categoria: {categoria}</h2>
       {loading && <Spinner animation="border" />}
       {error && (
@@ -129,10 +137,18 @@ const RicettePerCategorie = () => {
           {error} <br /> Reindirizzamento a tutte le ricette...
         </Alert>
       )}
-      <Row>
+    <Row className="img-card-container">
+    <Col className="imgPerCategorie">
+        <img
+          src={categoryImg[categoria] || "/assets/default-ricetta.jpg"}
+          alt={`${categoria} img`}
+          className="category-img"
+        />
+
+        </Col>
+        <Col className="card-container">
         {ricette.map((ricetta) => (
-          <Col key={ricetta.id} md={4}>
-            <Card className="mb-4 categorie-card">
+           <Card key={ricetta.id} className="categorie-card">
               <Card.Img
                 variant="top"
                 className="card-img-categorie"
@@ -153,8 +169,8 @@ const RicettePerCategorie = () => {
                 </Button>
               </Card.Body>
             </Card>
-          </Col>
         ))}
+        </Col>
       </Row>
       <Pagination className="justify-content-center mt-4 categorie-pagination">
         {Array.from({ length: totalPages }, (_, i) => (
