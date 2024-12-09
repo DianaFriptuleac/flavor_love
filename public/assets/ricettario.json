@@ -1,0 +1,30 @@
+{
+    "ricettari": [
+      {
+        "id": "1",
+        "nome": "Ricettario 1",
+        "imgUrl": "/assets/ricettario/ricettario1.jpg"
+      },
+      {
+        "id": "2",
+        "nome": "Ricettario 2",
+       "imgUrl": "/assets/ricettario/ricettario2.jpg"
+      },
+      {
+        "id": "3",
+        "nome": "Ricettario 3",
+        "imgUrl": "/assets/ricettario/ricettario3.jpg"
+      },
+      {
+        "id": "4",
+        "nome": "Ricettario 4",
+       "imgUrl": "/assets/ricettario/ricettario4.jpg"
+      },
+      {
+        "id": "5",
+        "nome": "Ricettario 5",
+        "imgUrl": "/assets/ricettario/ricettario5.jpg"
+      }
+    ]
+  }
+  

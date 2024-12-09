@@ -1,0 +1,21 @@
+.bg-ricettario {
+    background-image: url("/public/assets/bg-ricettari.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    min-height: 100vh;
+    padding: 20px;
+    position: relative;
+  }
+.titolo-ricettario{
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    font-family: "Poppins", sans-serif;
+    font-size: 2.5rem;
+    letter-spacing: 1px;
+    color: #fff;
+    transition: color 0.3s ease-in-out;
+}
+.titolo-ricettario:hover{
+    color: #0f2b03; 
+}

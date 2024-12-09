@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Container, Card, Button, Form, Alert, Modal } from "react-bootstrap";
+import { Container,Row, Col, Card, Button, Form, Alert, Modal } from "react-bootstrap";
 import {
   fetchRicette,
   fetchRicetteUtente,
@@ -265,8 +265,13 @@ const UserProfile = () => {
         <RicetteUtente ricette={ricette} />
       </Container>
       <Container>
-        <Ricettario/>
-      </Container>
+  <Row className="d-flex align-items-center justify-content-center">
+    <Col md={4}>
+      <Ricettario />
+    </Col>
+  </Row>
+</Container>
+
     </div>
   );
 };

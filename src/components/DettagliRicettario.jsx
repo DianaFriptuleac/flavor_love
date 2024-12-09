@@ -33,6 +33,7 @@ const DettagliRicettario = () => {
       );
       if (response.ok) {
         const data = await response.json();
+        console.log("RICETTE", data)
         setRicettario(data);
         setRicette(data.ricetta.content || []);
         setTotalPages(data.ricetta.totalPages || 0);
@@ -110,7 +111,6 @@ const DettagliRicettario = () => {
                   onClick={() => navigate(`/ricette/${ricetta.id}`)}
                 >
                   <div>
-                    <strong>{ricetta.titolo}</strong>
                     {ricetta.imgUrl && (
                       <img
                         src={ricetta.imgUrl}
@@ -118,6 +118,7 @@ const DettagliRicettario = () => {
                         style={{ width: "100px", marginLeft: "10px" }}
                       />
                     )}
+                    <strong className="ms-3">{ricetta.titolo}</strong>
                   </div>
                   <div>
                     <Button
