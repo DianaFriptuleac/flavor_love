@@ -1,5 +1,7 @@
 import { Form, Button, ListGroup } from "react-bootstrap";
 import { useEffect } from "react";
+import { IoTrash } from "react-icons/io5";
+import"../css/CreaRicetta.css"
 //passo 3 props-> array img, addimg e remove
 const ImgRicetta = ({ images = [], addImage, removeImage, isEditing }) => {
   useEffect(() => {
@@ -16,10 +18,10 @@ const ImgRicetta = ({ images = [], addImage, removeImage, isEditing }) => {
 
   return (
     <div>
-      <h4>Immagini Ricette</h4>
+       <h4 className="titolo mt-2">Immagini Ricette</h4>
       <Form.Group>
-        <Form.Label>Carica Immagine</Form.Label>
-        <Form.Control type="file" onChange={handleImageChange} />
+        <Form.Label className="creaRicetta-label">Carica Immagine:</Form.Label>
+        <Form.Control className="creaRicetta-input" type="file" onChange={handleImageChange} />
       </Form.Group>
 
       {/* Lista img. */}
@@ -41,7 +43,8 @@ const ImgRicetta = ({ images = [], addImage, removeImage, isEditing }) => {
                   style={{ borderRadius: "8px", objectFit: "cover" }}
                 />
                 <Button
-                  variant="danger"
+                className="f-flex align-items-center"
+                 variant="outline-danger"
                   size="sm"
                   onClick={
                     () =>
@@ -50,13 +53,13 @@ const ImgRicetta = ({ images = [], addImage, removeImage, isEditing }) => {
                         : removeImage(index) // creazione
                   }
                 >
-                  Rimuovi
+                   <IoTrash />
                 </Button>
               </ListGroup.Item>
             );
           })
         ) : (
-          <p>Nessuna immagine caricata.</p>
+          <p className="creaRicetta-label">Nessuna immagine caricata.</p>
         )}
       </ListGroup>
     </div>

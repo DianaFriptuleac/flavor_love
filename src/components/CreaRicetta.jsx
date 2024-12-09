@@ -88,6 +88,15 @@ const CreaRicetta = () => {
     }));
   };
 
+  // Rimuovo categoria
+  const handleRemoveCategory = (categoryToRemove) => {
+    setRicettaData((prevData) => ({
+      ...prevData,
+      nomeCategorieRicette: prevData.nomeCategorieRicette.filter(
+        (category) => category !== categoryToRemove
+      ),
+    }));
+  };
   // Gestisco la creazione della ricetta - invio dati all'API e salvo la ricetta creata
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -119,7 +128,7 @@ const CreaRicetta = () => {
       dispatch(resetRicetta());
 
       setAlert({
-        message: "Ricetta creata con successo! Ora puoi caricare un'immagine.",
+        message: "Inserisci gli ingredienti!",
         variant: "success",
       });
     } catch (error) {
@@ -180,154 +189,194 @@ const CreaRicetta = () => {
 
   return (
     <div className="creaRicetta_background">
-      <Container>
-        <h2 className="text-center my-4">Crea una nuova ricetta</h2>
-        {alert.message && (
-          <Alert variant={alert.variant}>{alert.message}</Alert>
-        )}
-        {/*titolo ricetta */}
-        <Form onSubmit={handleSubmit}>
-          <Form.Group className="mb-3">
-            <Form.Label>Titolo</Form.Label>
-            <Form.Control
-              type="text"
-              name="titolo"
-              value={ricettaData.titolo}
-              onChange={handleRicettaChange}
-              required
-            />
-
-            {/*tempo di preparazione */}
+      <Container className="d-flex justify-content-center">
+        <div className="creaRicetta-form-container">
+          <h2 className="text-center my-4 titolo-creaRicette">
+            Crea una nuova ricetta
+          </h2>
+          {alert.message && (
+            <Alert
+              variant={alert.variant === "success" ? "success" : "danger"}
+              className={`creaRicetta-alert creaRicetta-alert-${alert.variant}`}
+            >
+              {alert.message}
+            </Alert>
+          )}
+          {/*titolo ricetta */}
+          <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3">
-              <Form.Label>Tempo di preparazione (minuti)</Form.Label>
+              <Form.Label className="titolo fw-bold">Titolo</Form.Label>
               <Form.Control
-                type="number"
-                name="tempoPreparazioneMinuti"
-                value={ricettaData.tempoPreparazioneMinuti}
+                type="text"
+                name="titolo"
+                value={ricettaData.titolo}
                 onChange={handleRicettaChange}
-                min="1"
+                className="creaRicetta-input"
+                required
+              />
+
+              {/*tempo di preparazione */}
+              <Form.Group className="mb-3">
+                <Form.Label className="creaRicetta-label mb-0 mt-1">
+                  Tempo di preparazione (minuti)
+                </Form.Label>
+                <Form.Control
+                  type="number"
+                  name="tempoPreparazioneMinuti"
+                  value={ricettaData.tempoPreparazioneMinuti}
+                  onChange={handleRicettaChange}
+                  className="creaRicetta-input"
+                  min="1"
+                  required
+                />
+              </Form.Group>
+              {/*tempo di cottura*/}
+              <Form.Group className="mb-3">
+                <Form.Label className="creaRicetta-label mb-0 mt-1">
+                  Tempo di cottura (minuti)
+                </Form.Label>
+                <Form.Control
+                  type="number"
+                  name="tempoCotturaMinuti"
+                  value={ricettaData.tempoCotturaMinuti}
+                  onChange={handleRicettaChange}
+                  className="creaRicetta-input"
+                  min="0"
+                />
+              </Form.Group>
+              {/*categorie */}
+              <Form.Group className="mb-3">
+                <Form.Label className="creaRicetta-label mb-0 mt-1">
+                  Categoria
+                </Form.Label>
+                <Form.Select
+                  onChange={handleCategoryChange}
+                  className="creaRicetta-select"
+                  value=""
+                >
+                  <option value="">Seleziona una categoria</option>
+                  {categorie.map((categoria) => (
+                    <option key={categoria.nome} value={categoria.nome}>
+                      {categoria.nome}
+                    </option>
+                  ))}
+                </Form.Select>
+                <div>
+                  {ricettaData.nomeCategorieRicette.map((categoria, index) => (
+                    <span
+                      key={index}
+                      className="badge me-2 mt-1 d-flex align-items-center"
+                    >
+                      {categoria}
+                      <Button
+                        variant="link"
+                        onClick={() => handleRemoveCategory(categoria)}
+                        className="x-btn"
+                      >
+                        X
+                      </Button>
+                    </span>
+                  ))}
+                </div>
+              </Form.Group>
+              {/*dificolta */}
+              <Form.Group className="mb-3">
+                <Form.Label className="creaRicetta-label mb-0 mt-1">
+                  Difficoltà
+                </Form.Label>
+                <Form.Select
+                  name="difficoltaRicetta"
+                  value={ricettaData.difficoltaRicetta}
+                  onChange={handleRicettaChange}
+                  className="creaRicetta-input"
+                  required
+                >
+                  <option value="FACILE">Facile</option>
+                  <option value="MEDIA">Media</option>
+                  <option value="DIFFICILE">Difficile</option>
+                </Form.Select>
+              </Form.Group>
+              {/*costo */}
+              <Form.Group className="mb-3">
+                <Form.Label className="creaRicetta-label mb-0 mt-1">
+                  Costo
+                </Form.Label>
+                <Form.Select
+                  name="costoRicetta"
+                  value={ricettaData.costoRicetta}
+                  onChange={handleRicettaChange}
+                  className="creaRicetta-input"
+                  required
+                >
+                  <option value="BASSO">Basso</option>
+                  <option value="MEDIO">Medio</option>
+                  <option value="ALTO">Alto</option>
+                </Form.Select>
+              </Form.Group>
+
+              {/*procedimento */}
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label className="creaRicetta-label mb-0 mt-1">
+                Procedimento
+              </Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={6}
+                name="procedimento"
+                value={ricettaData.procedimento}
+                onChange={handleRicettaChange}
+                className="creaRicetta-input"
                 required
               />
             </Form.Group>
-            {/*tempo di cottura*/}
-            <Form.Group className="mb-3">
-              <Form.Label>Tempo di cottura (minuti)</Form.Label>
-              <Form.Control
-                type="number"
-                name="tempoCotturaMinuti"
-                value={ricettaData.tempoCotturaMinuti}
-                onChange={handleRicettaChange}
-                min="0"
-              />
-            </Form.Group>
-            {/*categorie */}
-            <Form.Group className="mb-3">
-              <Form.Label>Categoria</Form.Label>
-              <Form.Select onChange={handleCategoryChange} value="">
-                <option value="">Seleziona una categoria</option>
-                {categorie.map((categoria) => (
-                  <option key={categoria.nome} value={categoria.nome}>
-                    {categoria.nome}
-                  </option>
-                ))}
-              </Form.Select>
-              <div>
-                {ricettaData.nomeCategorieRicette.map((categoria, index) => (
-                  <span key={index} className="badge bg-secondary me-2">
-                    {categoria}
-                  </span>
-                ))}
-              </div>
-            </Form.Group>
-            {/*dificolta */}
-            <Form.Group className="mb-3">
-              <Form.Label>Difficoltà</Form.Label>
-              <Form.Select
-                name="difficoltaRicetta"
-                value={ricettaData.difficoltaRicetta}
-                onChange={handleRicettaChange}
-                required
-              >
-                <option value="FACILE">Facile</option>
-                <option value="MEDIA">Media</option>
-                <option value="DIFFICILE">Difficile</option>
-              </Form.Select>
-            </Form.Group>
-            {/*costo */}
-            <Form.Group className="mb-3">
-              <Form.Label>Costo</Form.Label>
-              <Form.Select
-                name="costoRicetta"
-                value={ricettaData.costoRicetta}
-                onChange={handleRicettaChange}
-                required
-              >
-                <option value="BASSO">Basso</option>
-                <option value="MEDIO">Medio</option>
-                <option value="ALTO">Alto</option>
-              </Form.Select>
-            </Form.Group>
 
-            {/*procedimento */}
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Procedimento</Form.Label>
-            <Form.Control
-              as="textarea"
-              rows={6}
-              name="procedimento"
-              value={ricettaData.procedimento}
-              onChange={handleRicettaChange}
-              required
-            />
-          </Form.Group>
-
-          {/* Invio del form */}
-          <div className="mt-4">
-            <Button type="submit" variant="primary">
-              Crea Ricetta
-            </Button>
-          </div>
-        </Form>
-
-        {/*ingredienti */}
-
-        {createdRicetta && (
-          <IngredientiRicetta
-            ricettaId={createdRicetta.id}
-            ingrediente={ricettaState.ingredienti}
-            addIngrediente={(ingrediente) =>
-              dispatch(addIngredienti(createdRicetta.id, [ingrediente]))
-            }
-            removeIngrediente={(index) => dispatch(removeIngrediente(index))}
-          />
-        )}
-
-        {/* carico l'immagine solo se la ricetta e stata creata */}
-        {createdRicetta &&
-          (isUploadingImage ? (
-            <div className="text-center my-3">
-              <Spinner animation="border" role="status">
-                <span className="visually-hidden">Caricamento...</span>
-              </Spinner>
+            {/* Invio del form */}
+            <div className="mt-4">
+              <Button type="submit" className="creaRicetta-btn">
+                Crea Ricetta
+              </Button>
             </div>
-          ) : (
-            <ImgRicetta
-              images={ricettaState.image}
-              addImage={(file) => handleImageUpload(file)} // Passo l'upload
-              removeImage={(index) => dispatch(removeImage(index))}
-              isEditing={false}
-            />
-          ))}
+          </Form>
 
-        {/* salvo ancle l'img. e torno al profilo */}
-        <Button
-          variant="success"
-          className="mt-3"
-          onClick={handleSaveAndNavigate}
-        >
-          Salva e torna al Profilo
-        </Button>
+          {/*ingredienti */}
+          {createdRicetta && (
+            <IngredientiRicetta
+              ricettaId={createdRicetta.id}
+              ingrediente={ricettaState.ingredienti}
+              addIngrediente={(ingrediente) =>
+                dispatch(addIngredienti(createdRicetta.id, [ingrediente]))
+              }
+              removeIngrediente={(index) => dispatch(removeIngrediente(index))}
+            />
+          )}
+
+          {/* carico l'immagine solo se la ricetta e stata creata */}
+          {createdRicetta &&
+            (isUploadingImage ? (
+              <div className="text-center my-3">
+                <Spinner animation="border" role="status">
+                  <span className="visually-hidden">Caricamento...</span>
+                </Spinner>
+              </div>
+            ) : (
+              <ImgRicetta
+                images={ricettaState.image}
+                addImage={(file) => handleImageUpload(file)} // Passo l'upload
+                removeImage={(index) => dispatch(removeImage(index))}
+                isEditing={false}
+              />
+            ))}
+
+          {/* salvo ancle l'img. e torno al profilo */}
+          <Button
+            variant="success"
+            className="mt-3 creaRicetta-btn"
+            onClick={handleSaveAndNavigate}
+          >
+            Salva e torna al Profilo
+          </Button>
+        </div>
       </Container>
     </div>
   );

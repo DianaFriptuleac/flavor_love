@@ -6,6 +6,8 @@ import {
   addIngredienti,
 } from "../redux/actions/creaRicetta";
 import { Form, Button, ListGroup } from "react-bootstrap";
+import { IoTrash } from "react-icons/io5";
+import "../css/CreaRicetta.css";
 const IngredientiRicetta = ({ ricettaId }) => {
   const dispatch = useDispatch();
   const ingredienti = useSelector((state) => state.ricetta.ingredienti);
@@ -61,21 +63,25 @@ const IngredientiRicetta = ({ ricettaId }) => {
 
   return (
     <div>
-      <h4>Ingredienti:</h4>
-      {message && <div className="alert alert-info mt-2">{message}</div>}
+      <h4 className="titolo mt-2">Ingredienti:</h4>
+      {message && (
+        <div className="alert creaRicetta-alert-success mt-2">{message}</div>
+      )}
       <Form.Group className="mb-3">
-        <Form.Label>Sezione</Form.Label>
+        <Form.Label className="creaRicetta-label">Sezione</Form.Label>
         <Form.Control
           type="text"
+          className="creaRicetta-input"
           value={currentSezione}
           placeholder="Inserisci la sezione"
           onChange={(e) => setCurrentSezione(e.target.value)}
         />
       </Form.Group>
       <Form.Group className="mb-3">
-        <Form.Label>Nome</Form.Label>
+        <Form.Label className="creaRicetta-label">Nome</Form.Label>
         <Form.Control
           type="text"
+          className="creaRicetta-input"
           name="nome"
           value={ingredientData.nome}
           placeholder="Es. Farina"
@@ -85,9 +91,10 @@ const IngredientiRicetta = ({ ricettaId }) => {
         />
       </Form.Group>
       <Form.Group className="mb-3">
-        <Form.Label>Dosaggio</Form.Label>
+        <Form.Label className="creaRicetta-label">Dosaggio</Form.Label>
         <Form.Control
           type="text"
+          className="creaRicetta-input"
           name="dosaggio"
           value={ingredientData.dosaggio}
           placeholder="Es. 500g"
@@ -96,7 +103,11 @@ const IngredientiRicetta = ({ ricettaId }) => {
           }
         />
       </Form.Group>
-      <Button variant="secondary" onClick={handleAddIngredient}>
+      <Button
+        variant="secondary"
+        className="creaRicetta-btn"
+        onClick={handleAddIngredient}
+      >
         Aggiungi Ingrediente
       </Button>
 
@@ -107,17 +118,18 @@ const IngredientiRicetta = ({ ricettaId }) => {
             {ingredients.map((ingredienti, i) => (
               <ListGroup.Item
                 key={`${ingredienti.id}-${i}`}
-                className="d-flex justify-content-between"
+                className="d-flex justify-content-between creaRicetta-input my-1"
               >
                 {`${ingredienti.nome || "Nome non disponibile"} - ${
                   ingredienti.dosaggio || "Dosaggio non disponibile"
                 }`}
                 <Button
-                  variant="danger"
+                  variant="outline-danger"
+                  className="f-flex align-items-center"
                   size="sm"
                   onClick={() => handleDeleteIngrediente(ingredienti.id)}
                 >
-                  Rimuovi
+                  <IoTrash />
                 </Button>
               </ListGroup.Item>
             ))}
