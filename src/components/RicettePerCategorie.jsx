@@ -13,6 +13,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Pagination } from "react-bootstrap";
 import { likedRicette } from "../redux/actions/likedActions";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
+import "../css/RicettePerCategorie.css"
 
 const RicettePerCategorie = () => {
   const { categoria } = useParams();
@@ -119,8 +120,9 @@ const RicettePerCategorie = () => {
   };
 
   return (
+    <div className="bg-categorie">
     <Container>
-      <h2>Ricette per Categoria: {categoria}</h2>
+      <h2 className="categorie-title">Ricette per Categoria: {categoria}</h2>
       {loading && <Spinner animation="border" />}
       {error && (
         <Alert variant="danger">
@@ -130,29 +132,31 @@ const RicettePerCategorie = () => {
       <Row>
         {ricette.map((ricetta) => (
           <Col key={ricetta.id} md={4}>
-            <Card className="mb-4">
+            <Card className="mb-4 categorie-card">
               <Card.Img
                 variant="top"
+                className="card-img-categorie"
                 src={ricetta.img[0]?.url || "/assets/default_ricetta.jpg"}
                 key={ricetta.id}
                 style={{ cursor: "pointer" }}
                 onClick={() => navigate(`/ricette/${ricetta.id}`)}
               />
-              <Card.Body>
-                <Card.Title>{ricetta.titolo}</Card.Title>
+              <Card.Body className="card-body-categorie d-flex align-items-center flex-column">
+                <Card.Title className="card-title-categorie">{ricetta.titolo}</Card.Title>
                 <Button
+                className="categorie-btn"
                   variant="light"
                   onClick={() => toggleLike(ricetta)}
-                  style={{ color: isLiked(ricetta.id) ? "red" : "gray" }}
+                  style={{ color: isLiked(ricetta.id) ? "red" : "red" }}
                 >
-                  {isLiked(ricetta.id) ? <FaHeart /> : <FaRegHeart />}
+                  {isLiked(ricetta.id) ? <FaHeart className="heart-icon" /> : <FaRegHeart />}
                 </Button>
               </Card.Body>
             </Card>
           </Col>
         ))}
       </Row>
-      <Pagination className="justify-content-center mt-4">
+      <Pagination className="justify-content-center mt-4 categorie-pagination">
         {Array.from({ length: totalPages }, (_, i) => (
           <Pagination.Item
             key={i}
@@ -164,6 +168,7 @@ const RicettePerCategorie = () => {
         ))}
       </Pagination>
     </Container>
+    </div>
   );
 };
 

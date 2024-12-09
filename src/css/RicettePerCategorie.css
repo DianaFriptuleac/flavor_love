@@ -1,0 +1,120 @@
+/*bg*/
+.bg-categorie {
+  background-image: url("/public/assets/bg-categorie.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  min-height: 100vh;
+  padding: 20px;
+  position: relative;
+}
+
+/*h2*/
+.categorie-title {
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  font-family: "Poppins", sans-serif;
+  font-size: 2.5rem;
+  letter-spacing: 1px;
+}
+
+/*card*/
+.categorie-card {
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.categorie-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+.card-img-categorie {
+  height: 180px;
+  object-fit: cover;
+}
+.card-img-categorie:hover {
+  transform: scale(1.05);
+}
+.card-title-categorie {
+  font-size: 1.2rem;
+  font-weight: bold;
+  font-family: "Poppins", sans-serif;
+  text-align: center;
+  white-space: nowrap; /* non va accapo */
+  overflow: hidden;
+  text-overflow: ellipsis; /* (...) */
+  max-width: 100%;
+  display: block;
+  color: #333 !important;
+}
+.card-body-categori {
+
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+
+  border-radius: 0 0 12px 12px;
+  min-height: 100px;
+}
+.categorie-btn {
+  border: 1px solid #e60a20;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.categorie-btn:hover {
+  background-color: #e60a20;
+  color: white;
+  transform: scale(1.1);
+}
+.categorie-pagination .page-item {
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.categorie-pagination .page-link {
+  color: #333;
+}
+.categorie-pagination .page-link:hover {
+  background-color: #f2c9c0;
+  color: #d30316;
+  transform: scale(1.1);
+}
+.categorie-pagination .active > .page-link {
+  background-color: #d30316;
+  color: white;
+  border-color: #d30316;
+  z-index: 3;
+}
+.spinner-border {
+  color: #d30316;
+  margin: 20px auto;
+  display: block;
+}
+
+.alert-danger {
+  background-color: rgba(230, 10, 32, 0.8);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 15px;
+  font-size: 1rem;
+  text-align: center;
+}
