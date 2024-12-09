@@ -16,3 +16,15 @@
 .user_png{
   width: 2.5rem;
 }
+.custom-input:focus {
+  border-color:  #2a7709; 
+  outline: none; /* outline di default */
+  box-shadow: 0 0 30px #2a7709;
+}
+
+.search-btn:hover{
+  background-color:transparent!important;
+  box-shadow: 0 0 30px #2a7709; 
+  transform: scale(1.05); /*ingrandimento */
+
+}

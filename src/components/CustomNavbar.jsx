@@ -2,7 +2,7 @@ import { Navbar, Container, Nav, Form, Button } from "react-bootstrap";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import DropdownRicettePerCategorie from "./DropdownRicettePerCategorie";
 import { useDispatch, useSelector } from "react-redux";
-import { searchedRicetta } from "../redux/actions/searchActions";
+import { searchedRicetta, searchedRichiesta, searchError } from "../redux/actions/searchActions";
 import { useState } from "react";
 import "../css/CustomNavbar.css";
 
@@ -20,8 +20,9 @@ const CustomNavbar = function () {
   };
 
   const handleSearch = async () => {
-    if (searchQuery.length > 1) {
+    if (searchQuery.trim().length > 1) {
       try {
+        dispatch(searchedRichiesta()); 
         const response = await fetch(
           `http://localhost:3001/api/ricette/cerca?titolo=${searchQuery}&size=20`,
           {
@@ -31,24 +32,28 @@ const CustomNavbar = function () {
           }
         );
 
-        if (response.ok) {
-          const data = await response.json();
-          if (data.content && data.content.length > 0) {
-            console.log("Dati ricevuti:", data);
-            dispatch(searchedRicetta(data.content));
-            navigate("/ricette/search");
-          } else {
-            console.warn("Nessun elemento trovato");
-            dispatch(searchedRicetta([]));
-          }
-        } else {
-          console.error("Errore nella ricerca delle ricette");
+        if (!response.ok) {
+          throw new Error(`Errore HTTP: ${response.status}`); 
         }
-      } catch (err) {
-        console.error("Errore nel fetch delle ricette:", err.message);
+  
+        const data = await response.json();
+  
+        if (data.content && data.content.length > 0) {
+          dispatch(searchedRicetta(data.content)); 
+          navigate("/ricette/search"); 
+        } else {
+          console.warn("Nessun elemento trovato");
+          dispatch(searchedRicetta([])); 
+        }
+      } catch (error) {
+        console.error("Errore durante la ricerca:", error.message);
+        dispatch(searchError(error.message));
+      } finally {
+        setSearchQuery(""); // svuoto l'input
       }
+    } else {
+      console.warn("La query di ricerca deve essere di almeno 2 caratteri.");
     }
-    setSearchQuery(""); // Svuoto l'input
   };
 
   const handleEnter = (e) => {
@@ -90,11 +95,12 @@ const CustomNavbar = function () {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onKeyDown={handleEnter}
-              className="me-2"
+              className="me-2 custom-input"
               
             />
             <Button
-              variant="outline-secondary"
+            variant="outline-success"
+             className="search-btn"
               onClick={handleSearch}
               disabled={searchQuery.length < 2} // Disabilito se meno di 2 caratteri
             >
