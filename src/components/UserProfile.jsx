@@ -1,6 +1,15 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Container,Row, Col, Card, Button, Form, Alert, Modal } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  Button,
+  Form,
+  Alert,
+  Modal,
+} from "react-bootstrap";
 import {
   fetchRicette,
   fetchRicetteUtente,
@@ -58,7 +67,6 @@ const UserProfile = () => {
     dispatch(fetchRicetteUtente());
   }, [dispatch]);
 
-  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
@@ -265,13 +273,24 @@ const UserProfile = () => {
         <RicetteUtente ricette={ricette} />
       </Container>
       <Container>
-  <Row className="d-flex align-items-center justify-content-center">
-    <Col md={4}>
-      <Ricettario />
-    </Col>
-  </Row>
-</Container>
-
+        <Row className="ricettario_row d-flex justify-content-center mt-4">
+          <Col md={6}>
+            <div className="ricettario-container">
+              <div className="ricettario-content">
+                <h3 className="ricettario-title">Vai ai tuoi Ricettari</h3>
+              </div>
+              <div className="ricettario-image-container">
+                <img
+                  onClick={() => navigate("/ricettario")}
+                  className="ricettario_img"
+                  src="/assets/ricettario.jpg"
+                  alt="Vai ai Ricettari"
+                />
+              </div>
+            </div>
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 };
