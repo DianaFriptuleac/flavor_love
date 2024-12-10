@@ -1,0 +1,148 @@
+/* bg */
+.modificaRicetta_background {
+  background-image: url("/public/assets/user_profile_bg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  min-height: 100vh;
+  padding: 20px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/*titolo*/
+.titolo-modificaRicette {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  font-family: "Poppins", sans-serif;
+  font-size: 2.5rem;
+  letter-spacing: 1px;
+}
+/*titolo sezioni*/
+.titoloRosso {
+  color: #d30316;
+  border-bottom: 3px solid #d30316;
+  display: inline-block;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+/* container form */
+.modificaRicetta-form-container {
+  background: rgba(255, 255, 255, 0.8); /* vetro opaco */
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  padding: 30px;
+  width: 100%;
+  max-width: 700px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.modificaRicetta-form-container:hover {
+  transform: scale(1.02);
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* input */
+.modificaRicetta-input,
+.modificaRicetta-textarea,
+.modificaRicetta-select {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  width: 100%;
+  font-size: 1rem;
+  color: #333;
+  background-color: rgba(255, 255, 255, 0.8); /*semi-trasparente */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* hover/focus */
+.modificaRicetta-input:hover,
+.modificaRicetta-textarea:hover,
+.modificaRicetta-select:hover,
+.modificaRicetta-input:focus,
+.modificaRicetta-textarea:focus,
+.modificaRicetta-select:focus {
+  border-color: #0f2b03;
+  box-shadow: 0px 0px 8px rgba(15, 43, 3, 0.5);
+  outline: none;
+}
+
+/* btn */
+.salva-btn {
+  background: linear-gradient(45deg, #0f2b03, #b6c374);
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 15px 20px;
+  border-radius: 6px;
+  transition: background 0.3s ease-in-out, transform 0.2s ease;
+}
+
+.salva-btn:hover {
+  background: linear-gradient(45deg, #2a7709, #d1de88);
+  transform: translateY(-2px);
+}
+/* badge per categorie */
+.badge {
+  display: inline-block;
+  background-color: #2a7709;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 12px;
+  margin-right: 5px;
+  font-size: 0.6rem;
+  text-transform: capitalize;
+  transition: background 0.3s ease;
+  height: 25px;
+  white-space: nowrap;
+}
+.x-btn {
+  color: #e60a20;
+  font-weight: bold;
+  padding-left: 8px;
+  text-decoration: none;
+}
+.x-btn:hover {
+  color: #e60a20;
+}
+
+/*tendina*/
+select {
+  background-color: #f5f5f5;
+  color: #333;
+  box-shadow: 0px 0px 8px rgba(15, 43, 3, 0.5);
+  border-radius: 8px;
+  padding: 8px;
+  transition: background-color 0.3s ease;
+}
+
+select:hover,
+select:focus {
+  background-color: #e0e0e0;
+}
+option {
+  background-color: rgba(255, 255, 255, 0.5);
+  color: #333;
+}
+
+option:hover {
+  background-color: #d4edda;
+  color: #155724;
+}
+/* selezionatao */
+option:checked {
+  background-color: #c3e6cb;
+  color: #155724;
+}
+@media (max-width: 768px) {
+    .titolo-modificaRicette{
+        font-size: 2rem;
+    }
+}

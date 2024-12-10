@@ -16,6 +16,7 @@ import {
   addIngredienti,
   removeIngrediente,
 } from "../redux/actions/creaRicetta";
+import "../css/ModificaRicetta.css";
 
 const ModificaRicetta = () => {
   const { id } = useParams();
@@ -85,18 +86,6 @@ const ModificaRicetta = () => {
       setIsProcessing(false);
     }
   };
-
-  /* const handleImageRemove = async (imageId) => {
-    setIsProcessing(true);
-    try {
-      await dispatch(removeImage(id, imageId));
-      dispatch(fetchImagesByRicettaId(id)); 
-      setIsProcessing(false);
-    } catch (error) {
-      console.error("Errore rimozione immagine:", error.message);
-      setIsProcessing(false);
-    }
-  };*/
 
   // Fetch categorie
   useEffect(() => {
@@ -192,132 +181,164 @@ const ModificaRicetta = () => {
   if (error) return <Alert variant="danger">{error}</Alert>;
 
   return (
-    <Container>
-      <h2>Modifica Ricetta</h2>
-      {alert.message && <Alert variant={alert.variant}>{alert.message}</Alert>}
-      <Form onSubmit={handleUpdate}>
-        <Form.Group className="mb-3">
-          <Form.Label>Titolo</Form.Label>
-          <Form.Control
-            type="text"
-            name="titolo"
-            value={formData.titolo}
-            onChange={(e) =>
-              setFormData({ ...formData, titolo: e.target.value })
-            }
-            required
-          />
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label>Procedimento</Form.Label>
-          <Form.Control
-            as="textarea"
-            rows={5}
-            name="procedimento"
-            value={formData.procedimento}
-            onChange={handleChange}
-            required
-          />
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label>Categoria</Form.Label>
-          <Form.Select onChange={handleAddCategory} value="">
-            <option value="">Seleziona una categoria</option>
-            {categorie.map((categoria) => (
-              <option key={categoria.nome} value={categoria.nome}>
-                {categoria.nome}
-              </option>
-            ))}
-          </Form.Select>
-          <div>
-            {formData.nomeCategorieRicette.map((categoria, index) => (
-              <span key={index} className="badge bg-secondary me-2">
-                {categoria}
-                <Button
-                  variant="link"
-                  onClick={() => handleRemoveCategory(categoria)}
-                  className="text-danger"
+    <div className="modificaRicetta_background">
+      <Container className="d-flex justify-content-center">
+        <div className="modificaRicetta-form-container">
+          <h2 className="text-center my-4 titolo-modificaRicette">
+            Modifica Ricetta
+          </h2>
+          {alert.message && (
+            <Alert
+              variant={alert.variant === "success" ? "success" : "danger"}
+              className={`modificaRicetta-alert modificaRicetta-alert-${alert.variant}`}
+            >
+              {alert.message}
+            </Alert>
+          )}
+          <Form onSubmit={handleUpdate}>
+            <Form.Group className="mb-3">
+              <Form.Label className="titoloRosso">Titolo</Form.Label>
+              <Form.Control
+                type="text"
+                name="titolo"
+                value={formData.titolo}
+                onChange={(e) =>
+                  setFormData({ ...formData, titolo: e.target.value })
+                }
+                className="modificaRicetta-input"
+                required
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label className="titolo-label fw-bold">
+                Procedimento
+              </Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={5}
+                name="procedimento"
+                value={formData.procedimento}
+                onChange={handleChange}
+                className="modificaRicetta-input"
+                required
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label className="titolo-label fw-bold">
+                Categoria
+              </Form.Label>
+              <Form.Select
+                className="modificaRicetta-input"
+                onChange={handleAddCategory}
+                value=""
+              >
+                <option value="">Seleziona una categoria</option>
+                {categorie.map((categoria) => (
+                  <option key={categoria.nome} value={categoria.nome}>
+                    {categoria.nome}
+                  </option>
+                ))}
+              </Form.Select>
+              {formData.nomeCategorieRicette.map((categoria, index) => (
+                <span
+                  key={index}
+                  className="badge me-2 mt-1 d-flex align-items-center"
                 >
-                  x
-                </Button>
-              </span>
-            ))}
-          </div>
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label>Difficoltà</Form.Label>
-          <Form.Select
-            name="difficoltaRicetta"
-            value={formData.difficoltaRicetta}
-            onChange={handleChange}
-          >
-            <option value="FACILE">Facile</option>
-            <option value="MEDIA">Media</option>
-            <option value="DIFFICILE">Difficile</option>
-          </Form.Select>
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label>Tempo di Preparazione (minuti)</Form.Label>
-          <Form.Control
-            type="number"
-            name="tempoPreparazioneMinuti"
-            value={formData.tempoPreparazioneMinuti}
-            onChange={handleChange}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label>Tempo di Cottura (minuti)</Form.Label>
-          <Form.Control
-            type="number"
-            name="tempoCotturaMinuti"
-            value={formData.tempoCotturaMinuti}
-            onChange={handleChange}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label>Costo</Form.Label>
-          <Form.Select
-            name="costoRicetta"
-            value={formData.costoRicetta}
-            onChange={handleChange}
-          >
-            <option value="BASSO">Basso</option>
-            <option value="MEDIO">Medio</option>
-            <option value="ALTO">Alto</option>
-          </Form.Select>
-        </Form.Group>
+                  {categoria}
+                  <Button
+                    variant="link"
+                    onClick={() => handleRemoveCategory(categoria)}
+                    className="x-btn"
+                  >
+                    X
+                  </Button>
+                </span>
+              ))}
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label className="titolo-label fw-bold">
+                Difficoltà
+              </Form.Label>
+              <Form.Select
+                name="difficoltaRicetta"
+                value={formData.difficoltaRicetta}
+                onChange={handleChange}
+              >
+                <option value="FACILE">Facile</option>
+                <option value="MEDIA">Media</option>
+                <option value="DIFFICILE">Difficile</option>
+              </Form.Select>
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label className="titolo-label fw-bold">
+                Tempo di Preparazione (minuti)
+              </Form.Label>
+              <Form.Control
+                className="modificaRicetta-input"
+                type="number"
+                name="tempoPreparazioneMinuti"
+                value={formData.tempoPreparazioneMinuti}
+                onChange={handleChange}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label className="titolo-label fw-bold">
+                Tempo di Cottura (minuti)
+              </Form.Label>
+              <Form.Control
+                className="modificaRicetta-input"
+                type="number"
+                name="tempoCotturaMinuti"
+                value={formData.tempoCotturaMinuti}
+                onChange={handleChange}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label className="titolo-label fw-bold">Costo</Form.Label>
+              <Form.Select
+                className="modificaRicetta-input"
+                name="costoRicetta"
+                value={formData.costoRicetta}
+                onChange={handleChange}
+              >
+                <option value="BASSO">Basso</option>
+                <option value="MEDIO">Medio</option>
+                <option value="ALTO">Alto</option>
+              </Form.Select>
+            </Form.Group>
 
-        {/* Ingredienti */}
-        {id && (
-          <IngredientiRicetta
-            ricettaId={id}
-            ingrediente={ingredienti}
-            addIngrediente={(ingrediente) =>
-              dispatch(addIngredienti(id, [ingrediente]))
-            }
-            removeIngrediente={(ingredienteId) =>
-              dispatch(removeIngrediente(id, ingredienteId))
-            }
-          />
-        )}
+            {/* Ingredienti */}
+            {id && (
+              <IngredientiRicetta
+                ricettaId={id}
+                ingrediente={ingredienti}
+                addIngrediente={(ingrediente) =>
+                  dispatch(addIngredienti(id, [ingrediente]))
+                }
+                removeIngrediente={(ingredienteId) =>
+                  dispatch(removeIngrediente(id, ingredienteId))
+                }
+              />
+            )}
 
-        {/* ImgRicetta */}
-        {id && (
-          <Form.Group className="mb-3">
-            <Form.Label>Immagini</Form.Label>
-            <ImgRicetta
-              images={images}
-              addImage={handleImageAdd}
-              removeImage={(imageId) => dispatch(removeImage(id, imageId))}
-              isEditing={true}
-            />
-          </Form.Group>
-        )}
-        <Button type="submit" disabled={isProcessing}>
-          {isProcessing ? "Salvataggio..." : "Salva Modifiche"}
-        </Button>
-      </Form>
-    </Container>
+            {/* ImgRicetta */}
+            {id && (
+              <Form.Group className="mb-3">
+                <ImgRicetta
+                  images={images}
+                  addImage={handleImageAdd}
+                  removeImage={(imageId) => dispatch(removeImage(id, imageId))}
+                  isEditing={true}
+                />
+              </Form.Group>
+            )}
+            <Button className="salva-btn" type="submit" disabled={isProcessing}>
+              {isProcessing ? "Salvataggio..." : "Salva Modifiche"}
+            </Button>
+          </Form>
+        </div>
+      </Container>
+    </div>
   );
 };
 export default ModificaRicetta;

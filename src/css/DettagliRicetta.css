@@ -137,4 +137,7 @@
     margin: 0 auto;
     margin-bottom: 0.3rem;
   }
+  .titleCard {
+    font-size: 2rem!important;
+  }
 }
