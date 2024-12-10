@@ -26,7 +26,7 @@ const ModificaRicetta = () => {
   const { dettagli, loading, error } = useSelector((state) => state.ricette);
 
   const ingredienti = useSelector(
-    (state) => state.ricette.dettagli?.ingredienti || []
+    (state) => state.ricette.ingredienti || []
   );
   const images = dettagli?.img || [];
   const token = useSelector((state) => state.auth.token);
@@ -40,7 +40,7 @@ const ModificaRicetta = () => {
     costoRicetta: "BASSO",
     nomeCategorieRicette: [],
     ingredienti: [],
-    // img: [],
+     img: [],
   });
 
   const [categorie, setCategorie] = useState([]);
@@ -68,6 +68,7 @@ const ModificaRicetta = () => {
         costoRicetta: dettagli.costoRicetta,
         nomeCategorieRicette: dettagli.nomeCategorieRicette || [],
         ingredienti: dettagli.ingredienti || [],
+        img:dettagli.img || [],
       });
     }
     console.log("Stato aggiornato:", dettagli?.img);
@@ -311,7 +312,7 @@ const ModificaRicetta = () => {
             {id && (
               <IngredientiRicetta
                 ricettaId={id}
-                ingrediente={ingredienti}
+                ingredienti={ingredienti}
                 addIngrediente={(ingrediente) =>
                   dispatch(addIngredienti(id, [ingrediente]))
                 }

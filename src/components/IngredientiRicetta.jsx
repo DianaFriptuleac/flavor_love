@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
-  fetchIngredienti,
   removeIngrediente,
   addIngredienti,
 } from "../redux/actions/creaRicetta";
 import { Form, Button, ListGroup } from "react-bootstrap";
 import { IoTrash } from "react-icons/io5";
 import "../css/CreaRicetta.css";
-const IngredientiRicetta = ({ ricettaId }) => {
+const IngredientiRicetta = ({ ricettaId,ingredienti}) => {
   const dispatch = useDispatch();
-  const ingredienti = useSelector((state) => state.ricetta.ingredienti);
+  //const ingredienti = useSelector((state) => state.ricetta.ingredienti);
   const [currentSezione, setCurrentSezione] = useState("");
   const [ingredientData, setIngredientData] = useState({
     nome: "",
@@ -18,12 +17,6 @@ const IngredientiRicetta = ({ ricettaId }) => {
     sezione: "",
   });
   const [message, setMessage] = useState("");
-
-  useEffect(() => {
-    if (ricettaId) {
-      dispatch(fetchIngredienti(ricettaId));
-    }
-  }, [ricettaId, dispatch]);
 
   useEffect(() => {
     console.log("Ingredienti caricati:", ingredienti);

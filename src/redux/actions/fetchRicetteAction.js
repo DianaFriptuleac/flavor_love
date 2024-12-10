@@ -97,7 +97,6 @@ export const fetchRicetteUtente = () => async (dispatch, getState) => {
 };
 
 //dettagli ricetta
-
 export const fetchDettagliRicetta = (id) => async (dispatch, getState) => {
   dispatch({ type: FETCH_DETTAGLI_RICETTA_PENDING }); // Stato iniziale di caricamento
   try {

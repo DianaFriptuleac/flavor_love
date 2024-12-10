@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Container, ListGroup, Button, Form, Modal, Alert } from "react-bootstrap";
+import { Container, Row, Col, ListGroup, Button, Form, Modal, Alert } from "react-bootstrap";
+import "../css/ListaSpesa.css"
 
 const ListaSpesa = () => {
   const token = useSelector((state) => state.auth.token); 
@@ -116,21 +117,32 @@ const ListaSpesa = () => {
   if (error) return <Alert variant="danger">{error}</Alert>;
 
   return (
-    <Container>
-      <h1 className="mt-4">La Mia Lista Spesa</h1>
-      <Button variant="danger" className="mb-3" onClick={handleClearListaSpesa}>
+    <div className="bg-listaSpesa">
+    <Container className="listaContainer">
+      <Row>
+        <Col md={6} className="d-flex justify-content-between align-items-center">
+        <div>
+      <h1 className="mt-4 t text-light">La Mia Lista Spesa</h1>
+      </div>
+      <div>
+      <Button variant="danger"  onClick={handleClearListaSpesa}>
         Svuota Lista Spesa
       </Button>
-      <ListGroup>
+      </div>
+      </Col>
+      </Row>
+
+      <Row>
+        <Col md={6}>
+     <ListGroup >
         {listaSpesa?.elements?.map((ingrediente) => (
-          <ListGroup.Item key={ingrediente.id} className="d-flex justify-content-between align-items-center">
+          <ListGroup.Item key={ingrediente.id} className="list-group-listaSp mt-2 d-flex justify-content-between align-items-center">
             <span>
               {ingrediente.nome} - {ingrediente.quantita} {ingrediente.unita}
             </span>
             <div>
               <Button
-                variant="warning"
-                className="me-2"
+                className="me-2 modifica-lista-btn"
                 onClick={() => {
                   setEditingIngrediente(ingrediente);
                   setQuantita(ingrediente.quantita);
@@ -171,7 +183,10 @@ const ListaSpesa = () => {
           </Button>
         </Modal.Footer>
       </Modal>
+      </Col>
+      </Row>
     </Container>
+    </div>
   );
 };
 
