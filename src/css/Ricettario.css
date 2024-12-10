@@ -1,21 +1,171 @@
+/*bg*/
 .bg-ricettario {
-    background-image: url("/public/assets/bg-ricettari.jpeg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center;
-    min-height: 100vh;
-    padding: 20px;
-    position: relative;
-  }
-.titolo-ricettario{
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-    font-family: "Poppins", sans-serif;
-    font-size: 2.5rem;
-    letter-spacing: 1px;
-    color: #fff;
-    transition: color 0.3s ease-in-out;
+  background-image: url("/public/assets/bg-ricettari.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  min-height: 100vh;
+  padding: 20px;
+  position: relative;
 }
-.titolo-ricettario:hover{
-    color: #0f2b03; 
+/*titolo*/
+.titolo-ricettario {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  font-family: "Poppins", sans-serif;
+  font-size: 2.5rem;
+  letter-spacing: 1px;
+  color: #0f2b03;
+  transition: color 0.3s ease-in-out;
+  text-align: right;
+}
+.titolo-ricettario:hover {
+  color: #8d8a8a;
+}
+
+/*Card*/
+.ricettario-card {
+  border: none;
+  transition: transform 0.3s ease-in-out;
+  box-shadow: rgba(21, 21, 21, 0.15) 1.95px 1.95px 2.6px;
+  border-radius: 10px;
+  background-color: transparent !important;
+  width: 18rem;
+}
+
+.ricettario-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+.ricettario-card-img {
+  height: 15rem;
+  object-fit: cover;
+}
+
+.ricettario-card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background-color: rgba(182, 202, 189, 0.5);
+  border-radius: 0 0 12px 12px;
+}
+.title-btn-card {
+  gap: 8rem;
+}
+
+.ricettario-crea-btn,
+.crea_ricettario_modal {
+  font-size: 0.9rem;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  background: linear-gradient(45deg, #0f2b03, #b6c374);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.ricettario-crea-btn:hover {
+  background: linear-gradient(45deg, #2a7709, #d1de88);
+  transform: translateY(-2px);
+}
+
+.ricettario-card-title {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #d30316;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+/*alert*/
+.alert-custom {
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #d30316;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.2rem;
+  border: 1px solid #d30316;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+/*modale crea/cancella*/
+.crea_ricettario_modal,
+.elimina_ricettario_modal {
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.modale {
+  background-color: rgba(182, 202, 189, 0.5);
+  padding: 20px;
+  border-radius: 5px;
+}
+.crea_ricettario_modal .modale {
+  border: 1px solid #0f2b03;
+}
+
+.chiudi-btn {
+  background: linear-gradient(45deg, #e60a20, #160d08);
+  border: none;
+}
+.chiudi-btn:hover {
+  background: linear-gradient(45deg, #f2031b, #5f0202);
+  transform: translateY(-2px);
+}
+.mod-label {
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  color: #333;
+  font-weight: 600;
+}
+.crea_ricettario_modal input:hover,
+.crea_ricettario_modal input:focus {
+  border-color: #0f2b03;
+  box-shadow: 0px 0px 8px rgba(15, 43, 3, 0.5);
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.elimina_ricettario_modal .modale {
+  border: 1px solid #e60a20;
+}
+
+.eliminaRicetta-btn {
+  background: linear-gradient(45deg, #e60a20, #160d08);
+  border: none;
+}
+.eliminaRicetta-btn:hover {
+  background: linear-gradient(45deg, #f2031b, #5f0202);
+  transform: translateY(-2px);
+}
+
+.eliminaRicetta-conferma {
+  background: linear-gradient(45deg, #0f2b03, #b6c374);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border: none;
+}
+.eliminaRicetta-conferma:hover {
+  background: linear-gradient(45deg, #2a7709, #d1de88);
+  transform: translateY(-2px);
+}
+
+/*Media Query*/
+
+@media (max-width: 1020px) {
+  .ricettario-card {
+    margin: 0 auto; 
+    width: 100%;
+  }
+
+  .titolo-ricettario {
+    text-align: center; 
+    font-size: 2rem; 
+  }
+  .ricettario-card-title{
+    font-size: 1rem;
+  }
 }
