@@ -16,7 +16,7 @@ import {
   removeRicettario,
 } from "../redux/actions/ricettarioActions";
 import { useNavigate } from "react-router-dom";
-import { FiEye, FiTrash } from "react-icons/fi";
+import { FaTrashAlt} from "react-icons/fa";
 import "../css/Ricettario.css";
 
 const Ricettario = () => {
@@ -173,11 +173,11 @@ const Ricettario = () => {
                         </Card.Title>
 
                         <Button
-                          variant="outline-danger"
+                 
                           className="ricettario-elimina-btn"
                           onClick={() => confirmDeleteRicettario(ricettario.id)}
                         >
-                          <FiTrash />
+                       <FaTrashAlt/>
                         </Button>
                       </div>
                     </Card.Body>

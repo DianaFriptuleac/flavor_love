@@ -9,6 +9,8 @@ import {
   Pagination,
   Spinner,
 } from "react-bootstrap";
+import { FaTrashAlt} from "react-icons/fa";
+import "../css/DettagliRicettario.css"
 
 const DettagliRicettario = () => {
   const { id } = useParams();
@@ -87,10 +89,13 @@ const DettagliRicettario = () => {
   }, [id]);
 
   return (
+    <div className="dettagli-ricettario">
     <Container>
-      <Button onClick={() => navigate("/ricettario")} className="mb-3">
+      <div className="d-flex justify-content-center">
+      <Button onClick={() => navigate("/ricettario")} className="mt-3 tornaBtn">
         Torna ai Ricettari
       </Button>
+      </div>
       {isLoading ? (
         <div className="d-flex justify-content-center align-items-center">
           <Spinner animation="border" role="status" className="me-2">
@@ -100,38 +105,38 @@ const DettagliRicettario = () => {
         </div>
       ) : ricettario ? (
         <>
-          <h2>{ricettario.nome}</h2>
-          <ListGroup className="mt-4">
+          <h2 className="nome-ricettarrio">{ricettario.nome}</h2>
+          <ListGroup className="mt-3">
             {ricette.length > 0 ? (
               ricette.map((ricetta) => (
                 <ListGroup.Item
                   key={ricetta.id}
-                  className="d-flex justify-content-between align-items-center"
+                  className="d-flex justify-content-between align-items-center listRicette mt-2"
                   action
                   onClick={() => navigate(`/ricette/${ricetta.id}`)}
                 >
-                  <div>
+                  <div className="img-title-container">
                     {ricetta.imgUrl && (
                       <img
+                      className="img-lista"
                         src={ricetta.imgUrl}
                         alt={ricetta.titolo}
-                        style={{ width: "100px", marginLeft: "10px" }}
                       />
                     )}
-                    <strong className="ms-3">{ricetta.titolo}</strong>
+                    <strong className="ms-3 ricetta-title">{ricetta.titolo}</strong>
                   </div>
                   <div>
                     <Button
-                      variant="danger"
+                     className="rimuovi-btn"
                       onClick={() => handleRemoveRicetta(ricetta.id)}
-                    >
-                      Rimuovi
+                    ><FaTrashAlt/>
+                
                     </Button>
                   </div>
                 </ListGroup.Item>
               ))
             ) : (
-              <Alert variant="info">
+              <Alert className="ricettario-custom-alert">
                 Nessuna ricetta trovata in questo ricettario.
               </Alert>
             )}
@@ -154,6 +159,7 @@ const DettagliRicettario = () => {
         <Alert variant="warning">Caricamento ricettario in corso...</Alert>
       )}
     </Container>
+    </div>
   );
 };
 

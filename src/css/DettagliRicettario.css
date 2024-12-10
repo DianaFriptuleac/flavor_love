@@ -1,0 +1,86 @@
+/*bg*/
+.dettagli-ricettario {
+  background-image: url("/public/assets/bg-ricettari-dettagli.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center 75%;
+  min-height: 100vh;
+  padding: 20px;
+  position: relative;
+}
+/*btn*/
+.tornaBtn {
+  font-size: 0.9rem;
+  padding: 8px 15px;
+  border-radius: 5px;
+  border: none;
+  background: linear-gradient(45deg, #0f2b03, #b6c374);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.tornaBtn:hover {
+  background: linear-gradient(45deg, #2a7709, #d1de88);
+  transform: translateY(-2px);
+}
+/*h2*/
+.nome-ricettarrio {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  font-family: "Poppins", sans-serif;
+  font-size: 2.5rem;
+  letter-spacing: 1px;
+  color: #0f2b03;
+  transition: color 0.3s ease-in-out;
+  text-align: right;
+}
+.nome-ricettarrio:hover {
+  color: #8d8a8a;
+}
+/*lista item*/
+.listRicette {
+  background-color: rgba(240, 245, 240, 0.9);
+  box-shadow: 0px 0px 2px rgba(15, 43, 3, 0.5);
+  border-radius: 5px;
+}
+.listRicette:hover {
+  background-color: rgba(250, 255, 250, 0.95);
+}
+.ricetta-title {
+  color: #160d08;
+  flex-wrap: wrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/*img*/
+.img-lista {
+  width: 6rem;
+  margin-left: 10px;
+}
+.rimuovi-btn {
+  background: linear-gradient(45deg, #e60a20, #160d08);
+  border: none;
+}
+.rimuovi-btn:hover {
+  background: linear-gradient(45deg, #f2031b, #5f0202);
+  transform: translateY(-2px);
+}
+/*alert*/
+.ricettario-custom-alert {
+  background-color: rgba(240, 245, 240, 0.9);
+  box-shadow: 0px 0px 4px rgba(15, 43, 3, 0.5);
+  border-radius: 5px;
+  border: none;
+  color: #160d08;
+  font-size: 20px;
+}
+@media (max-width: 768px) {
+  .nome-ricettarrio {
+    font-size: 2rem;
+  }
+  .img-title-container {
+    display: flex;
+  }
+  .ricetta-title {
+    flex-wrap: wrap;
+    max-width: 5rem;
+  }
+}
