@@ -1,0 +1,118 @@
+/*bg*/
+.bg-liked{
+    background-image: url("/public/assets/bg-liked.jpg"); 
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+/*h1*/
+.title-liked{
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    font-family: "Poppins", sans-serif;
+    font-size: 2.5rem;
+    letter-spacing: 1px;
+    text-align: right;
+    color: #fff;
+    transition: color 0.3s ease-in-out;
+}
+.title-liked:hover{
+    color: #0f2b03; 
+}
+/*card*/
+.likedCard {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    border: none;
+    background-color: transparent;
+    height: 20rem;
+    width: 18rem;
+  }
+  /* soptra l'img. */
+  .likedCard .card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+  }
+  
+  /* titolo heart btn */
+  .cardHeader-overlay {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color:  rgba(24, 23, 23, 0.6);
+    color: white;
+  }
+  
+  /* titolo */
+  .card-title-overlay {
+    font-family: "Poppins", sans-serif;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+    margin: 0;
+  }
+  
+  /* btn like */
+  .like-button-overlay {
+    background-color: transparent;
+    border: none;
+    color: red;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  
+  .like-button-overlay:hover {
+    transform: scale(1.1);
+  }
+  
+  /* img */
+  .card-liked-image {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    height: auto;
+    z-index: 1;
+    flex: 1;
+    cursor: pointer;
+  }
+  /*alert*/
+  .alertLiked{
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #d30316;
+    font-family: "Poppins", sans-serif;
+    font-size: 1.2rem;
+    border: 1px solid #d30316;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 80%;
+  }
+  .alertLiked-btn{
+    background: linear-gradient(45deg, #0f2b03, #b6c374);
+    width: 200px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: background 0.3s ease-in-out, transform 0.2s ease;
+  }
+  .alertLiked-btn:hover{
+    background: linear-gradient(45deg, #2a7709, #b6c374);
+    transform: translateY(-2px);
+  }

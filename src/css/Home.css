@@ -23,6 +23,7 @@
     border: none;
     transition: transform 0.3s ease-in-out;
     box-shadow: rgba(21, 21, 21, 0.15) 1.95px 1.95px 2.6px;
+    
   }
 
   .ricetta-card:hover {
@@ -57,17 +58,15 @@
     padding: 10px 10px;
     border-radius: 5px;
     z-index: 2; /*titolo sopra l'immagine */
+
     
   }
 
-  .title-card:hover {
-    cursor: pointer;
-  }
 
   .ricetta-title{
     font-size: 1rem; 
     text-align: center;
-    color: white;
+    color: white!important;
   }
 
   /* media query x le card */

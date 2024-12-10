@@ -44,7 +44,7 @@ function App() {
           <Route path="ricetteRRicettario" element={<SelectRicetteFromModal/>}/>
           <Route path="/ricettari/:id" element={<DettagliRicettario/>}/>
           <Route path="/ricette/categoria/:categoria" element={<RicettePerCategorie />} />
-          <Route path="ricette/liked" element={<Liked/>}/>
+          <Route path="/ricette/liked" element={<Liked/>}/>
           <Route path="ricette/search" element={<SearchResults/>}/>
           <Route path="/ricetteEsterne/:id" element={<DettagliRicetteEsterne/>}/>
           <Route path="/listaSpesa" element={<ListaSpesa/>}/>

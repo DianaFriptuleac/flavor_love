@@ -69,13 +69,14 @@ const CustomNavbar = function () {
       expand="md"
       className="myNavbar p-0"
       data-bs-theme="dark"
+    
     >
-      <Container fluid>
+      <Container fluid className="my-1">
         <Link to="/" className="text-decoration-none">
           <Navbar.Brand>
             <img
-              src="/flavor.ico"
-              style={{ width: "70px", height: "55px" }}
+              src="/aglio.webp"
+              style={{ width: "55px", height: "50px" }}
               alt="Logo"
             />
           </Navbar.Brand>

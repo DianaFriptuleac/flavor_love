@@ -172,9 +172,8 @@ const Ricettario = () => {
                           {ricettario.nome}
                         </Card.Title>
 
-                        <Button
-                 
-                          className="ricettario-elimina-btn"
+                        <Button 
+                        className="ricettario-elimina-btn"
                           onClick={() => confirmDeleteRicettario(ricettario.id)}
                         >
                        <FaTrashAlt/>

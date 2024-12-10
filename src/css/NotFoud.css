@@ -1,0 +1,30 @@
+.notFound-bg {
+  background-image: url("/public/assets/bg-ricettari.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+.notFount-btn {
+  background: linear-gradient(45deg, #0f2b03, #b6c374);
+  width: 200px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: background 0.3s ease-in-out, transform 0.2s ease;
+}
+.notFount-btn:hover {
+  background: linear-gradient(45deg, #2a7709, #b6c374);
+  transform: translateY(-2px);
+}
+@media (max-width: 768px) {
+  .text-black {
+    padding-left: 0;
+  }
+}
