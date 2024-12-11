@@ -1,5 +1,10 @@
 .myNavbar {
   background-color: #160d08;
+  position: fixed;
+  top: 0;
+  width: 100%; 
+  z-index: 1030;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 .nav-dropdown .dropdown-menu {
   background-color: #160d08;

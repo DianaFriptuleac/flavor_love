@@ -91,7 +91,6 @@ const ListaSpesa = () => {
       );
 
       if (response.ok) {
-        alert("Quantità aggiornata con successo!");
         setShowModal(false);
         fetchListaSpesa();
       } else {
@@ -187,7 +186,7 @@ const ListaSpesa = () => {
             </ListGroup>
 
             {/* Modale per modificare la quantita ingredienti */}
-            <Modal show={showModal} onHide={() => setShowModal(false)}>
+            <Modal className="modalLista" show={showModal} onHide={() => setShowModal(false)}>
               <Modal.Header closeButton>
                 <Modal.Title>Modifica Quantità</Modal.Title>
               </Modal.Header>

@@ -8,6 +8,7 @@
   padding: 20px;
   position: relative;
 }
+.modalLista,
 .list-group-listaSp {
   background-color: rgba(240, 245, 240, 0.5);
   box-shadow: 0px 0px 2px rgba(15, 43, 3, 0.5);
@@ -41,4 +42,97 @@
 }
 .svuota-lista {
   font-weight: 600;
+}
+
+/* Modal */
+.modalLista .modal-content {
+  background: rgba(255, 255, 255, 0.8); 
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.modalLista .modal-content:hover {
+  transform: scale(1.02);
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.modalLista .modal-header {
+  color: #160d08;
+  border-bottom: 1px solid #160d08;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  font-family: "Poppins", sans-serif;
+}
+
+.modalLista .modal-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.modalLista .modal-body {
+  font-family: "Poppins", sans-serif;
+  color: #333;
+  font-size: 1.3rem;
+}
+
+/* modal input*/
+.modalLista .form-control {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  width: 100%;
+  font-size: 1rem;
+  color: #333;
+  background-color: rgba(255, 255, 255, 0.8); 
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.modalLista .form-control:hover,
+.modalLista .form-control:focus {
+  border-color: #0f2b03;
+  box-shadow: 0px 0px 8px rgba(15, 43, 3, 0.5);
+  outline: none;
+}
+
+
+.modalLista .modal-footer {
+  background-color: rgba(15, 43, 3, 0.05); 
+  border-top: none;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/*btn */
+.modalLista .btn-secondary {
+  background: linear-gradient(45deg, #e60a20, #160d08);
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: background 0.3s ease-in-out, transform 0.2s ease;
+}
+
+.modalLista .btn-secondary:hover {
+  background: linear-gradient(45deg, #f2031b, #5f0202);
+  transform: translateY(-2px);
+}
+
+.modalLista .btn-primary {
+  background: linear-gradient(45deg, #0f2b03, #b6c374);
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: background 0.3s ease-in-out, transform 0.2s ease;
+}
+
+.modalLista .btn-primary:hover {
+  background: linear-gradient(45deg, #2a7709, #d1de88);
+  transform: translateY(-2px);
 }
