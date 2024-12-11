@@ -25,7 +25,7 @@ import {
 import "../css/UserProfile.css";
 import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../redux/actions/authActions";
-import Ricettario from "./Ricettario";
+
 
 const UserProfile = () => {
   const user = useSelector((state) => state.profile?.user);
@@ -274,9 +274,9 @@ const UserProfile = () => {
       </Container>
       <Container>
         <Row className="ricettario_row d-flex justify-content-center mt-4">
-          <Col md={6}>
+          <Col md={4}>
             <div className="ricettario-container">
-              <h3 className="ricettario-title">Vai ai tuoi Ricettari</h3>
+              <h3 className="ricettario-title">I tuoi Ricettari</h3>
 
               <img
                 onClick={() => navigate("/ricettario")}
@@ -286,15 +286,27 @@ const UserProfile = () => {
               />
             </div>
           </Col>
-          <Col md={6}>
-            <div className="liked-container">
-              <h3 className="liked-title">Le tue ricette preferite</h3>
+          <Col md={4}>
+            <div className="liked-container mb-2">
+              <h3 className="liked-title">Le ricette preferite</h3>
 
               <img
                 onClick={() => navigate("/ricette/liked")}
                 className="heart_img"
                 src="/assets/heart.jpg"
                 alt="Vai ai liked"
+              />
+            </div>
+          </Col>
+          <Col md={4}>
+            <div className="lista-container">
+              <h3 className="lista-title">Lista spesa</h3>
+
+              <img
+                onClick={() => navigate("/listaSpesa")}
+                className="listaSpesa_img"
+                src="/assets/listaSpesa.jpg"
+                alt="Vai alla lista spesa"
               />
             </div>
           </Col>

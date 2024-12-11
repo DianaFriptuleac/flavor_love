@@ -80,7 +80,7 @@ const ModificaRicetta = () => {
     setIsProcessing(true);
     try {
       await dispatch(addImage(id, file));
-      dispatch(fetchImagesByRicettaId(id,file));
+      dispatch(fetchImagesByRicettaId(id));
      // console.log("IMG MODIFICA",id, "FILE",file )
       setIsProcessing(false);
     } catch (error) {

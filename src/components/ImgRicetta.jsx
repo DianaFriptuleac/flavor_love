@@ -4,6 +4,7 @@ import { IoTrash } from "react-icons/io5";
 import"../css/CreaRicetta.css"
 //passo 3 props-> array img, addimg e remove
 const ImgRicetta = ({ images = [], addImage, removeImage, isEditing }) => {
+  
   useEffect(() => {
     console.log("Immagini ricevute nel componente ImgRicetta:", images);
   }, [images]);

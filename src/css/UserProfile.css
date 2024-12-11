@@ -135,7 +135,8 @@
 }
 /*ricettario section*/
 .ricettario-container,
- .liked-container{
+ .liked-container,
+ .lista-container{
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -149,12 +150,14 @@
 }
 
 .ricettario-container:hover,
-.liked-container:hover {
+.liked-container:hover,
+.lista-container:hover {
   background-color: rgba(192, 192, 192, 0.5);
 }
 
 .ricettario-title,
-.liked-title {
+.liked-title,
+.lista-title {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
   font-family: "Poppins", sans-serif;
   font-size: 2rem;
@@ -162,16 +165,27 @@
 }
 
 .ricettario_img,
-.heart_img {
-  max-width: 12rem;
+.heart_img{
+  max-width: 8.5rem;
   height: auto;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease;
 }
+.listaSpesa_img {
+  max-width: 10.6rem;
+ height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+
+
+}
+
 
 .ricettario_img:hover,
-.heart_img:hover {
+.heart_img:hover,
+.listaSpesa_img:hover {
   transform: scale(1.1);
 }
 
