@@ -1,0 +1,23 @@
+.myFooter{
+    background-color: #160d08!important;
+}
+@media (max-width: 576px) {
+    .myFooter {
+      text-align: center;
+    }
+  
+    .myFooter .col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .myFooter .col img {
+      margin-bottom: 1rem; 
+    }
+  
+    .myFooter .d-flex {
+      justify-content: center;
+    }
+  }
+  

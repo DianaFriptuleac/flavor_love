@@ -21,6 +21,7 @@ import Liked from "./components/Liked";
 import SearchResults from "./components/SearchResults";
 import DettagliRicetteEsterne from "./components/DettagliRicetteEsterne";
 import ListaSpesa from "./components/ListaSpesa";
+import MyFooter from "./components/MyFooter";
 
 
 function App() {
@@ -51,6 +52,9 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
+     <footer>
+      <MyFooter/>
+     </footer>
     </BrowserRouter>
   );
 }
