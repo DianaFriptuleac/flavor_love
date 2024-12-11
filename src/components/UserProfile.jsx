@@ -24,8 +24,7 @@ import {
 } from "../redux/actions/profileActions";
 import "../css/UserProfile.css";
 import { useNavigate } from "react-router-dom";
-import { logoutUser } from "../redux/actions/authActions";
-
+//import { logoutUser } from "../redux/actions/authActions";
 
 const UserProfile = () => {
   const user = useSelector((state) => state.profile?.user);
@@ -33,6 +32,7 @@ const UserProfile = () => {
   const navigate = useNavigate();
   const ricette = useSelector((state) => state.ricette?.ricette || []);
   const error = useSelector((state) => state.ricette?.error || null);
+  const [isLoadingAvatar, setIsLoadingAvatar] = useState(false);
 
   // Stato locale per i dati utente
   const [data, setData] = useState({
@@ -44,7 +44,7 @@ const UserProfile = () => {
 
   const [edit, setEdit] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [showLogoutAlert, setShowLogoutAlert] = useState(false);
+  //const [showLogoutAlert, setShowLogoutAlert] = useState(false);
 
   // Sincronizzo lo stato locale con Redux
   useEffect(() => {
@@ -78,9 +78,14 @@ const UserProfile = () => {
       const formData = new FormData();
       formData.append("avatar", img);
 
-      dispatch(uploadAvatar(formData)).then(() => {
-        dispatch(fetchUserProfile()); // Aggiorno i dati utente
-      });
+      setIsLoadingAvatar(true);
+      dispatch(uploadAvatar(formData))
+        .then(() => {
+          dispatch(fetchUserProfile()); // Aggiorno i dati utente
+        })
+        .finally(() => {
+          setIsLoadingAvatar(false);
+        });
     }
   };
 
@@ -96,15 +101,6 @@ const UserProfile = () => {
       dispatch(fetchUserProfile()); // Aggiorno i dati utente
       setEdit(false); // Chiudo il form
     });
-  };
-
-  const handleLogout = () => {
-    //resetto lo stato di Redux
-    dispatch(logoutUser());
-    //chiudo l'alert
-    setShowLogoutAlert(false);
-    //reindirizzo alla Home
-    navigate("/login");
   };
 
   const handleDelete = () => {
@@ -126,7 +122,18 @@ const UserProfile = () => {
                   <Form.Label className="fw-bold mb-0">
                     Modifica Avatar
                   </Form.Label>
-                  <Form.Control type="file" onChange={handleAvatarChange} />
+                  {isLoadingAvatar ? (
+                    <div className="d-flex justify-content-center align-items-center mt-2">
+                      <div
+                        className="spinner-border text-danger"
+                        role="status"
+                      >
+                        <span className="visually-hidden">Caricamento...</span>
+                      </div>
+                    </div>
+                  ) : (
+                    <Form.Control type="file" onChange={handleAvatarChange} />
+                  )}
                 </Form.Group>
               )}
             </div>
@@ -194,21 +201,13 @@ const UserProfile = () => {
               )}
             </div>
           </Card.Body>
-          <Card.Footer className="d-flex justify-content-between profile_card_footer">
+          <Card.Footer className="d-flex justify-content-end profile_card_footer">
             <Button
               variant="danger"
               className="delete-button"
               onClick={() => setShowDeleteModal(true)}
             >
               Cancella Account
-            </Button>
-
-            <Button
-              variant="secondary"
-              onClick={() => setShowLogoutAlert(true)}
-              className="logout-button"
-            >
-              Logout
             </Button>
           </Card.Footer>
         </Card>
@@ -244,29 +243,6 @@ const UserProfile = () => {
             </Modal.Footer>
           </div>
         </Modal>
-
-        {/* Alert-> conferma logout (con sfondo semitrasparente)*/}
-        {showLogoutAlert && <div className="alert-overlay"></div>}
-        <Alert show={showLogoutAlert} className="mt-3 logout-alert">
-          <Alert.Heading>Conferma Logout</Alert.Heading>
-          <p>Sei sicuro di voler uscire?</p>
-          <div className="d-flex justify-content-between">
-            <Button
-              onClick={() => setShowLogoutAlert(false)}
-              variant="outline-secondary"
-              className="annulla-logout-button"
-            >
-              Annulla
-            </Button>
-            <Button
-              variant="danger"
-              className="logout-button"
-              onClick={handleLogout}
-            >
-              Logout
-            </Button>
-          </div>
-        </Alert>
       </Container>
       <Container>
         {error && <Alert variant="danger">Errore: {error}</Alert>}

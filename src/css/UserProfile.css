@@ -53,8 +53,7 @@
   transform: translateY(-2px); /* hover */
 }
 
-/*logout e annulla-cancelazionne-btn*/
-.logout-button,
+/*annulla-cancelazionne-btn*/
 .annulla-cancella-button {
   background-color: #160d08;
   padding: 10px 20px;
@@ -66,8 +65,7 @@
 }
 /*cancella, conferma-cancella, annulla-logout btn*/
 .delete-button,
-.conferma-cancella-button,
-.annulla-logout-button {
+.conferma-cancella-button{
   background: linear-gradient(45deg, #e60a20, #160d08);
   border: none;
   color: #fff;
@@ -77,8 +75,7 @@
 }
 
 .delete-button:hover,
-.conferma-cancella-button:hover,
-.annulla-logout-button:hover {
+.conferma-cancella-button:hover {
   background: linear-gradient(45deg, #f2031b, #5f0202);
   transform: translateY(-2px);
 }
@@ -102,22 +99,7 @@
   border-top: 1px solid #7c7979;
   padding: 15px;
 }
-/*Logout alert*/
-.logout-alert {
-  background-color: #e9e5d7;
-  border: none;
-  max-height: 15rem;
-  position: absolute;
-  top: 10%;
-  left: 50%;
-  transform: translate(-50%, -50%); /* Centra*/
-  z-index: 1050; /* appare sopra la card */
-  width: 80%;
-  max-width: 30rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  padding: 1.5rem;
-  border-radius: 8px;
-}
+
 /*sfondo semitrasparente all'alert*/
 .alert-overlay {
   position: absolute;
@@ -178,10 +160,7 @@
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease;
-
-
 }
-
 
 .ricettario_img:hover,
 .heart_img:hover,

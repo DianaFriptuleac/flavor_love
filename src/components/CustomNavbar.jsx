@@ -1,9 +1,14 @@
-import { Navbar, Container, Nav, Form, Button } from "react-bootstrap";
+import { Navbar, Container, Nav, Form, Button, Alert } from "react-bootstrap";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import DropdownRicettePerCategorie from "./DropdownRicettePerCategorie";
 import { useDispatch, useSelector } from "react-redux";
-import { searchedRicetta, searchedRichiesta, searchError } from "../redux/actions/searchActions";
+import {
+  searchedRicetta,
+  searchedRichiesta,
+  searchError,
+} from "../redux/actions/searchActions";
 import { useState } from "react";
+import { logoutUser } from "../redux/actions/authActions";
 import "../css/CustomNavbar.css";
 
 const CustomNavbar = function () {
@@ -11,18 +16,24 @@ const CustomNavbar = function () {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
-
   const token = useSelector((state) => state.auth.token);
-
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const [showLogoutAlert, setShowLogoutAlert] = useState(false);
 
   const addActiveOrNot = (path) => {
     return location.pathname === "/" + path ? "nav-link active" : "nav-link";
   };
-
+  //logout
+  const handleLogout = () => {
+    //resetto lo stato di Redux
+    dispatch(logoutUser());
+    navigate("/login");
+  };
+  //search
   const handleSearch = async () => {
     if (searchQuery.trim().length > 1) {
       try {
-        dispatch(searchedRichiesta()); 
+        dispatch(searchedRichiesta());
         const response = await fetch(
           `http://localhost:3001/api/ricette/cerca?titolo=${searchQuery}&size=20`,
           {
@@ -33,17 +44,17 @@ const CustomNavbar = function () {
         );
 
         if (!response.ok) {
-          throw new Error(`Errore HTTP: ${response.status}`); 
+          throw new Error(`Errore HTTP: ${response.status}`);
         }
-  
+
         const data = await response.json();
-  
+
         if (data.content && data.content.length > 0) {
-          dispatch(searchedRicetta(data.content)); 
-          navigate("/ricette/search"); 
+          dispatch(searchedRicetta(data.content));
+          navigate("/ricette/search");
         } else {
           console.warn("Nessun elemento trovato");
-          dispatch(searchedRicetta([])); 
+          dispatch(searchedRicetta([]));
         }
       } catch (error) {
         console.error("Errore durante la ricerca:", error.message);
@@ -56,9 +67,10 @@ const CustomNavbar = function () {
     }
   };
 
+  //search all'enter
   const handleEnter = (e) => {
     if (e.key === "Enter") {
-      e.preventDefault(); 
+      e.preventDefault();
       handleSearch();
     }
   };
@@ -69,7 +81,6 @@ const CustomNavbar = function () {
       expand="md"
       className="myNavbar p-0"
       data-bs-theme="dark"
-    
     >
       <Container fluid className="my-1">
         <Link to="/" className="text-decoration-none">
@@ -87,37 +98,95 @@ const CustomNavbar = function () {
             <Link to="/" className={addActiveOrNot("home")}>
               Home
             </Link>
+            {/*dropdown delle ricette*/}
             <DropdownRicettePerCategorie />
           </Nav>
+          {/*search*/}
           <Form className="d-flex">
-          <Form.Control
+            <Form.Control
               type="text"
               placeholder="Cerca ricette..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onKeyDown={handleEnter}
               className="me-2 custom-input"
-              
             />
             <Button
-            variant="outline-success"
-             className="search-btn"
+              variant="outline-success"
+              className="search-btn"
               onClick={handleSearch}
               disabled={searchQuery.length < 2} // Disabilito se meno di 2 caratteri
             >
               Cerca
             </Button>
-            </Form>
+          </Form>
+          {/*logout*/}
           <Nav className="ms-auto">
-            <Link to="/register" className={addActiveOrNot("register")}>
-              Registrati
-            </Link>
-            <Link to="/login" className={addActiveOrNot("login")}>
-              Login
-            </Link>
-            <Link to="/userprofile" className={addActiveOrNot("userprofile")}>
-              <img src="/assets/user.png" alt="user" className="user_png" />
-            </Link>
+          {isAuthenticated ? (
+  <div className="divlogout">
+    {/* Bottone per il Logout */}
+    <Button
+      onClick={() => setShowLogoutAlert(true)} // Attiva l'alert di Logout
+      className="logout-button"
+    >
+      Logout
+    </Button>
+
+    {/* Link al profilo utente */}
+    <Link to="/userprofile" className={addActiveOrNot("userprofile")}>
+      <img src="/assets/user.png" alt="user" className="user_png" />
+    </Link>
+
+    {/* Overlay opaco e alert di conferma Logout */}
+    {showLogoutAlert && (
+      <>
+        {/* Overlay cliccabile per chiudere l'alert */}
+        <div
+          className="alert-overlay"
+          onClick={() => setShowLogoutAlert(false)} // Chiude l'alert cliccando fuori
+        ></div>
+
+        {/* Alert di conferma Logout */}
+        <Alert show={showLogoutAlert} className="mt-3 logout-alert">
+          <Alert.Heading>Conferma Logout</Alert.Heading>
+          <p>Sei sicuro di voler uscire?</p>
+          <div className="d-flex justify-content-between">
+            <Button
+              onClick={() => setShowLogoutAlert(false)} // Annulla Logout
+              variant="outline-secondary"
+              className="annulla-logout-button"
+            >
+              Annulla
+            </Button>
+            <Button
+              variant="danger"
+              className="logout-button"
+              onClick={handleLogout} // Conferma Logout
+            >
+              Logout
+            </Button>
+          </div>
+        </Alert>
+      </>
+    )}
+  </div>
+) : (
+  <>
+                {/*register/login*/}
+                <Link to="/register" className={addActiveOrNot("register")}>
+                  Registrati
+                </Link>
+                <Link to="/login" className={addActiveOrNot("login")}>
+                  Login
+                </Link>
+                <Link
+                  to="/userprofile"
+                  className={addActiveOrNot("userprofile")}
+                >
+                  <img src="/assets/user.png" alt="user" className="user_png" />
+                </Link>
+              </>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>
