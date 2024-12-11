@@ -28,7 +28,7 @@ const ModificaRicetta = () => {
   const ingredienti = useSelector(
     (state) => state.ricette.ingredienti || []
   );
-  const images = dettagli?.img || [];
+  const images = useSelector((state) => state.ricette.dettagli?.img || []);
   const token = useSelector((state) => state.auth.token);
 
   const [formData, setFormData] = useState({
@@ -66,7 +66,7 @@ const ModificaRicetta = () => {
         tempoPreparazioneMinuti: dettagli.tempoPreparazioneMinuti,
         tempoCotturaMinuti: dettagli.tempoCotturaMinuti,
         costoRicetta: dettagli.costoRicetta,
-        nomeCategorieRicette: dettagli.nomeCategorieRicette || [],
+        nomeCategorieRicette: dettagli.categorie || [],
         ingredienti: dettagli.ingredienti || [],
         img:dettagli.img || [],
       });
@@ -80,7 +80,8 @@ const ModificaRicetta = () => {
     setIsProcessing(true);
     try {
       await dispatch(addImage(id, file));
-      dispatch(fetchImagesByRicettaId(id));
+      dispatch(fetchImagesByRicettaId(id,file));
+     // console.log("IMG MODIFICA",id, "FILE",file )
       setIsProcessing(false);
     } catch (error) {
       console.error("Errore aggiunta immagine:", error.message);
@@ -127,10 +128,14 @@ const ModificaRicetta = () => {
 
   // Aggiungo categoria
   const handleAddCategory = (e) => {
-    const selectedCategory = e.target.value;
+    const selectedCategoryName = e.target.value;
+    const selectedCategory = categorie.find(
+      (cat) => cat.nome === selectedCategoryName
+    );
+  
     if (
       selectedCategory &&
-      !formData.nomeCategorieRicette.includes(selectedCategory)
+      !formData.nomeCategorieRicette.some((cat) => cat.nome === selectedCategory.nome)
     ) {
       setFormData((prev) => ({
         ...prev,
@@ -144,7 +149,7 @@ const ModificaRicetta = () => {
     setFormData((prev) => ({
       ...prev,
       nomeCategorieRicette: prev.nomeCategorieRicette.filter(
-        (category) => category !== categoryToRemove
+        (category) => category.nome !== categoryToRemove.nome
       ),
     }));
   };
@@ -154,7 +159,13 @@ const ModificaRicetta = () => {
     e.preventDefault();
     setIsProcessing(true);
     try {
-      const response = await dispatch(updateRicetta(id, formData));
+      const payload = {
+        ...formData,
+        nomeCategorieRicette: formData.nomeCategorieRicette.map(
+          (categoria) => categoria.nome
+        ),
+      };
+      const response = await dispatch(updateRicetta(id, payload));
       if (response.payload) {
         setAlert({
           message: "Ricetta aggiornata con successo!",
@@ -234,21 +245,21 @@ const ModificaRicetta = () => {
                 value=""
               >
                 <option value="">Seleziona una categoria</option>
-                {categorie.map((categoria) => (
-                  <option key={categoria.nome} value={categoria.nome}>
-                    {categoria.nome}
+                {categorie.map((categorie) => (
+                  <option key={categorie.nome} value={categorie.nome}>
+                    {categorie.nome}
                   </option>
                 ))}
               </Form.Select>
-              {formData.nomeCategorieRicette.map((categoria, index) => (
+              {formData.nomeCategorieRicette.map((categorie, index) => (
                 <span
                   key={index}
                   className="badge me-2 mt-1 d-flex align-items-center"
                 >
-                  {categoria}
+                  {categorie.nome}
                   <Button
                     variant="link"
-                    onClick={() => handleRemoveCategory(categoria)}
+                    onClick={() => handleRemoveCategory(categorie)}
                     className="x-btn"
                   >
                     X
@@ -326,7 +337,7 @@ const ModificaRicetta = () => {
             {id && (
               <Form.Group className="mb-3">
                 <ImgRicetta
-                  images={images}
+                  images={images} 
                   addImage={handleImageAdd}
                   removeImage={(imageId) => dispatch(removeImage(id, imageId))}
                   isEditing={true}
