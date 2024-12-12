@@ -263,9 +263,10 @@ const CreaRicetta = () => {
                 </Form.Select>
                 <div>
                   {ricettaData.nomeCategorieRicette.map((categoria, index) => (
+          
                     <span
                       key={index}
-                      className="badge me-2 mt-1 d-flex align-items-center"
+                      className="badge me-2 mt-1"
                     >
                       {categoria}
                       <Button

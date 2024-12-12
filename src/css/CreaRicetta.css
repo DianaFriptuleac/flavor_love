@@ -1,6 +1,6 @@
 /*bg*/
 .creaRicetta_background {
-  background-image: url("/public/assets/user_profile_bg.jpg");
+  background-image: url("/public/assets/basil.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -21,9 +21,9 @@
 }
 /*contaainer form */
 .creaRicetta-form-container {
-  background: rgba(255, 255, 255, 0.8); /* vetro opaco */
+  background: rgba(200, 200, 200, 0.8);/* vetro opaco */
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
-  border-radius: 15px;
+  border-radius: 5px;
   padding: 30px;
   width: 100%;
   max-width: 700px;
@@ -94,23 +94,28 @@
 }
 /* badge per categorie */
 .badge {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   background-color: #2a7709;
   color: #fff;
-  padding: 5px 10px;
   border-radius: 12px;
-  margin-right: 5px;
-  font-size: 0.85rem;
+  font-size: 10px;
   text-transform: capitalize;
   transition: background 0.3s ease;
-  width: 90px;
-  height: 25px;
+  padding: 5px 10px; 
+  word-break: break-word; /*divido il testo */
+  white-space: normal; /*va andare a capo */
+  max-width: 150px; 
+ 
+ 
 }
 .x-btn {
   color: #e60a20;
   font-weight: bold;
   padding-left: 3px;
   text-decoration: none;
+  flex-shrink: 0; /* impedisce il ridimensionamento */
+  cursor: pointer;
 }
 .x-btn:hover {
   color: #e60a20;

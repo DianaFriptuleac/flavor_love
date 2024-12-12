@@ -21,7 +21,7 @@
 /* card */
 .allRicette-card {
   border: none;
-  border-radius: 12px;
+  border-radius: 5px;
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -56,14 +56,18 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 15px;
   background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 0 0 12px 12px;
-  min-height: 100px;
  
 }
 
 /* btn cuore*/
+.heartContainer{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+}
+
 .heart-btn {
   border: 2px solid #e60a20!;
   border-radius: 50%;

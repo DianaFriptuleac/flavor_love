@@ -131,6 +131,15 @@ const AllRicette = () => {
             ricette.map((ricetta) => (
               <Col key={ricetta.id} md={6} lg={4} xl={3} className="mb-4">
                 <Card className="allRicette-card">
+                  <div className="heartContainer">
+                  <Button
+                      className="heart-btn"
+                      variant="outline-danger"
+                      onClick={() => handleOpenModal(ricetta)}
+                    >
+                      ❤️
+                    </Button>
+                  </div>
                   <Card.Img
                     onClick={() => navigate(`/ricette/${ricetta.id}`)}
                     className="cursor-pointer AllRicette-card-img"
@@ -142,17 +151,10 @@ const AllRicette = () => {
                     }
                     alt={ricetta.titolo}
                   />
-                  <Card.Body className="custom-card-body">
-                    <Card.Title className="card-Title text-light">
+                  <Card.Body className="custom-card-body p-2">
+                    <Card.Title className="card-Title text-light mb-0">
                       {ricetta.titolo}
                     </Card.Title>
-                    <Button
-                      className="heart-btn"
-                      variant="outline-danger"
-                      onClick={() => handleOpenModal(ricetta)}
-                    >
-                      ❤️
-                    </Button>
                   </Card.Body>
                 </Card>
               </Col>

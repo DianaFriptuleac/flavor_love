@@ -252,9 +252,10 @@ const ModificaRicetta = () => {
                 ))}
               </Form.Select>
               {formData.nomeCategorieRicette.map((categorie, index) => (
+               
                 <span
                   key={index}
-                  className="badge me-2 mt-1 d-flex align-items-center"
+                  className="badge me-2 mt-1"
                 >
                   {categorie.nome}
                   <Button
@@ -265,6 +266,7 @@ const ModificaRicetta = () => {
                     X
                   </Button>
                 </span>
+              
               ))}
             </Form.Group>
             <Form.Group className="mb-3">

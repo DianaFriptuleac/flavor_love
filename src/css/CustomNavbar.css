@@ -34,7 +34,7 @@
 /*Logout alert*/
 .logout-alert {
   position: fixed !important;
-  background-color: #e9e5d7;
+  background-color: rgba(233, 229, 215, 0.9);
   border: none;
   max-height: 15rem;
   top: 30% !important;
@@ -51,7 +51,6 @@
 .annulla-logout-button {
   background: linear-gradient(45deg, #e60a20, #160d08);
   border: none;
-  color: #fff;
   padding: 10px 20px;
   border-radius: 6px;
   transition: background 0.3s ease-in-out, transform 0.2s ease;
