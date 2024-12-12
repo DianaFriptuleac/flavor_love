@@ -8,6 +8,7 @@ import {
   Card,
   Button,
   Spinner,
+  CardBody,
 } from "react-bootstrap";
 import { FaHeart } from "react-icons/fa";
 import { useState, useEffect } from "react";
@@ -98,16 +99,13 @@ const Liked = () => {
   return (
     <div className="bg-liked">
       <Container>
-        <h2 className="title-liked">Le tue ricette preferite</h2>
+        <h2 className="title-liked">Le tue ricette preferite:</h2>
         <Row className="mt-4">
           {likedRicette.map((ricetta) => (
-            <Col key={ricetta.id} md={4} lg={3}>
+            <Col key={ricetta.id} md={6} lg={4} xl={3}>
               <Card className="mb-4 likedCard">
-                <div className="cardHeader-overlay px-2 py-1">
-                  <Card.Title className="card-title-overlay">
-                    {ricetta.titolo}
-                  </Card.Title>
-                  <Button
+                <div className="heartLiked">
+                <Button
                     variant="light"
                     onClick={() => toggleLike(ricetta)}
                     className="like-button-overlay"
@@ -121,6 +119,11 @@ const Liked = () => {
                   src={ricetta.img[0]?.url || "/assets/default_ricetta.jpg"}
                   className="card-liked-image"
                 />
+                    <CardBody className="cardHeader-overlay d-flex align-items-center flex-column p-2">
+                  <Card.Title className="card-title-overlay mb-0">
+                    {ricetta.titolo}
+                  </Card.Title>
+                </CardBody>
               </Card>
             </Col>
           ))}

@@ -250,7 +250,7 @@ const UserProfile = () => {
         <RicetteUtente ricette={ricette} />
       </Container>
       <Container>
-        <Row className="ricettario_row d-flex justify-content-center mt-4">
+        <Row className="ricettario_row d-flex justify-content-center mt-5">
           <Col md={3}>
             <div className="ricettario-container">
               <h3 className="ricettario-title">I tuoi Ricettari</h3>

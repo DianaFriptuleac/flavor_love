@@ -1,118 +1,135 @@
 /*bg*/
-.bg-liked{
-    background-image: url("/public/assets/allRicette-bg.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center;
-    min-height: 100vh;
-    padding: 20px;
+.bg-liked {
+  background-image: url("/public/assets/allRicette-bg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  min-height: 100vh;
+  padding: 20px;
 }
 /*h1*/
-.title-liked{
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-    font-family: "Poppins", sans-serif;
-    font-size: 2.5rem;
-    letter-spacing: 1px;
-    text-align: right;
-    color: #fff;
-    transition: color 0.3s ease-in-out;
+.title-liked {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  font-family: "Poppins", sans-serif;
+  font-size: 2.5rem;
+  letter-spacing: 1px;
+  color: #fff;
+  transition: color 0.3s ease-in-out;
 }
-.title-liked:hover{
-    color: #0f2b03; 
+.title-liked:hover {
+  color: #0f2b03;
 }
 /*card*/
 .likedCard {
-    position: relative;
-    overflow: hidden;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    border: none;
-    background-color: transparent;
-    height: 20rem;
-    width: 18rem;
-  }
-  /* soptra l'img. */
-  .likedCard .card-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 10px;
-  }
-  
-  /* titolo heart btn */
-  .cardHeader-overlay {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color:  rgba(24, 23, 23, 0.6);
-    color: white;
-  }
-  
-  /* titolo */
-  .card-title-overlay {
-    font-family: "Poppins", sans-serif;
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: white;
-    margin: 0;
-  }
-  
-  /* btn like */
-  .like-button-overlay {
-    background-color: transparent;
-    border: none;
-    color: red;
-    font-size: 1.5rem;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-  }
-  
-  .like-button-overlay:hover {
-    transform: scale(1.1);
-  }
-  
-  /* img */
-  .card-liked-image {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-    height: auto;
-    z-index: 1;
-    flex: 1;
-    cursor: pointer;
-  }
-  /*alert*/
-  .alertLiked{
-    background-color: rgba(255, 255, 255, 0.8);
-    color: #d30316;
-    font-family: "Poppins", sans-serif;
-    font-size: 1.2rem;
-    border: 1px solid #d30316;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    width: 80%;
-  }
-  .alertLiked-btn{
-    background: linear-gradient(45deg, #0f2b03, #b6c374);
-    width: 200px;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    font-size: 14px;
-    text-transform: uppercase;
-    padding: 8px 16px;
-    border-radius: 6px;
-    transition: background 0.3s ease-in-out, transform 0.2s ease;
-  }
-  .alertLiked-btn:hover{
-    background: linear-gradient(45deg, #2a7709, #b6c374);
-    transform: translateY(-2px);
-  }
+  position: relative;
+  border: none;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+.likedCard:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+/* heart container */
+.heartLiked {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+}
+/* soptra l'img. */
+.likedCard .card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.cardHeader-overlay {
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 0 0 12px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* titolo */
+.card-title-overlay {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  display: block;
+  color: #333 !important;
+}
+
+/* btn like */
+.like-button-overlay {
+  border: 1px solid #e60a20;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  color: #e60a20;
+  align-items: center;
+  font-size: 1.5rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.like-button-overlay:hover {
+  background-color: #e46e7a;
+  color: #e60a20;
+  transform: scale(1.1);
+}
+
+/* img */
+.card-liked-image {
+  height: 180px;
+  object-fit: cover;
+}
+/*alert*/
+.alertLiked {
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #d30316;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.2rem;
+  border: 1px solid #d30316;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  width: 80%;
+}
+.alertLiked-btn {
+  background: linear-gradient(45deg, #0f2b03, #b6c374);
+  width: 200px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: background 0.3s ease-in-out, transform 0.2s ease;
+}
+.alertLiked-btn:hover {
+  background: linear-gradient(45deg, #2a7709, #b6c374);
+  transform: translateY(-2px);
+}

@@ -25,7 +25,7 @@ const CustomNavbar = function () {
   };
   //logout
   const handleLogout = () => {
-    //resetto lo stato di Redux
+    setShowLogoutAlert(false);
     dispatch(logoutUser());
     navigate("/login");
   };
