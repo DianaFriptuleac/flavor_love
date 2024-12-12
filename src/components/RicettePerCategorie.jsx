@@ -13,6 +13,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Pagination } from "react-bootstrap";
 import { likedRicette } from "../redux/actions/likedActions";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { jwtDecode } from "jwt-decode";
 import "../css/RicettePerCategorie.css"
 
 const RicettePerCategorie = () => {
@@ -93,9 +94,21 @@ const RicettePerCategorie = () => {
 
 
   // Liked
+  let userId;
+  if (token) {
+    const decodedToken = jwtDecode(token);
+    userId = decodedToken.id; 
+  }
+
+  const isLiked = (ricettaId) => {
+    const userLikedRicette = likedRicetteState[userId] || [];
+    return userLikedRicette.some((ricetta) => ricetta.id === ricettaId);
+  };
+
+
   const toggleLike = async (ricetta) => {
     try {
-      const isCurrentlyLiked = likedRicetteState.some((liked) => liked.id === ricetta.id);
+      const isCurrentlyLiked = isLiked(ricetta.id);
 
       const response = await fetch(
         `http://localhost:3001/api/liked/${ricetta.id}`,
@@ -106,7 +119,7 @@ const RicettePerCategorie = () => {
       );
 
       if (response.ok) {
-        dispatch(likedRicette(ricetta));
+        dispatch(likedRicette(ricetta, userId));
       } else {
         throw new Error(
           isCurrentlyLiked
@@ -119,10 +132,7 @@ const RicettePerCategorie = () => {
     }
   };
 
-  const isLiked = (ricettaId) => {
-    return likedRicetteState.some((ricetta) => ricetta.id === ricettaId);
-  };
-
+ 
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
