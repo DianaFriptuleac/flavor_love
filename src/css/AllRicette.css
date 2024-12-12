@@ -65,7 +65,7 @@
 
 /* btn cuore*/
 .heart-btn {
-  border: 2px solid #e60a20;
+  border: 2px solid #e60a20!;
   border-radius: 50%;
   width: 40px;
   height: 40px;

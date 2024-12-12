@@ -26,14 +26,6 @@ const RicettePerCategorie = () => {
   const token = useSelector((state) => state.auth.token);
   const [likedRicette, setLikedRicette] = useState([]);
 
-  //img. diverse per ogni categoria
-  const categoryImg = {
-    antipasti: "/assets/bg-antipasti.jpg",
-    primi: "/assets/bg-primi.jpg",
-    secondi: "/assets/bg-secondi.jpg",
-    dolci: "/assets/bg-dolci.jpg",
-  };
-
   useEffect(() => {
     const fetchRicettaByCategorie = async (page) => {
       setLoading(true);
@@ -150,17 +142,19 @@ const isLiked = (ricettaId) => {
         </Alert>
       )}
     <Row className="img-card-container">
-    <Col className="imgPerCategorie">
-        <img
-          src={categoryImg[categoria] || "/assets/default-ricetta.jpg"}
-          alt={`${categoria} img`}
-          className="category-img"
-        />
-
-        </Col>
-        <Col className="card-container">
         {ricette.map((ricetta) => (
-           <Card key={ricetta.id} className="categorie-card">
+           <Col key={ricetta.id} md={6} lg={3} className="card-container">
+           <Card className="categorie-card mb-3">
+            <div className="heart-container">
+            <Button
+                className="categorie-btn"
+                  variant="light"
+                  onClick={() => toggleLike(ricetta)}
+                  style={{ color: isLiked(ricetta.id) ? "red" : "red" }}
+                >
+                  {isLiked(ricetta.id) ? <FaHeart className="heart-icon" /> : <FaRegHeart />}
+                </Button>
+            </div>
               <Card.Img
                 variant="top"
                 className="card-img-categorie"
@@ -169,20 +163,12 @@ const isLiked = (ricettaId) => {
                 style={{ cursor: "pointer" }}
                 onClick={() => navigate(`/ricette/${ricetta.id}`)}
               />
-              <Card.Body className="card-body-categorie d-flex align-items-center flex-column">
-                <Card.Title className="card-title-categorie">{ricetta.titolo}</Card.Title>
-                <Button
-                className="categorie-btn"
-                  variant="light"
-                  onClick={() => toggleLike(ricetta)}
-                  style={{ color: isLiked(ricetta.id) ? "red" : "red" }}
-                >
-                  {isLiked(ricetta.id) ? <FaHeart className="heart-icon" /> : <FaRegHeart />}
-                </Button>
+              <Card.Body className="card-body-categorie d-flex align-items-center flex-column p-2">
+                <Card.Title className="card-title-categorie mb-0">{ricetta.titolo}</Card.Title>
               </Card.Body>
             </Card>
-        ))}
         </Col>
+          ))}
       </Row>
       <Pagination className="justify-content-center mt-4 categorie-pagination">
         {Array.from({ length: totalPages }, (_, i) => (
