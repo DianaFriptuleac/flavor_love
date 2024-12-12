@@ -5,7 +5,6 @@ import ricettaReducer from "./ricettaReducer";
 import ricetteReducer from "./fetchRicetteReducer";
 import { ricettaReducer as updateRicettaReducer } from "./updateRicettaReducer";
 import ricettarioReducer from "./ricettarioReducer";
-import likedRicette from "./likedReducer";
 import searchedRicette from "./searchReducer"; 
 
 const rootReducer = combineReducers({
@@ -15,7 +14,6 @@ const rootReducer = combineReducers({
   ricette: ricetteReducer,
   updateRicetta: updateRicettaReducer,
   ricettari: ricettarioReducer,
-  liked: likedRicette,
   searched: searchedRicette,
 });
 
