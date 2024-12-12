@@ -20,7 +20,7 @@ const ListaSpesa = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [editingIngrediente, setEditingIngrediente] = useState(null);
-  const [quantita, setQuantita] = useState(0);
+  const [dosaggio, setDosaggio] = useState(0);
   const [showModal, setShowModal] = useState(false);
 
   // Fetch lista spesa
@@ -67,8 +67,8 @@ const ListaSpesa = () => {
     }
   };
 
-  // Modifico quantita ingrediente
-  const handleUpdateQuantita = async () => {
+  // Modifico dosaggio ingrediente
+  const handleUpdateDosaggio = async () => {
     if (!editingIngrediente) return;
 
     try {
@@ -83,9 +83,8 @@ const ListaSpesa = () => {
           body: JSON.stringify({
             id: editingIngrediente.id,
             nome: editingIngrediente.nome,
-            quantita: quantita,
+            dosaggio: dosaggio, 
             unita: editingIngrediente.unita,
-            dosaggio: editingIngrediente.dosaggio,
           }),
         }
       );
@@ -129,7 +128,7 @@ const ListaSpesa = () => {
   }, []);
 
   if (loading)
-    return <Alert variant="info">Caricamento della lista della spesa...</Alert>;
+    return <Alert variant="success">Caricamento della lista della spesa...</Alert>;
   if (error) return <Alert variant="danger">{error}</Alert>;
 
   return (
@@ -160,7 +159,7 @@ const ListaSpesa = () => {
                   className="list-group-listaSp mt-2 d-flex justify-content-between align-items-center"
                 >
                   <span className="text-lista">
-                    {ingrediente.nome} - {ingrediente.quantita}{" "}
+                    {ingrediente.nome} - {ingrediente.dosaggio}{" "}
                     {ingrediente.unita}
                   </span>
                   <div className="d-flex">
@@ -168,7 +167,7 @@ const ListaSpesa = () => {
                       className="me-2 modifica-lista-btn d-flex align-items-center "
                       onClick={() => {
                         setEditingIngrediente(ingrediente);
-                        setQuantita(ingrediente.quantita);
+                        setDosaggio(ingrediente.dosaggio);
                         setShowModal(true);
                       }}
                     >
@@ -185,7 +184,7 @@ const ListaSpesa = () => {
               ))}
             </ListGroup>
 
-            {/* Modale per modificare la quantita ingredienti */}
+            {/* Modale per modificare il dosaggio ingredienti */}
             <Modal className="modalLista" show={showModal} onHide={() => setShowModal(false)}>
               <Modal.Header closeButton>
                 <Modal.Title>Modifica Quantità</Modal.Title>
@@ -195,8 +194,8 @@ const ListaSpesa = () => {
                   <Form.Label>Quantità</Form.Label>
                   <Form.Control
                     type="number"
-                    value={quantita}
-                    onChange={(e) => setQuantita(e.target.value)}
+                    value={dosaggio}
+                    onChange={(e) => setDosaggio(e.target.value)}
                   />
                 </Form.Group>
               </Modal.Body>
@@ -204,7 +203,7 @@ const ListaSpesa = () => {
                 <Button variant="secondary" onClick={() => setShowModal(false)}>
                   Annulla
                 </Button>
-                <Button variant="primary" onClick={handleUpdateQuantita}>
+                <Button variant="primary" onClick={handleUpdateDosaggio}>
                   Salva
                 </Button>
               </Modal.Footer>

@@ -156,8 +156,8 @@ const Ricettario = () => {
           </Col>
         </Row>
       </Container>
-      <Container fluid className="ricettarioContainer">
-        <Row >
+      <Container className="ricettarioContainer">
+        <Row className="justify-content-center g-4">
           {Array.isArray(ricettari) && ricettari.length > 0 ? (
             ricettari.map((ricettario) => (
               <Col sm={12} md={6} lg={4} xl={3} className="mb-4" key={ricettario.id}>
