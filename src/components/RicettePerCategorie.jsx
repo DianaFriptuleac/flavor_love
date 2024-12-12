@@ -9,17 +9,14 @@ import {
   Button,
 } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector} from "react-redux";
 import { Pagination } from "react-bootstrap";
-import { likedRicette } from "../redux/actions/likedActions";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
-import { jwtDecode } from "jwt-decode";
 import "../css/RicettePerCategorie.css"
 
 const RicettePerCategorie = () => {
   const { categoria } = useParams();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [ricette, setRicette] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -27,7 +24,7 @@ const RicettePerCategorie = () => {
   const [totalPages, setTotalPages] = useState(1);
 
   const token = useSelector((state) => state.auth.token);
-  const likedRicetteState = useSelector((state) => state.liked.ricette);
+  const [likedRicette, setLikedRicette] = useState([]);
 
   //img. diverse per ogni categoria
   const categoryImg = {
@@ -74,6 +71,17 @@ const RicettePerCategorie = () => {
 
         setRicette(data.content || []);
         setTotalPages(data.totalPages || 1);
+
+          // Fetch initial liked ricette
+          const likedResp = await fetch("http://localhost:3001/api/liked", {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+  
+          if (likedResp.ok) {
+            const likedData = await likedResp.json();
+            setLikedRicette(likedData.ricette || []);
+          }
+
       } catch (err) {
         setError(err.message);
 
@@ -92,19 +100,9 @@ const RicettePerCategorie = () => {
     }
   }, [categoria, currentPage, token, navigate]);
 
-
-  // Liked
-  let userId;
-  if (token) {
-    const decodedToken = jwtDecode(token);
-    userId = decodedToken.id; 
-  }
-
-  const isLiked = (ricettaId) => {
-    const userLikedRicette = likedRicetteState[userId] || [];
-    return userLikedRicette.some((ricetta) => ricetta.id === ricettaId);
-  };
-
+const isLiked = (ricettaId) => {
+  return likedRicette.some((ricetta) => ricetta.id === ricettaId);
+};
 
   const toggleLike = async (ricetta) => {
     try {
@@ -119,7 +117,11 @@ const RicettePerCategorie = () => {
       );
 
       if (response.ok) {
-        dispatch(likedRicette(ricetta, userId));
+        setLikedRicette((prev) =>
+          isCurrentlyLiked
+            ? prev.filter((liked) => liked.id !== ricetta.id)
+            : [...prev, ricetta]
+        );
       } else {
         throw new Error(
           isCurrentlyLiked

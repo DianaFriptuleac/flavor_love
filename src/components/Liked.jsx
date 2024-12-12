@@ -21,6 +21,7 @@ const Liked = () => {
   const navigate = useNavigate();
 
   // Fetch ricette Liked
+  useEffect(() => {
   const fetchLikedRicette = async () => {
     try {
       setLoading(true);
@@ -41,6 +42,8 @@ const Liked = () => {
     }
   };
 
+  fetchLikedRicette();
+}, [token]);
   // Aggiungi o rimuovi una ricetta dai Liked
   const toggleLike = async (ricetta) => {
     try {
@@ -55,13 +58,11 @@ const Liked = () => {
       );
 
       if (response.ok) {
-        if (exists) {
-          setLikedRicette((prev) =>
-            prev.filter((liked) => liked.id !== ricetta.id)
-          );
-        } else {
-          setLikedRicette((prev) => [...prev, ricetta]);
-        }
+        setLikedRicette((prev) =>
+          exists
+            ? prev.filter((liked) => liked.id !== ricetta.id)
+            : [...prev, ricetta]
+        );
       } else {
         throw new Error(
           exists
@@ -69,21 +70,10 @@ const Liked = () => {
             : "Errore nell'aggiunta della ricetta ai preferiti."
         );
       }
-      // Aggiorno lo stato locale
-      setLikedRicette((prev) =>
-        exists
-          ? prev.filter((liked) => liked.id !== ricetta.id)
-          : [...prev, ricetta]
-      );
     } catch (err) {
       console.error(err.message);
     }
   };
-
-  useEffect(() => {
-    fetchLikedRicette();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   if (loading) return <Spinner animation="border" />;
   if (error) return <Alert variant="danger">{error}</Alert>;
@@ -112,8 +102,7 @@ const Liked = () => {
         <Row className="mt-4">
           {likedRicette.map((ricetta) => (
             <Col key={ricetta.id} md={4} lg={3}>
-              <Card className="mb-4 likedCard"
-              onClick={() => navigate(`/ricette/${ricetta.id}`)} >
+              <Card className="mb-4 likedCard">
                 <div className="cardHeader-overlay px-2 py-1">
                   <Card.Title className="card-title-overlay">
                     {ricetta.titolo}
@@ -128,6 +117,7 @@ const Liked = () => {
                 </div>
                 <Card.Img
                   variant="top"
+                  onClick={() => navigate(`/ricette/${ricetta.id}`)}
                   src={ricetta.img[0]?.url || "/assets/default_ricetta.jpg"}
                   className="card-liked-image"
                 />
