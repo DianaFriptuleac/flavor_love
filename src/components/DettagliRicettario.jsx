@@ -53,8 +53,10 @@ const DettagliRicettario = () => {
     const conferma = window.confirm(
       "Sei sicuro di voler rimuovere questa ricetta dal ricettario?"
     );
-    if (!conferma) return;
-    setIsLoading(true);
+    if (!conferma){
+      return;
+    }
+  
 
     try {
       const response = await fetch(
@@ -91,7 +93,7 @@ const DettagliRicettario = () => {
   return (
     <div className="dettagli-ricettario">
     <Container>
-      <div className="d-flex justify-content-center">
+      <div className="mb-3">
       <Button onClick={() => navigate("/ricettario")} className="mt-3 tornaBtn">
         Torna ai Ricettari
       </Button>
@@ -106,12 +108,13 @@ const DettagliRicettario = () => {
       ) : ricettario ? (
         <>
           <h2 className="nome-ricettarrio">{ricettario.nome}</h2>
+       <div className="listaRicetteContainer">
           <ListGroup className="mt-3">
             {ricette.length > 0 ? (
               ricette.map((ricetta) => (
                 <ListGroup.Item
                   key={ricetta.id}
-                  className="d-flex justify-content-between align-items-center listRicette mt-2"
+                  className="d-flex justify-content-between align-items-center listRicette mb-2"
                   action
                   onClick={() => navigate(`/ricette/${ricetta.id}`)}
                 >
@@ -128,7 +131,10 @@ const DettagliRicettario = () => {
                   <div>
                     <Button
                      className="rimuovi-btn"
-                      onClick={() => handleRemoveRicetta(ricetta.id)}
+                     onClick={(event) => {
+                      event.stopPropagation(); // evito che il click sul btn attivi il click sul genitore (ricetta.id)
+                      handleRemoveRicetta(ricetta.id);
+                    }}
                     ><FaTrashAlt/>
                 
                     </Button>
@@ -141,6 +147,7 @@ const DettagliRicettario = () => {
               </Alert>
             )}
           </ListGroup>
+          </div>
           {totalPages > 1 && (
             <Pagination className="mt-3">
               {[...Array(totalPages).keys()].map((page) => (

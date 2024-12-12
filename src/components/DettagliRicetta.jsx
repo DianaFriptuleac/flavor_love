@@ -122,7 +122,8 @@ const DettagliRicetta = () => {
 
   return (
     <div className="bg-dettagliRicetta">
-      <Container className="mt-4 dettagli-ricetta">
+      <Container className="dettagli-ricetta">
+      <Container>
         {notification.message && (
           <Alert variant={notification.variant}>{notification.message}</Alert>
         )}
@@ -232,6 +233,7 @@ const DettagliRicetta = () => {
           </Card>
           </Col>
         </Row>
+      </Container>
       </Container>
     </div>
   );

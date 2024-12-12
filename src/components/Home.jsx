@@ -73,7 +73,7 @@ const Home = () => {
                           }}
                         />
                         <div className="title-card">
-                          <Card.Title className="ricetta-title">
+                          <Card.Title className="ricettaTitle">
                             {ricetta.title}
                           </Card.Title>
                         </div>

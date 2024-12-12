@@ -60,7 +60,7 @@
   z-index: 2; /*titolo sopra l'immagine */
 }
 
-.ricetta-title {
+.ricettaTitle {
   font-size: 1rem;
   text-align: center;
   color: white !important;

@@ -16,6 +16,7 @@
   width: 100%;
   transition: transform 0.3s ease, box-shadow 0.3s eas
 }
+
 /*h1*/
 .profileTitle {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);

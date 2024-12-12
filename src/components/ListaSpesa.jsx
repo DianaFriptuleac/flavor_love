@@ -141,7 +141,7 @@ const ListaSpesa = () => {
             className="d-flex justify-content-between align-items-center"
           >
             <div>
-              <h1 className="mt-4 t text-light">La Lista Spesa</h1>
+              <h1 className="mt-4 titoloLista">Lista Spesa</h1>
             </div>
             <div>
               <Button className="svuota-lista" onClick={handleClearListaSpesa}>

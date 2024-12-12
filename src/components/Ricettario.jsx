@@ -137,26 +137,30 @@ const Ricettario = () => {
 
   return (
     <div className="bg-ricettario">
-      <Container>
-        <Row className="align-items-center mb-4 justify-content-end">
+      <Container >
+        <Row className="align-items-center mb-4 justify-content-center titleContainer">
           <Col xs="auto">
+          <div>
+            <h2 className="titolo-ricettario mt-4">I miei Ricettari</h2>
+            </div>
+          </Col>
+          <Col xs="auto">
+          <div>
             <Button
-              className="ricettario-crea-btn"
+              className="ricettario-crea-btn mb-0 mt-3"
               onClick={() => setShowCreateModal(true)}
             >
               Crea Ricettario
             </Button>
-          </Col>
-          <Col xs="auto">
-            <h2 className="titolo-ricettario">I miei Ricettari</h2>
+            </div>
           </Col>
         </Row>
       </Container>
-      <Container className="d-flex justify-content-end me-0">
-        <Row>
+      <Container fluid className="ricettarioContainer">
+        <Row >
           {Array.isArray(ricettari) && ricettari.length > 0 ? (
             ricettari.map((ricettario) => (
-              <Col lg={4} md={6} sm={12} className="mb-4" key={ricettario.id}>
+              <Col sm={12} md={6} lg={4} xl={3} className="mb-4" key={ricettario.id}>
                 <Card className="ricettario-card">
                   <div className="img-container">
                     <Card.Img

@@ -69,7 +69,8 @@ const DettagliRicetteEsterne = () => {
 
   return (
     <div className="bg-dettagliRicettaEsterna">
-      <Container className="mt-4 dettagli-ricetta">
+      <Container className="dettagli-ricetta">
+      <Container className="mt-4">
         {alert.message && (
           <Alert variant={alert.variant}>{alert.message}</Alert>
         )}
@@ -88,7 +89,7 @@ const DettagliRicetteEsterne = () => {
           <Col md={6} className="mt-2">
             <Card className="shadow-sm border-0 p-3">
               <Card.Body>
-                <Card.Title className="titleCard display-6">
+                <Card.Title className="titleCard">
                   {dettagli.title}
                 </Card.Title>
 
@@ -144,6 +145,7 @@ const DettagliRicetteEsterne = () => {
           </Card>
           </Col>
         </Row>
+        </Container>
       </Container>
     </div>
   );

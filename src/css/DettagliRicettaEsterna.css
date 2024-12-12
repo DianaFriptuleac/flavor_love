@@ -1,31 +1,36 @@
 /* background */
 .bg-dettagliRicettaEsterna {
-  background: linear-gradient(135deg, #f1e7e4, #e9e5d7);
+  background-image: url("/public/assets/dettagliR.jpeg");
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
     min-height: 100vh;
-    padding: 20px;
     color: #160d08;
-    font-family: "Roboto", sans-serif;
-  }/* titolo */
+    padding: 10px;
+    font-family: "Poppins", sans-serif;
+  }
+  /* titolo */
 .titleCard {
     font-weight: bold;
     font-size: 2.9rem;
     letter-spacing: 1px;
+   
   }
   
   /* container dettagli */
   .dettagli-ricetta {
-    background-color: #f8f9fa;
-    padding: 20px;
-    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.9); /* vetro opaco */
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+    width: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s eas
+  
   }
   
   .dettagli-ricetta .card {
-    background-color: #ffffff;
-    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 5px;
   }
   
   /* lista ingredienti */
@@ -65,4 +70,14 @@
   .preparazione {
     word-spacing: 0.5rem;
     line-height: 1.3;
+  }
+  @media (max-width: 576px){
+    .titleCard {
+      font-size: 1.5rem;
+    }
+    .list-unstyled svg {
+      font-size: 1.5rem;
+      color: #d30316;
+      font-weight: bold;
+    }
   }
