@@ -1,99 +1,113 @@
 /*Bg- body*/
 .home-background {
-    background-image: url("/public/assets/fragole.bg.jpg"); 
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center;
-    min-height: 100vh;
-    padding: 20px;
-  }
-
-  /*h1*/
-.homeTitle{
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-    font-family: 'Poppins', sans-serif;
-    font-size: 2.5rem;
-    letter-spacing: 1px;
-    text-align: right;
+  background-image: url("/public/assets/fragole.bg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  min-height: 100vh;
+  padding: 20px;
 }
 
-  /*card ricette*/
-  .ricetta-card {
-    border: none;
-    transition: transform 0.3s ease-in-out;
-    box-shadow: rgba(21, 21, 21, 0.15) 1.95px 1.95px 2.6px;
-    
-  }
+/*h1*/
+.homeTitle {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  font-family: "Poppins", sans-serif;
+  font-size: 2.5rem;
+  letter-spacing: 1px;
+  text-align: right;
+  margin-right: 10rem;
+}
 
-  .ricetta-card:hover {
-    transform: scale(1.05); /* Zoom sull'hover */
-    cursor: pointer;
-  }
+/*card ricette*/
+.ricetta-card {
+  border: none;
+  transition: transform 0.3s ease-in-out;
+  box-shadow: rgba(21, 21, 21, 0.15) 1.95px 1.95px 2.6px;
+}
 
-  /*carousel*/
-  .carousel-container {
-    position: relative;
-    margin-right: 10%;
-    left: 40%; /* Sposto il carosello a destra */
-    width: 70%; 
-  }
-  /*img*/
-  .img-container {
-    position: relative;
-  }
-  .ricetta-img {
-    height: 20rem;
-    width: 100%;
-    object-fit: cover;
-    border-radius: 5px;
-  }
-  
-  .title-card {
-    position: absolute;
-    top: 50%; 
-    left: 50%; 
-    transform: translate(-50%, -50%); /* Allineo al centro */
-    background-color: rgba(24, 23, 23, 0.5); /* Sfondo semitrasparente */
-    padding: 10px 10px;
-    border-radius: 5px;
-    z-index: 2; /*titolo sopra l'immagine */
+.ricetta-card:hover {
+  transform: scale(1.05); /* Zoom sull'hover */
+  cursor: pointer;
+}
 
-    
-  }
+/*carousel*/
+.carousel-container {
+  position: relative;
+  margin-right: 10%;
+  left: 40%; /* Sposto il carosello a destra */
+  width: 70%;
+}
+/*img*/
+.img-container {
+  position: relative;
+}
+.ricetta-img {
+  height: 20rem;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+}
 
+.title-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Allineo al centro */
+  background-color: rgba(24, 23, 23, 0.5); /* Sfondo semitrasparente */
+  padding: 10px 10px;
+  border-radius: 5px;
+  z-index: 2; /*titolo sopra l'immagine */
+}
 
-  .ricetta-title{
-    font-size: 1rem; 
-    text-align: center;
-    color: white!important;
-  }
+.ricetta-title {
+  font-size: 1rem;
+  text-align: center;
+  color: white !important;
+}
 
-  /* media query x le card */
- @media (max-width: 1580px) {
+/* media query x le card */
+@media (max-width: 1580px) {
   .carousel-container {
     position: relative;
     left: 32%; /* Sposto il carosello a destra */
-    width: 70%; 
+    width: 70%;
+  }
+  .homeTitle {
+    margin-right: 17rem;
   }
 }
-@media (max-width: 768px) {
 
-    .homeTitle{
-        text-align: center;
-    }
-
-
-    .carousel-container {
-        left: 0; 
-        margin: 0 auto; 
-        width: 100%; 
-    }
-  
-    .ricetta-img {
-      width: 100%; 
-      height: auto;
-    }
-
+@media (max-width: 1400px) {
+  .homeTitle {
+    margin-right: 13rem;
+  }
 }
-  
+@media (max-width: 1200px) {
+  .homeTitle {
+    margin-right: 10rem;
+  }
+}
+@media (max-width: 1000px) {
+  .homeTitle {
+    margin-right: 5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .homeTitle {
+    text-align: center;
+    margin-right: 0px;
+  }
+
+  .carousel-container {
+    left: 0;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .ricetta-img {
+    width: 100%;
+    height: auto;
+  }
+}

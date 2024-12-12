@@ -112,7 +112,8 @@ const UserProfile = () => {
 
   return (
     <div className="userProfile_background">
-      <Container fluid className="d-flex justify-content-center">
+      <Container className="userContainer">
+      <Container fluid className="d-flex justify-content-center mt-4">
         <Card style={{ width: "50rem" }} className="userProfile_container">
           <Card.Body className="d-flex responsive-layout">
             <div style={{ flex: 1 }} className="me-3">
@@ -250,7 +251,7 @@ const UserProfile = () => {
       </Container>
       <Container>
         <Row className="ricettario_row d-flex justify-content-center mt-4">
-          <Col md={4}>
+          <Col md={3}>
             <div className="ricettario-container">
               <h3 className="ricettario-title">I tuoi Ricettari</h3>
 
@@ -262,9 +263,9 @@ const UserProfile = () => {
               />
             </div>
           </Col>
-          <Col md={4}>
+          <Col md={3}>
             <div className="liked-container mb-2">
-              <h3 className="liked-title">Le ricette preferite</h3>
+              <h3 className="liked-title">I tuoi preferiti</h3>
 
               <img
                 onClick={() => navigate("/ricette/liked")}
@@ -274,7 +275,7 @@ const UserProfile = () => {
               />
             </div>
           </Col>
-          <Col md={4}>
+          <Col md={3}>
             <div className="lista-container">
               <h3 className="lista-title">Lista spesa</h3>
 
@@ -287,6 +288,7 @@ const UserProfile = () => {
             </div>
           </Col>
         </Row>
+      </Container>
       </Container>
     </div>
   );

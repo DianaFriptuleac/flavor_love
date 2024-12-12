@@ -1,13 +1,20 @@
 /*userProfile-bg*/
 .userProfile_background {
-  background-image: url("/public/assets/user_profile_bg.jpg");
+  background-image: url("/public/assets/basil.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
   min-height: 100vh;
-  padding: 20px;
   position: relative;
+}
+
+.userContainer{
+  background: rgba(255, 255, 255, 0.3); /* vetro opaco */
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+  padding: 30px;
+  width: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s eas
 }
 /*h1*/
 .profileTitle {
@@ -25,7 +32,7 @@
 }
 /*user-card*/
 .userProfile_container {
-  background-color: #e9e5d7;
+  background-color: rgba(233, 229, 215, 0.8);
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
@@ -95,7 +102,7 @@
 }
 /*user-card-footer*/
 .profile_card_footer {
-  background-color: #e9e5d7;
+  background-color: rgba(233, 229, 215, 0.8);
   border-top: 1px solid #7c7979;
   padding: 15px;
 }
@@ -123,7 +130,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: rgba(192, 192, 192, 0.3);
+  background-color: rgba(24, 23, 23, 0.5); 
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -134,7 +141,7 @@
 .ricettario-container:hover,
 .liked-container:hover,
 .lista-container:hover {
-  background-color: rgba(192, 192, 192, 0.5);
+  background-color: rgba(50, 50, 50, 0.5); 
 }
 
 .ricettario-title,
@@ -144,6 +151,15 @@
   font-family: "Poppins", sans-serif;
   font-size: 2rem;
   letter-spacing: 1px;
+  text-align: center;
+  color: #fff;
+  transition: color 0.3s ease-in-out;
+}
+
+.ricettario-title:hover,
+.liked-title:hover,
+.lista-title:hover{
+    color: #0f2b03;
 }
 
 .ricettario_img,
@@ -165,7 +181,7 @@
 .ricettario_img:hover,
 .heart_img:hover,
 .listaSpesa_img:hover {
-  transform: scale(1.1);
+  transform: scale(1.02);
 }
 
 /* Media query */

@@ -129,7 +129,7 @@ const AllRicette = () => {
         <Row className="mt-3">
           {Array.isArray(ricette) && ricette.length > 0 ? (
             ricette.map((ricetta) => (
-              <Col key={ricetta.id} md={4} className="mb-4">
+              <Col key={ricetta.id} md={6} lg={4} xl={3} className="mb-4">
                 <Card className="allRicette-card">
                   <Card.Img
                     onClick={() => navigate(`/ricette/${ricetta.id}`)}

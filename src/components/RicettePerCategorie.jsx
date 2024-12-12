@@ -133,7 +133,7 @@ const isLiked = (ricettaId) => {
 
   return (
     <div className="bg-categorie">
-    <Container fluid>
+    <Container>
       <h2 className="categorie-title">Ricette per Categoria: {categoria}</h2>
       {loading && <Spinner animation="border" />}
       {error && (
@@ -143,7 +143,7 @@ const isLiked = (ricettaId) => {
       )}
     <Row className="img-card-container">
         {ricette.map((ricetta) => (
-           <Col key={ricetta.id} md={6} lg={3} className="card-container">
+           <Col key={ricetta.id} md={6} lg={4} xl={3} className="card-container">
            <Card className="categorie-card mb-3">
             <div className="heart-container">
             <Button

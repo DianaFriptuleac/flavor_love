@@ -47,7 +47,7 @@ position: relative;
 /* Card */
 .ricetteUtente-card {
   border: none;
-  border-radius: 10px;
+  border-radius: 5px;
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   box-shadow: rgba(21, 21, 21, 0.15) 1.95px 1.95px 2.6px;
