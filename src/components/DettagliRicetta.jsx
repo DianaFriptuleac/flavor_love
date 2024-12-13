@@ -214,7 +214,7 @@ const DettagliRicetta = () => {
               )}
             <div className="d-flex justify-content-center">
               <Button
-                className="shopping-btn d-flex align-items-center"
+                className="shoppingBtn d-flex align-items-center"
                 onClick={aggiungiAllaListaSpesa}
               >
                 <FaShoppingCart className="me-1" /> Aggiungi alla lista spesa

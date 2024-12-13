@@ -59,7 +59,7 @@
   display: inline-block;
 }
 /* btn add. alla lista spesa */
-.shopping-btn {
+.shoppingBtn {
   background: linear-gradient(45deg, #e60a20, #160d08);
   border: none;
   color: #fff;
@@ -67,7 +67,7 @@
   border-radius: 25px;
   transition: background 0.3s ease-in-out, transform 0.2s ease;
 }
-.shopping-btn:hover {
+.shoppingBtn:hover {
   background: linear-gradient(45deg, #f2031b, #5f0202);
   transform: translateY(-2px);
 }
@@ -128,10 +128,9 @@
       display: block; /*nuova riga */
       padding: 0.6rem 1rem;
     }
-  }
 
   /* btn add. alla lista spesa */
-  .shopping-btn {
+  .shoppingBtn {
     width: 90%;
     font-size: 0.9rem;
     padding: 0.6rem 1.5rem;
@@ -141,4 +140,5 @@
   .titleCard {
     font-size: 2rem!important;
   }
+}
 
