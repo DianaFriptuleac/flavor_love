@@ -66,7 +66,7 @@ const AllRicette = () => {
     dispatch(fetchRicette(page));
   };
 
-  // agg. ricetta all ricettario
+  // agg. ricetta al ricettario
   const handleAddToRicettario = async (ricettarioId) => {
     try {
       const response = await fetch(

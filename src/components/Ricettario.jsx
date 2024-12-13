@@ -62,6 +62,11 @@ const Ricettario = () => {
         const data = await response.json();
         console.log("Ricettari fetch response:", data);
         dispatch(setRicettari(data.content));
+      } else if (response.status === 404) {
+        console.log("Nessun ricettario trovato.");
+        dispatch(setRicettari([]));
+      } else {
+        throw new Error("Errore durante il fetch dei ricettari.");
       }
     } catch (error) {
       console.error("Errore nel fetch:", error.message);
