@@ -1,70 +1,82 @@
-# Getting Started with Create React App
+# **Flavor Love**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Benvenuti in **Flavor Love**, un'applicazione dedicata agli amanti della cucina e delle ricette! Questo progetto nasce dalla passione per il buon cibo e dall’idea di creare uno spazio personale dove ogni utente possa esplorare, salvare e condividere le proprie ricette preferite. **Flavor Love** è il tuo compagno perfetto per organizzare le tue ispirazioni culinarie e semplificare la tua esperienza in cucina.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## Tecnologie Utilizzate
 
-### `npm start`
+### Frontend:
+- **React**: Per la gestione dell’interfaccia utente e componenti reattivi.
+- **React Bootstrap**: Per uno stile moderno e responsivo.
+- **Redux**: Per la gestione centralizzata dello stato dell'applicazione.
+- **CSS**: Per personalizzazioni stilistiche aggiuntive.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Backend:
+- **Spring Boot**: Per l'implementazione di API RESTful e gestione della logica di business.
+- **Spring Security**: Per l'autenticazione e l'autorizzazione.
+- **Integrazione con Spoonacular API**: Per recuperare ricette esterne.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## Repository del Backend
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Il codice del backend è disponibile qui: [capstone_flavor_love](https://github.com/DianaFriptuleac/capstone_flavor_love.git)
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Funzionalità
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Ecco le principali funzionalità offerte dall'applicazione:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Registrazione e Login
+- Gli utenti possono registrarsi per creare il proprio account personale e accedere a tutte le funzionalità dell'applicazione.
 
-### `npm run eject`
+### Esplorazione delle Ricette
+- Visualizzazione delle ricette.
+- Filtraggio delle ricette per categorie.
+- Grazie all’integrazione con l'API di Spoonacular (fetch effettuata nel backend), si possono visualizzare ricette esterne sempre aggiornate.
+- Possibilità di cercare le ricette per nome.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Ricettari Personalizzati
+- Creazione e gestione di ricettari personalizzati.
+- Aggiunta delle ricette ai ricettari.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Pagina dei Preferiti
+- Salvataggio e gestione delle ricette nei preferiti.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Lista Spesa
+- Aggiunta degli ingredienti delle ricette alla lista spesa.
+- Modifica delle quantità o eliminazione degli ingredienti in base alle esigenze.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Gestione delle Ricette
+- Creazione di una nuova ricetta.
+- Modifica delle ricette personali (create dall'utente autenticato).
+- Eliminazione delle ricette personali.
 
-## Learn More
+### Dettagli delle Ricette
+- Visualizzazione di tutti i dettagli della ricetta, inclusi ingredienti, procedimento, tempo di preparazione e altro.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Profilo Utente
+- Modifica dei dati personali, inclusi nome, cognome e avatar.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+## Come Iniziare
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+1. Clona la repository del backend e segui le istruzioni per avviare il server.
+2. Configura il frontend installando le dipendenze:
+   ```bash
+   npm install
 
-### Analyzing the Bundle Size
+3. Avvia l’applicazione in modalità di sviluppo:
+   ```bash
+   npm start
+4. Accedi all’app su http://localhost:3000. 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Roadmap di Sviluppo
+Flavor Love è un progetto in continua evoluzione.
+Ecco alcune funzionalità future che vorrei implementare:
+*Commenti per le ricette:* Gli utenti potranno lasciare recensioni e suggerimenti.
+*Sezione Ristoranti:* Una nuova area per scoprire ristoranti e leggere recensioni.
+*Deploy dell’applicazione:* Pubblicazione su una piattaforma cloud per renderla accessibile ovunque.
