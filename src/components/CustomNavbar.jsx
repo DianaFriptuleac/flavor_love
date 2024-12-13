@@ -153,13 +153,11 @@ const CustomNavbar = function () {
           <div className="d-flex justify-content-between">
             <Button
               onClick={() => setShowLogoutAlert(false)} // Annulla Logout
-              variant="outline-secondary"
               className="annulla-logout-button"
             >
               Annulla
             </Button>
             <Button
-              variant="danger"
               className="logout-button"
               onClick={handleLogout} // Conferma Logout
             >

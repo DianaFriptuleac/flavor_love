@@ -193,7 +193,7 @@ const ListaSpesa = () => {
                 <Form.Group>
                   <Form.Label>Quantità</Form.Label>
                   <Form.Control
-                    type="number"
+                    type="text"
                     value={dosaggio}
                     onChange={(e) => setDosaggio(e.target.value)}
                   />

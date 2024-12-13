@@ -79,7 +79,7 @@ const RicetteUtente = () => {
        </Col>
         </Row>
       ) : (
-        <Alert variant="info" className="text-center mt-4">
+        <Alert variant="success" className="text-center mt-4 noRicetteAlert">
           Nessuna ricetta creata. Inizia a creare la tua prima ricetta!
         </Alert>
       )}

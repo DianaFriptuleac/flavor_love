@@ -20,6 +20,8 @@ const CreaRicetta = () => {
   const ricettaState = useSelector((state) => state.ricetta); //accedo allo stato ricetta
   const token = useSelector((state) => state.auth.token); //accedo al token
   const [isUploadingImage, setIsUploadingImage] = useState(false);
+  const [isContinueClicked, setIsContinueClicked] = useState(false);
+
 
   //stato locale per la ricetta, categorie, alert e ricettta creata
   const [ricettaData, setRicettaData] = useState({
@@ -113,7 +115,7 @@ const CreaRicetta = () => {
       // Salvo la ricetta creata
       setCreatedRicetta(response.payload);
 
-      // Resetto i campi locali
+     /* // Resetto i campi locali
       setRicettaData({
         titolo: "",
         procedimento: "",
@@ -123,7 +125,10 @@ const CreaRicetta = () => {
         costoRicetta: "BASSO",
         nomeCategorieRicette: [],
       });
+*/
 
+     //lo stato per mostrare il btn "salva e torna al profilo"
+      setIsContinueClicked(true);
       // Resetto il reducer
       dispatch(resetRicetta());
 
@@ -151,6 +156,18 @@ const CreaRicetta = () => {
 
         await dispatch(addIngredienti(createdRicetta.id, ingredientiPayload));
       }
+
+          // Resetto i campi locali
+    setRicettaData({
+      titolo: "",
+      procedimento: "",
+      difficoltaRicetta: "FACILE",
+      tempoPreparazioneMinuti: 1,
+      tempoCotturaMinuti: 0,
+      costoRicetta: "BASSO",
+      nomeCategorieRicette: [],
+    });
+
       navigate("/userprofile");
     } catch (error) {
       setAlert({ message: error.message, variant: "danger" });
@@ -335,7 +352,7 @@ const CreaRicetta = () => {
             {/* Invio del form */}
             <div className="mt-4">
               <Button type="submit" className="creaRicetta-btn">
-                Crea Ricetta
+                Continua
               </Button>
             </div>
           </Form>
@@ -370,6 +387,7 @@ const CreaRicetta = () => {
             ))}
 
           {/* salvo ancle l'img. e torno al profilo */}
+          {isContinueClicked && (
           <Button
             variant="success"
             className="mt-3 creaRicetta-btn"
@@ -377,6 +395,7 @@ const CreaRicetta = () => {
           >
             Salva e torna al Profilo
           </Button>
+          )}
         </div>
       </Container>
     </div>

@@ -40,7 +40,9 @@
   box-shadow: rgba(21, 21, 21, 0.15) 1.95px 1.95px 2.6px;
   border-radius: 10px;
   background-color: transparent !important;
-  width: 18rem;
+  width: 100%;
+  margin: 0 auto;
+  max-width: 300px;
 }
 
 .ricettario-card:hover {
@@ -55,17 +57,11 @@
 }
 
 .ricettario-card-body {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
   padding: 15px;
   background-color: rgba(240, 245, 240, 0.6);
   border-radius: 0 0 12px 12px;
 }
-.title-btn-card {
-  gap: 8rem;
-}
+
 
 .ricettario-crea-btn,
 .crea_ricettario_modal {
@@ -134,6 +130,17 @@
   font-family: "Poppins", sans-serif;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
+
+.elimina_ricettario_modal .modaleElimina{
+  background-color:rgba(100, 100, 100, 0.6);
+  backdrop-filter: blur(10px); /* sfocatura */
+  -webkit-backdrop-filter: blur(10px); /* Safari */
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  color: white;
+  text-shadow:  1px 1px 2px rgba(0, 0, 0, 0.2);
+
+}
 .chiudi-btn {
   background: linear-gradient(45deg, #e60a20, #160d08);
   border: none;
@@ -155,9 +162,6 @@
   box-shadow: 0px 0px 8px rgba(15, 43, 3, 0.5);
   outline: none;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-.elimina_ricettario_modal .modale {
-  border: 1px solid #e60a20;
 }
 
 .eliminaRicetta-btn {
@@ -219,6 +223,9 @@
     flex-direction: column;
     align-items: center;
     margin: 0 auto;
+  }
+  .ricettario-crea-btn{
+    margin-bottom: 5px;
   }
 }
 

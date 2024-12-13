@@ -147,7 +147,7 @@ const Ricettario = () => {
           <Col xs="auto">
           <div>
             <Button
-              className="ricettario-crea-btn mb-0 mt-3"
+              className="ricettario-crea-btn mt-3"
               onClick={() => setShowCreateModal(true)}
             >
               Crea Ricettario
@@ -157,10 +157,10 @@ const Ricettario = () => {
         </Row>
       </Container>
       <Container className="ricettarioContainer">
-        <Row className="justify-content-center g-4">
+        <Row className="g-3 justify-content-center">
           {Array.isArray(ricettari) && ricettari.length > 0 ? (
             ricettari.map((ricettario) => (
-              <Col sm={12} md={6} lg={4} xl={3} className="mb-4" key={ricettario.id}>
+              <Col xs={12} sm={6} md={4} lg={3} className="mb-4" key={ricettario.id}>
                 <Card className="ricettario-card">
                   <div className="img-container">
                     <Card.Img
@@ -171,17 +171,20 @@ const Ricettario = () => {
                       className="ricettario-card-img"
                     />
                     <Card.Body className="ricettario-card-body">
-                      <div className="d-flex title-btn-card">
+                      <div className="d-flex justify-content-between title-btn-card">
+                        <div>
                         <Card.Title className="ricettario-card-title">
                           {ricettario.nome}
                         </Card.Title>
-
+                        </div>
+                        <div>
                         <Button 
                         className="ricettario-elimina-btn"
                           onClick={() => confirmDeleteRicettario(ricettario.id)}
                         >
                        <FaTrashAlt/>
                         </Button>
+                        </div>
                       </div>
                     </Card.Body>
                   </div>
@@ -201,7 +204,7 @@ const Ricettario = () => {
           show={showDeleteModal}
           onHide={() => setShowDeleteModal(false)}
         >
-          <div className="modale">
+          <div className="modaleElimina">
             <Modal.Header closeButton>
               <Modal.Title>Conferma Eliminazione</Modal.Title>
             </Modal.Header>

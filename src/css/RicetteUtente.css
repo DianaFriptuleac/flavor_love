@@ -80,7 +80,12 @@ position: relative;
   text-overflow: ellipsis; /* (...) */
   white-space: nowrap;
   max-width: 90%;
+}
 
+.noRicetteAlert{
+  background-color: rgba(24, 23, 23, 0.5); 
+  font-weight: 500;
+  font-size: 18px;
 }
 
 /* Media Query */
