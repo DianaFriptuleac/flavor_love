@@ -1,6 +1,9 @@
 .myFooter {
   background-color: #160d08 !important;
 }
+.mediaIcons{
+  cursor: pointer;
+}
 @media (max-width: 576px) {
   .myFooter {
     text-align: center;

@@ -17,24 +17,24 @@ const MyFooter = () => {
           />
         </Col>
         <Col xs={12} md={2} className="text-secondary my-2">
-          <div className="d-flex align-items-center">
-            <FaFacebookSquare className="me-1" />{" "}
+          <div className="d-flex align-items-center ">
+            <FaFacebookSquare className="me-1 mediaIcons" />{" "}
             <p className="mb-0">Facebook</p>
           </div>
           <div className="d-flex align-items-center">
-            <FaInstagram className="me-1" /> <p className="mb-0">Instagram</p>
+            <FaInstagram className="me-1 mediaIcons" /> <p className="mb-0">Instagram</p>
           </div>
           <div className="d-flex align-items-center">
-            <FaYoutube className="me-1" /> <p className="mb-0"> YouTube</p>
+            <FaYoutube className="me-1 mediaIcons" /> <p className="mb-0"> YouTube</p>
           </div>
           <div className="d-flex align-items-center">
-            <FaTiktok className="me-1" /> <p className="mb-0">TikTok</p>
+            <FaTiktok className="me-1 mediaIcons" /> <p className="mb-0">TikTok</p>
           </div>
         </Col>
         <Col xs={12} md={2} className="text-secondary my-2">
-          <p className="mb-0 d-flex align-items-center">Privacy</p>
-          <p className="mb-0 d-flex align-items-center">Cookie Policy</p>
-          <p className="mb-0 d-flex align-items-center">
+          <p className="mb-0 d-flex align-items-center mediaIcons">Privacy</p>
+          <p className="mb-0 d-flex align-items-center mediaIcons">Cookie Policy</p>
+          <p className="mb-0 d-flex align-items-center mediaIcons">
             <FaRegCopyright className="me-1" /> 2024 Flavor Love{" "}
           </p>
         </Col>
