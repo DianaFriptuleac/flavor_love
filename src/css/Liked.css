@@ -34,14 +34,14 @@
   transform: scale(1.05);
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 }
-/* heart container */
+/* heart container*/
 .heartLiked {
   position: absolute;
   top: 10px;
   right: 10px;
   z-index: 10;
 }
-/* soptra l'img. */
+/* soptra l'img.*/
 .likedCard .card-overlay {
   position: absolute;
   top: 0;
@@ -100,7 +100,7 @@
   transform: scale(1.1);
 }
 
-/* img */
+/*img*/
 .card-liked-image {
   height: 180px;
   object-fit: cover;

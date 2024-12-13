@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import {
@@ -22,12 +22,8 @@ const ModificaRicetta = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const { dettagli, loading, error } = useSelector((state) => state.ricette);
-
-  const ingredienti = useSelector(
-    (state) => state.ricette.ingredienti || []
-  );
+  const ingredienti = useSelector((state) => state.ricette.ingredienti || []);
   const images = useSelector((state) => state.ricette.dettagli?.img || []);
   const token = useSelector((state) => state.auth.token);
 
@@ -40,7 +36,7 @@ const ModificaRicetta = () => {
     costoRicetta: "BASSO",
     nomeCategorieRicette: [],
     ingredienti: [],
-     img: [],
+    img: [],
   });
 
   const [categorie, setCategorie] = useState([]);
@@ -68,7 +64,7 @@ const ModificaRicetta = () => {
         costoRicetta: dettagli.costoRicetta,
         nomeCategorieRicette: dettagli.categorie || [],
         ingredienti: dettagli.ingredienti || [],
-        img:dettagli.img || [],
+        img: dettagli.img || [],
       });
     }
     console.log("Stato aggiornato:", dettagli?.img);
@@ -81,7 +77,6 @@ const ModificaRicetta = () => {
     try {
       await dispatch(addImage(id, file));
       dispatch(fetchImagesByRicettaId(id));
-     // console.log("IMG MODIFICA",id, "FILE",file )
       setIsProcessing(false);
     } catch (error) {
       console.error("Errore aggiunta immagine:", error.message);
@@ -132,10 +127,12 @@ const ModificaRicetta = () => {
     const selectedCategory = categorie.find(
       (cat) => cat.nome === selectedCategoryName
     );
-  
+
     if (
       selectedCategory &&
-      !formData.nomeCategorieRicette.some((cat) => cat.nome === selectedCategory.nome)
+      !formData.nomeCategorieRicette.some(
+        (cat) => cat.nome === selectedCategory.nome
+      )
     ) {
       setFormData((prev) => ({
         ...prev,
@@ -252,11 +249,7 @@ const ModificaRicetta = () => {
                 ))}
               </Form.Select>
               {formData.nomeCategorieRicette.map((categorie, index) => (
-               
-                <span
-                  key={index}
-                  className="badge me-2 mt-1"
-                >
+                <span key={index} className="badge me-2 mt-1">
                   {categorie.nome}
                   <Button
                     variant="link"
@@ -266,7 +259,6 @@ const ModificaRicetta = () => {
                     X
                   </Button>
                 </span>
-              
               ))}
             </Form.Group>
             <Form.Group className="mb-3">
@@ -339,7 +331,7 @@ const ModificaRicetta = () => {
             {id && (
               <Form.Group className="mb-3">
                 <ImgRicetta
-                  images={images} 
+                  images={images}
                   addImage={handleImageAdd}
                   removeImage={(imageId) => dispatch(removeImage(id, imageId))}
                   isEditing={true}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {
   Container,
@@ -83,7 +83,7 @@ const ListaSpesa = () => {
           body: JSON.stringify({
             id: editingIngrediente.id,
             nome: editingIngrediente.nome,
-            dosaggio: dosaggio, 
+            dosaggio: dosaggio,
             unita: editingIngrediente.unita,
           }),
         }
@@ -128,7 +128,9 @@ const ListaSpesa = () => {
   }, []);
 
   if (loading)
-    return <Alert variant="success">Caricamento della lista della spesa...</Alert>;
+    return (
+      <Alert variant="success">Caricamento della lista della spesa...</Alert>
+    );
   if (error) return <Alert variant="danger">{error}</Alert>;
 
   return (
@@ -185,7 +187,11 @@ const ListaSpesa = () => {
             </ListGroup>
 
             {/* Modale per modificare il dosaggio ingredienti */}
-            <Modal className="modalLista" show={showModal} onHide={() => setShowModal(false)}>
+            <Modal
+              className="modalLista"
+              show={showModal}
+              onHide={() => setShowModal(false)}
+            >
               <Modal.Header closeButton>
                 <Modal.Title>Modifica Quantità</Modal.Title>
               </Modal.Header>

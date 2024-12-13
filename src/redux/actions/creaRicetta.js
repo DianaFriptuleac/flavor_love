@@ -30,7 +30,7 @@ export const creaRicettaConImmagine =
     }
   };
 
-// Creo una nuova ricetta - chiamata Post API
+// Creo una nuova ricetta
 export const creaRicetta = (ricettaData) => async (dispatch, getState) => {
   try {
     const { token } = getState().auth; //recupero il token
@@ -62,7 +62,7 @@ export const creaRicetta = (ricettaData) => async (dispatch, getState) => {
   }
 };
 
-// Aggiungo img. alla ricetta con chiamata Post -API
+// Aggiungo img. alla ricetta
 export const addImage = (ricettaId, file) => async (dispatch, getState) => {
   try {
     const { token } = getState().auth;
@@ -209,7 +209,6 @@ export const removeIngrediente =
           type: REMOVE_INGREDIENTE,
           payload: ingredienteId,
         });
-        // dispatch(fetchIngredienti(ricettaId));
       } else {
         const errorText = await response.text();
         throw new Error(`Errore dal server: ${errorText}`);

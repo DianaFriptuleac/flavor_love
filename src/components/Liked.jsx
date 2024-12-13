@@ -23,29 +23,29 @@ const Liked = () => {
 
   // Fetch ricette Liked
   useEffect(() => {
-  const fetchLikedRicette = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch("http://localhost:3001/api/liked", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+    const fetchLikedRicette = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch("http://localhost:3001/api/liked", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
 
-      if (response.ok) {
-        const data = await response.json();
-        setLikedRicette(data.ricette || []);
-      } else {
-        throw new Error("Errore nel recupero delle ricette preferite.");
+        if (response.ok) {
+          const data = await response.json();
+          setLikedRicette(data.ricette || []);
+        } else {
+          throw new Error("Errore nel recupero delle ricette preferite.");
+        }
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
       }
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
 
-  fetchLikedRicette();
-}, [token]);
-  // Aggiungi o rimuovi una ricetta dai Liked
+    fetchLikedRicette();
+  }, [token]);
+  // Aggiunge o rimuove una ricetta dai Liked
   const toggleLike = async (ricetta) => {
     try {
       const exists = likedRicette.some((liked) => liked.id === ricetta.id);
@@ -81,18 +81,19 @@ const Liked = () => {
   if (!likedRicette.length)
     return (
       <div className="bg-liked">
-      <Container>
-        <Row className="mt-5 justify-content-center flex-column align-items-center">
-        <Alert className="alertLiked">
-          Non hai ancora aggiunto ricette ai preferiti.
-        </Alert>
-        <Button className="alertLiked-btn"
-         onClick={() => navigate(`/userprofile`)}>
-          Torna al tuo account
-
-        </Button>
-        </Row>
-      </Container>
+        <Container>
+          <Row className="mt-5 justify-content-center flex-column align-items-center">
+            <Alert className="alertLiked">
+              Non hai ancora aggiunto ricette ai preferiti.
+            </Alert>
+            <Button
+              className="alertLiked-btn"
+              onClick={() => navigate(`/userprofile`)}
+            >
+              Torna al tuo account
+            </Button>
+          </Row>
+        </Container>
       </div>
     );
 
@@ -105,7 +106,7 @@ const Liked = () => {
             <Col key={ricetta.id} md={6} lg={4} xl={3}>
               <Card className="mb-4 likedCard">
                 <div className="heartLiked">
-                <Button
+                  <Button
                     variant="light"
                     onClick={() => toggleLike(ricetta)}
                     className="like-button-overlay"
@@ -119,7 +120,7 @@ const Liked = () => {
                   src={ricetta.img[0]?.url || "/assets/default_ricetta.jpg"}
                   className="card-liked-image"
                 />
-                    <CardBody className="cardHeader-overlay d-flex align-items-center flex-column p-2">
+                <CardBody className="cardHeader-overlay d-flex align-items-center flex-column p-2">
                   <Card.Title className="card-title-overlay mb-0">
                     {ricetta.titolo}
                   </Card.Title>

@@ -1,3 +1,4 @@
+/*bg*/
 .bg-listaSpesa {
   background-image: url("/public/assets/cigliege.jpg");
   background-size: cover;
@@ -8,7 +9,8 @@
   padding: 20px;
   position: relative;
 }
-.titoloLista{
+/*titolo*/
+.titoloLista {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
   font-family: "Poppins", sans-serif;
   font-size: 2.5rem;
@@ -17,6 +19,7 @@
   color: #fff;
   transition: color 0.3s ease-in-out;
 }
+/*lista*/
 .modalLista,
 .list-group-listaSp {
   background-color: rgba(240, 245, 240, 0.5);
@@ -57,13 +60,13 @@
 .modalLista {
   background: rgba(255, 255, 255, 0.1);
 }
-.modalLista .modal-content{
-  background-color: rgba(255, 255, 255, 0.3); 
+.modalLista .modal-content {
+  background-color: rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(10px); /* sfocatura */
   -webkit-backdrop-filter: blur(10px); /* Safari */
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-  color:white;
+  color: white;
 }
 
 .modalLista .modal-content:hover {
@@ -83,7 +86,7 @@
 
 .modalLista .modal-body {
   font-family: "Poppins", sans-serif;
-  color:white;
+  color: white;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
   font-size: 1.3rem;
 }
@@ -96,7 +99,7 @@
   width: 100%;
   font-size: 1rem;
   color: #333;
-  background-color: rgba(255, 255, 255, 0.8); 
+  background-color: rgba(255, 255, 255, 0.8);
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -107,16 +110,15 @@
   outline: none;
 }
 
-
 .modalLista .modal-footer {
-  background-color: rgba(15, 43, 3, 0.05); 
+  background-color: rgba(15, 43, 3, 0.05);
   border-top: none;
   border-radius: 5px;
   display: flex;
   justify-content: space-between;
 }
 
-/*btn */
+/*btn*/
 .modalLista .btn-secondary {
   background: linear-gradient(45deg, #e60a20, #160d08);
   border: none;
@@ -150,8 +152,7 @@
 }
 
 @media (max-width: 1100px) {
-.titoloLista{
-  text-align: left;
-
-}
+  .titoloLista {
+    text-align: left;
+  }
 }

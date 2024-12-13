@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch,useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   removeIngrediente,
   addIngredienti,
@@ -7,7 +7,7 @@ import {
 import { Form, Button, ListGroup } from "react-bootstrap";
 import { IoTrash } from "react-icons/io5";
 import "../css/CreaRicetta.css";
-const IngredientiRicetta = ({ ricettaId}) => {
+const IngredientiRicetta = ({ ricettaId }) => {
   const dispatch = useDispatch();
   const ingredienti = useSelector((state) => state.ricetta.ingredienti);
   const [currentSezione, setCurrentSezione] = useState("");

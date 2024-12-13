@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "../css/NotFoud.css";
 
 const NotFound = () => {
-  const navigate = useNavigate(); //un hook che ci riporta alla pagina
+  const navigate = useNavigate();
   return (
     <div className="notFound-bg">
       <Container>

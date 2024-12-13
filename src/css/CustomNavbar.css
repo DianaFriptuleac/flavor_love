@@ -20,6 +20,7 @@
 .user_png {
   width: 2.5rem;
 }
+/*input search*/
 .custom-input:focus {
   border-color: #2a7709;
   outline: none; /* outline di default */
@@ -39,7 +40,7 @@
   max-height: 15rem;
   top: 30% !important;
   left: 50%;
-  transform: translate(-50%, -50%); /* Centra*/
+  transform: translate(-50%, -50%); /*centra*/
   z-index: 1050; /* sopra la card */
   width: 80%;
   max-width: 30rem;

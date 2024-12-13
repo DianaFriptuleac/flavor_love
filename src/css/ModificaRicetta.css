@@ -31,7 +31,7 @@
 
 /* container form */
 .modificaRicetta-form-container {
-  background: rgba(200, 200, 200, 0.8);/* vetro opaco */
+  background: rgba(200, 200, 200, 0.8); /* vetro opaco */
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
   border-radius: 5px;
   padding: 30px;
@@ -99,11 +99,10 @@
   font-size: 10px;
   text-transform: capitalize;
   transition: background 0.3s ease;
-  padding: 5px 10px; 
+  padding: 5px 10px;
   word-break: break-word; /*divido il testo */
   white-space: normal; /*va andare a capo */
-  max-width: 150px; 
- 
+  max-width: 150px;
 }
 .x-btn {
   color: #e60a20;
@@ -146,7 +145,7 @@ option:checked {
   color: #155724;
 }
 @media (max-width: 768px) {
-    .titolo-modificaRicette{
-        font-size: 2rem;
-    }
+  .titolo-modificaRicette {
+    font-size: 2rem;
+  }
 }

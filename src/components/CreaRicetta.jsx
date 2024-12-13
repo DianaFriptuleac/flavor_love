@@ -18,10 +18,9 @@ const CreaRicetta = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const ricettaState = useSelector((state) => state.ricetta); //accedo allo stato ricetta
-  const token = useSelector((state) => state.auth.token); //accedo al token
+  const token = useSelector((state) => state.auth.token);
   const [isUploadingImage, setIsUploadingImage] = useState(false);
   const [isContinueClicked, setIsContinueClicked] = useState(false);
-
 
   //stato locale per la ricetta, categorie, alert e ricettta creata
   const [ricettaData, setRicettaData] = useState({
@@ -38,7 +37,7 @@ const CreaRicetta = () => {
   const [alert, setAlert] = useState({ message: "", variant: "" });
   const [createdRicetta, setCreatedRicetta] = useState(null);
 
-  //  Fetch categorie
+  // Fetch categorie
   const fetchCategorie = async () => {
     try {
       if (!token) throw new Error("Token mancante!");
@@ -111,24 +110,12 @@ const CreaRicetta = () => {
       if (!response.payload?.id) {
         throw new Error("Errore durante la creazione della ricetta.");
       }
-
       // Salvo la ricetta creata
       setCreatedRicetta(response.payload);
 
-     /* // Resetto i campi locali
-      setRicettaData({
-        titolo: "",
-        procedimento: "",
-        difficoltaRicetta: "FACILE",
-        tempoPreparazioneMinuti: 1,
-        tempoCotturaMinuti: 0,
-        costoRicetta: "BASSO",
-        nomeCategorieRicette: [],
-      });
-*/
-
-     //lo stato per mostrare il btn "salva e torna al profilo"
+      //lo stato per mostrare il btn "salva e torna al profilo"
       setIsContinueClicked(true);
+
       // Resetto il reducer
       dispatch(resetRicetta());
 
@@ -157,16 +144,16 @@ const CreaRicetta = () => {
         await dispatch(addIngredienti(createdRicetta.id, ingredientiPayload));
       }
 
-          // Resetto i campi locali
-    setRicettaData({
-      titolo: "",
-      procedimento: "",
-      difficoltaRicetta: "FACILE",
-      tempoPreparazioneMinuti: 1,
-      tempoCotturaMinuti: 0,
-      costoRicetta: "BASSO",
-      nomeCategorieRicette: [],
-    });
+      // Resetto i campi locali
+      setRicettaData({
+        titolo: "",
+        procedimento: "",
+        difficoltaRicetta: "FACILE",
+        tempoPreparazioneMinuti: 1,
+        tempoCotturaMinuti: 0,
+        costoRicetta: "BASSO",
+        nomeCategorieRicette: [],
+      });
 
       navigate("/userprofile");
     } catch (error) {
@@ -187,7 +174,6 @@ const CreaRicetta = () => {
 
       setIsUploadingImage(true);
       console.log("Caricamento immagine per ricetta ID:", createdRicetta.id);
-      console.log("File selezionato:", file);
 
       // Invio il file tramite addImage
       await dispatch(addImage(createdRicetta.id, file));
@@ -280,11 +266,7 @@ const CreaRicetta = () => {
                 </Form.Select>
                 <div>
                   {ricettaData.nomeCategorieRicette.map((categoria, index) => (
-          
-                    <span
-                      key={index}
-                      className="badge me-2 mt-1"
-                    >
+                    <span key={index} className="badge me-2 mt-1">
                       {categoria}
                       <Button
                         variant="link"
@@ -388,13 +370,13 @@ const CreaRicetta = () => {
 
           {/* salvo ancle l'img. e torno al profilo */}
           {isContinueClicked && (
-          <Button
-            variant="success"
-            className="mt-3 creaRicetta-btn"
-            onClick={handleSaveAndNavigate}
-          >
-            Salva e torna al Profilo
-          </Button>
+            <Button
+              variant="success"
+              className="mt-3 creaRicetta-btn"
+              onClick={handleSaveAndNavigate}
+            >
+              Salva e torna al Profilo
+            </Button>
           )}
         </div>
       </Container>

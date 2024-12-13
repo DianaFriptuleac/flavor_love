@@ -115,61 +115,69 @@ const CustomNavbar = function () {
               variant="outline-success"
               className="search-btn"
               onClick={handleSearch}
-              disabled={searchQuery.length < 2} // Disabilito se meno di 2 caratteri
+              // disabilito se meno di 2 caratteri
+              disabled={searchQuery.length < 2}
             >
               Cerca
             </Button>
           </Form>
           {/*logout*/}
           <Nav className="ms-auto">
-          {isAuthenticated ? (
-  <div className="divlogout">
-    {/* Bottone per il Logout */}
-    <Button
-      onClick={() => setShowLogoutAlert(true)} // Attiva l'alert di Logout
-      className="logout-button"
-    >
-      Logout
-    </Button>
+            {isAuthenticated ? (
+              <div className="divlogout">
+                {/* Bottone per il Logout */}
+                <Button
+                  // Attivo l'alert di Logout
+                  onClick={() => setShowLogoutAlert(true)}
+                  className="logout-button"
+                >
+                  Logout
+                </Button>
 
-    {/* Link al profilo utente */}
-    <Link to="/userprofile" className={addActiveOrNot("userprofile")}>
-      <img src="/assets/user.png" alt="user" className="user_png" />
-    </Link>
+                {/* Link al profilo utente */}
+                <Link
+                  to="/userprofile"
+                  className={addActiveOrNot("userprofile")}
+                >
+                  <img src="/assets/user.png" alt="user" className="user_png" />
+                </Link>
 
-    {/* Overlay opaco e alert di conferma Logout */}
-    {showLogoutAlert && (
-      <>
-        {/* Overlay cliccabile per chiudere l'alert */}
-        <div
-          className="alert-overlay"
-          onClick={() => setShowLogoutAlert(false)} // Chiude l'alert cliccando fuori
-        ></div>
+                {/* Overlay opaco e alert di conferma Logout */}
+                {showLogoutAlert && (
+                  <>
+                    {/* Overlay cliccabile per chiudere l'alert */}
+                    <div
+                      className="alert-overlay"
+                      // Chiudo l'alert cliccando fuori
+                      onClick={() => setShowLogoutAlert(false)}
+                    ></div>
 
-        {/* Alert di conferma Logout */}
-        <Alert show={showLogoutAlert} className="mt-3 logout-alert">
-          <Alert.Heading>Conferma Logout</Alert.Heading>
-          <p>Sei sicuro di voler uscire?</p>
-          <div className="d-flex justify-content-between">
-            <Button
-              onClick={() => setShowLogoutAlert(false)} // Annulla Logout
-              className="annulla-logout-button"
-            >
-              Annulla
-            </Button>
-            <Button
-              className="logout-button"
-              onClick={handleLogout} // Conferma Logout
-            >
-              Logout
-            </Button>
-          </div>
-        </Alert>
-      </>
-    )}
-  </div>
-) : (
-  <>
+                    {/* Alert di conferma Logout */}
+                    <Alert show={showLogoutAlert} className="mt-3 logout-alert">
+                      <Alert.Heading>Conferma Logout</Alert.Heading>
+                      <p>Sei sicuro di voler uscire?</p>
+                      <div className="d-flex justify-content-between">
+                        <Button
+                          // Annulla Logout
+                          onClick={() => setShowLogoutAlert(false)}
+                          className="annulla-logout-button"
+                        >
+                          Annulla
+                        </Button>
+                        <Button
+                          className="logout-button"
+                          // Conferma Logout
+                          onClick={handleLogout}
+                        >
+                          Logout
+                        </Button>
+                      </div>
+                    </Alert>
+                  </>
+                )}
+              </div>
+            ) : (
+              <>
                 {/*register/login*/}
                 <Link to="/register" className={addActiveOrNot("register")}>
                   Registrati

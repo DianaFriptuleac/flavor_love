@@ -27,10 +27,10 @@
 }
 
 .ricettarioContainer {
-  background:  rgba(200, 200, 200, 0.5); 
+  background: rgba(200, 200, 200, 0.5);
   padding: 30px;
   width: 100%;
-  transition: transform 0.3s ease, box-shadow 0.3s eas
+  transition: transform 0.3s ease, box-shadow 0.3s eas;
 }
 
 /*Card*/
@@ -61,7 +61,6 @@
   background-color: rgba(240, 245, 240, 0.6);
   border-radius: 0 0 12px 12px;
 }
-
 
 .ricettario-crea-btn,
 .crea_ricettario_modal {
@@ -114,8 +113,13 @@
   background: rgba(255, 255, 255, 0.2);
 }
 
-.crea_ricettario_modal .modal-content{
-  background-color: rgba(255, 255, 255, 0.2) !important; /* vetro semitrasparente */
+.crea_ricettario_modal .modal-content {
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.2
+  ) !important; /* vetro semitrasparente */
   backdrop-filter: blur(10px); /* sfocatura */
   -webkit-backdrop-filter: blur(10px); /* Safari */
   border-radius: 8px;
@@ -123,7 +127,7 @@
   color: white;
 }
 
-.crea_ricettario_moda .modal-title{
+.crea_ricettario_moda .modal-title {
   color: white;
   font-weight: bold;
   text-align: center;
@@ -131,15 +135,14 @@
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-.elimina_ricettario_modal .modaleElimina{
-  background-color:rgba(100, 100, 100, 0.6);
-  backdrop-filter: blur(10px); /* sfocatura */
+.elimina_ricettario_modal .modaleElimina {
+  background-color: rgba(100, 100, 100, 0.6);
+  backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px); /* Safari */
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
   color: white;
-  text-shadow:  1px 1px 2px rgba(0, 0, 0, 0.2);
-
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 .chiudi-btn {
   background: linear-gradient(45deg, #e60a20, #160d08);
@@ -183,24 +186,6 @@
   transform: translateY(-2px);
 }
 
-/*Media Query*/
-/*@media (max-width: 1020px) {
-  .ricettario-card {
-    margin: 0 auto;
-    width: 100%;
-  }
-
-  .titolo-ricettario {
-    text-align: center;
-    font-size: 2rem;
-  }
-  .ricettario-card-title {
-    font-size: 1rem;
-  }
-  .ricettario-crea-btn{
-    margin-bottom: 10px;
-  }
-}*/
 @media (max-width: 768px) {
   .ricettario-card {
     margin: 10px auto;
@@ -210,7 +195,7 @@
 
   .ricettarioContainer {
     justify-content: center;
-    padding: 0 10px; 
+    padding: 0 10px;
   }
 
   .titolo-ricettario {
@@ -224,8 +209,7 @@
     align-items: center;
     margin: 0 auto;
   }
-  .ricettario-crea-btn{
+  .ricettario-crea-btn {
     margin-bottom: 5px;
   }
 }
-

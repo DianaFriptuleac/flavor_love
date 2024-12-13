@@ -87,7 +87,7 @@ export const deleteMe = () => async (dispatch, getState) => {
   }
 };
 
-//reccuper i dati aggiornati dal DB
+//reccupero i dati aggiornati dal DB
 export const FETCH_USER_PROFILE = "FETCH_USER_PROFILE";
 
 export const fetchUserProfile = () => async (dispatch, getState) => {
@@ -116,5 +116,3 @@ export const fetchUserProfile = () => async (dispatch, getState) => {
     console.error("Errore durante il recupero del profilo:", error.message);
   }
 };
-
-

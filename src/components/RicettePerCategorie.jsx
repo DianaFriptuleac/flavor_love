@@ -9,10 +9,10 @@ import {
   Button,
 } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
-import { useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 import { Pagination } from "react-bootstrap";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
-import "../css/RicettePerCategorie.css"
+import "../css/RicettePerCategorie.css";
 
 const RicettePerCategorie = () => {
   const { categoria } = useParams();
@@ -22,7 +22,6 @@ const RicettePerCategorie = () => {
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
-
   const token = useSelector((state) => state.auth.token);
   const [likedRicette, setLikedRicette] = useState([]);
 
@@ -64,16 +63,15 @@ const RicettePerCategorie = () => {
         setRicette(data.content || []);
         setTotalPages(data.totalPages || 1);
 
-          // Fetch initial liked ricette
-          const likedResp = await fetch("http://localhost:3001/api/liked", {
-            headers: { Authorization: `Bearer ${token}` },
-          });
-  
-          if (likedResp.ok) {
-            const likedData = await likedResp.json();
-            setLikedRicette(likedData.ricette || []);
-          }
+        // Fetch initial liked ricette
+        const likedResp = await fetch("http://localhost:3001/api/liked", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
 
+        if (likedResp.ok) {
+          const likedData = await likedResp.json();
+          setLikedRicette(likedData.ricette || []);
+        }
       } catch (err) {
         setError(err.message);
 
@@ -92,9 +90,9 @@ const RicettePerCategorie = () => {
     }
   }, [categoria, currentPage, token, navigate]);
 
-const isLiked = (ricettaId) => {
-  return likedRicette.some((ricetta) => ricetta.id === ricettaId);
-};
+  const isLiked = (ricettaId) => {
+    return likedRicette.some((ricetta) => ricetta.id === ricettaId);
+  };
 
   const toggleLike = async (ricetta) => {
     try {
@@ -126,62 +124,73 @@ const isLiked = (ricettaId) => {
     }
   };
 
- 
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
 
   return (
     <div className="bg-categorie">
-    <Container>
-      <h2 className="categorie-title">Ricette per Categoria: {categoria}</h2>
-      {loading && <Spinner animation="border" />}
-      {error && (
-        <Alert variant="danger">
-          {error} <br /> Reindirizzamento a tutte le ricette...
-        </Alert>
-      )}
-    <Row className="img-card-container">
-        {ricette.map((ricetta) => (
-           <Col key={ricetta.id} md={6} lg={4} xl={3} className="card-container">
-           <Card className="categorie-card mb-3">
-            <div className="heart-container">
-            <Button
-                className="categorie-btn"
-                  variant="light"
-                  onClick={() => toggleLike(ricetta)}
-                  style={{ color: isLiked(ricetta.id) ? "red" : "red" }}
-                >
-                  {isLiked(ricetta.id) ? <FaHeart className="heart-icon" /> : <FaRegHeart />}
-                </Button>
-            </div>
-              <Card.Img
-                variant="top"
-                className="card-img-categorie"
-                src={ricetta.img[0]?.url || "/assets/default_ricetta.jpg"}
-                key={ricetta.id}
-                style={{ cursor: "pointer" }}
-                onClick={() => navigate(`/ricette/${ricetta.id}`)}
-              />
-              <Card.Body className="card-body-categorie d-flex align-items-center flex-column p-2">
-                <Card.Title className="card-title-categorie mb-0">{ricetta.titolo}</Card.Title>
-              </Card.Body>
-            </Card>
-        </Col>
+      <Container>
+        <h2 className="categorie-title">Ricette per Categoria: {categoria}</h2>
+        {loading && <Spinner animation="border" />}
+        {error && (
+          <Alert variant="danger">
+            {error} <br /> Reindirizzamento a tutte le ricette...
+          </Alert>
+        )}
+        <Row className="img-card-container">
+          {ricette.map((ricetta) => (
+            <Col
+              key={ricetta.id}
+              md={6}
+              lg={4}
+              xl={3}
+              className="card-container"
+            >
+              <Card className="categorie-card mb-3">
+                <div className="heart-container">
+                  <Button
+                    className="categorie-btn"
+                    variant="light"
+                    onClick={() => toggleLike(ricetta)}
+                    style={{ color: isLiked(ricetta.id) ? "red" : "red" }}
+                  >
+                    {isLiked(ricetta.id) ? (
+                      <FaHeart className="heart-icon" />
+                    ) : (
+                      <FaRegHeart />
+                    )}
+                  </Button>
+                </div>
+                <Card.Img
+                  variant="top"
+                  className="card-img-categorie"
+                  src={ricetta.img[0]?.url || "/assets/default_ricetta.jpg"}
+                  key={ricetta.id}
+                  style={{ cursor: "pointer" }}
+                  onClick={() => navigate(`/ricette/${ricetta.id}`)}
+                />
+                <Card.Body className="card-body-categorie d-flex align-items-center flex-column p-2">
+                  <Card.Title className="card-title-categorie mb-0">
+                    {ricetta.titolo}
+                  </Card.Title>
+                </Card.Body>
+              </Card>
+            </Col>
           ))}
-      </Row>
-      <Pagination className="justify-content-center mt-4 categorie-pagination">
-        {Array.from({ length: totalPages }, (_, i) => (
-          <Pagination.Item
-            key={i}
-            active={i === currentPage}
-            onClick={() => handlePageChange(i)}
-          >
-            {i + 1}
-          </Pagination.Item>
-        ))}
-      </Pagination>
-    </Container>
+        </Row>
+        <Pagination className="justify-content-center mt-4 categorie-pagination">
+          {Array.from({ length: totalPages }, (_, i) => (
+            <Pagination.Item
+              key={i}
+              active={i === currentPage}
+              onClick={() => handlePageChange(i)}
+            >
+              {i + 1}
+            </Pagination.Item>
+          ))}
+        </Pagination>
+      </Container>
     </div>
   );
 };

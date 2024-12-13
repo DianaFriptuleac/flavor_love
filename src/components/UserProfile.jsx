@@ -24,7 +24,6 @@ import {
 } from "../redux/actions/profileActions";
 import "../css/UserProfile.css";
 import { useNavigate } from "react-router-dom";
-//import { logoutUser } from "../redux/actions/authActions";
 
 const UserProfile = () => {
   const user = useSelector((state) => state.profile?.user);
@@ -44,7 +43,6 @@ const UserProfile = () => {
 
   const [edit, setEdit] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  //const [showLogoutAlert, setShowLogoutAlert] = useState(false);
 
   // Sincronizzo lo stato locale con Redux
   useEffect(() => {
@@ -113,182 +111,188 @@ const UserProfile = () => {
   return (
     <div className="userProfile_background">
       <Container className="userContainer">
-      <Container fluid className="d-flex justify-content-center mt-4">
-        <Card style={{ width: "50rem" }} className="userProfile_container">
-          <Card.Body className="d-flex responsive-layout">
-            <div style={{ flex: 1 }} className="me-3">
-              <img src={data.avatar} alt="Avatar" className="mb-3 avatar-img" />
-              {edit && (
-                <Form.Group>
-                  <Form.Label className="fw-bold mb-0">
-                    Modifica Avatar
-                  </Form.Label>
-                  {isLoadingAvatar ? (
-                    <div className="d-flex justify-content-center align-items-center mt-2">
-                      <div
-                        className="spinner-border text-danger"
-                        role="status"
-                      >
-                        <span className="visually-hidden">Caricamento...</span>
+        <Container fluid className="d-flex justify-content-center mt-4">
+          <Card style={{ width: "50rem" }} className="userProfile_container">
+            <Card.Body className="d-flex responsive-layout">
+              <div style={{ flex: 1 }} className="me-3">
+                <img
+                  src={data.avatar}
+                  alt="Avatar"
+                  className="mb-3 avatar-img"
+                />
+                {edit && (
+                  <Form.Group>
+                    <Form.Label className="fw-bold mb-0">
+                      Modifica Avatar
+                    </Form.Label>
+                    {isLoadingAvatar ? (
+                      <div className="d-flex justify-content-center align-items-center mt-2">
+                        <div
+                          className="spinner-border text-danger"
+                          role="status"
+                        >
+                          <span className="visually-hidden">
+                            Caricamento...
+                          </span>
+                        </div>
                       </div>
+                    ) : (
+                      <Form.Control type="file" onChange={handleAvatarChange} />
+                    )}
+                  </Form.Group>
+                )}
+              </div>
+              <div style={{ flex: 2 }}>
+                <h2 className="text-end mb-4 me-3 profileTitle">Account</h2>
+                {edit ? (
+                  <Form onSubmit={handleSubmit}>
+                    <Form.Group className="mb-3">
+                      <Form.Label className="fw-bold mb-0">Nome</Form.Label>
+                      <Form.Control
+                        type="text"
+                        name="nome"
+                        value={data.nome}
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                      <Form.Label className="fw-bold mb-0">Cognome</Form.Label>
+                      <Form.Control
+                        type="text"
+                        name="cognome"
+                        value={data.cognome}
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                      <Form.Label className="fw-bold mb-0">Email</Form.Label>
+                      <Form.Control
+                        type="email"
+                        name="email"
+                        value={data.email}
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
+                    <div>
+                      <Button type="submit" className="save_annulla_button">
+                        Salva
+                      </Button>
+                      <Button
+                        className="ms-2 save_annulla_button"
+                        onClick={() => setEdit(false)}
+                      >
+                        Annulla
+                      </Button>
                     </div>
-                  ) : (
-                    <Form.Control type="file" onChange={handleAvatarChange} />
-                  )}
-                </Form.Group>
-              )}
-            </div>
-            <div style={{ flex: 2 }}>
-              <h2 className="text-end mb-4 me-3 profileTitle">Account</h2>
-              {edit ? (
-                <Form onSubmit={handleSubmit}>
-                  <Form.Group className="mb-3">
-                    <Form.Label className="fw-bold mb-0">Nome</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="nome"
-                      value={data.nome}
-                      onChange={handleChange}
-                    />
-                  </Form.Group>
-                  <Form.Group className="mb-3">
-                    <Form.Label className="fw-bold mb-0">Cognome</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="cognome"
-                      value={data.cognome}
-                      onChange={handleChange}
-                    />
-                  </Form.Group>
-                  <Form.Group className="mb-3">
-                    <Form.Label className="fw-bold mb-0">Email</Form.Label>
-                    <Form.Control
-                      type="email"
-                      name="email"
-                      value={data.email}
-                      onChange={handleChange}
-                    />
-                  </Form.Group>
+                  </Form>
+                ) : (
                   <div>
-                    <Button type="submit" className="save_annulla_button">
-                      Salva
-                    </Button>
+                    <p>
+                      <strong>Nome:</strong> {data.nome}
+                    </p>
+                    <p>
+                      <strong>Cognome:</strong> {data.cognome}
+                    </p>
+                    <p>
+                      <strong>Email:</strong> {data.email}
+                    </p>
                     <Button
-                      className="ms-2 save_annulla_button"
-                      onClick={() => setEdit(false)}
+                      className="modifica-button"
+                      onClick={() => setEdit(true)}
                     >
-                      Annulla
+                      Modifica
                     </Button>
                   </div>
-                </Form>
-              ) : (
-                <div>
-                  <p>
-                    <strong>Nome:</strong> {data.nome}
-                  </p>
-                  <p>
-                    <strong>Cognome:</strong> {data.cognome}
-                  </p>
-                  <p>
-                    <strong>Email:</strong> {data.email}
-                  </p>
-                  <Button
-                    className="modifica-button"
-                    onClick={() => setEdit(true)}
-                  >
-                    Modifica
-                  </Button>
-                </div>
-              )}
-            </div>
-          </Card.Body>
-          <Card.Footer className="d-flex justify-content-end profile_card_footer">
-            <Button
-              variant="danger"
-              className="delete-button"
-              onClick={() => setShowDeleteModal(true)}
-            >
-              Cancella Account
-            </Button>
-          </Card.Footer>
-        </Card>
-
-        {/* Modal -> conferma delete */}
-        <Modal
-          className="mt-3"
-          show={showDeleteModal}
-          onHide={() => setShowDeleteModal(false)}
-        >
-          <div className="delete-modal">
-            <Modal.Header closeButton>
-              <Modal.Title>Conferma Cancellazione</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              Sei sicuro di voler cancellare il tuo account?
-            </Modal.Body>
-            <Modal.Footer>
-              <Button
-                variant="secondary"
-                onClick={() => setShowDeleteModal(false)}
-                className="annulla-cancella-button"
-              >
-                Annulla
-              </Button>
+                )}
+              </div>
+            </Card.Body>
+            <Card.Footer className="d-flex justify-content-end profile_card_footer">
               <Button
                 variant="danger"
-                onClick={handleDelete}
-                className="conferma-cancella-button"
+                className="delete-button"
+                onClick={() => setShowDeleteModal(true)}
               >
-                Conferma
+                Cancella Account
               </Button>
-            </Modal.Footer>
-          </div>
-        </Modal>
-      </Container>
-      <Container>
-        {error && <Alert variant="danger">Errore: {error}</Alert>}
-        <RicetteUtente ricette={ricette} />
-      </Container>
-      <Container>
-        <Row className="ricettario_row d-flex justify-content-center mt-5">
-          <Col md={3}>
-            <div className="ricettario-container">
-              <h3 className="ricettario-title">I tuoi Ricettari</h3>
+            </Card.Footer>
+          </Card>
 
-              <img
-                onClick={() => navigate("/ricettario")}
-                className="ricettario_img"
-                src="/assets/ricettario.jpg"
-                alt="Vai ai Ricettari"
-              />
+          {/* Modal -> conferma delete */}
+          <Modal
+            className="mt-3"
+            show={showDeleteModal}
+            onHide={() => setShowDeleteModal(false)}
+          >
+            <div className="delete-modal">
+              <Modal.Header closeButton>
+                <Modal.Title>Conferma Cancellazione</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                Sei sicuro di voler cancellare il tuo account?
+              </Modal.Body>
+              <Modal.Footer>
+                <Button
+                  variant="secondary"
+                  onClick={() => setShowDeleteModal(false)}
+                  className="annulla-cancella-button"
+                >
+                  Annulla
+                </Button>
+                <Button
+                  variant="danger"
+                  onClick={handleDelete}
+                  className="conferma-cancella-button"
+                >
+                  Conferma
+                </Button>
+              </Modal.Footer>
             </div>
-          </Col>
-          <Col md={3}>
-            <div className="liked-container mb-2">
-              <h3 className="liked-title">I tuoi preferiti</h3>
+          </Modal>
+        </Container>
+        <Container>
+          {error && <Alert variant="danger">Errore: {error}</Alert>}
+          <RicetteUtente ricette={ricette} />
+        </Container>
+        <Container>
+          <Row className="ricettario_row d-flex justify-content-center mt-5">
+            <Col md={3}>
+              <div className="ricettario-container">
+                <h3 className="ricettario-title">I tuoi Ricettari</h3>
 
-              <img
-                onClick={() => navigate("/ricette/liked")}
-                className="heart_img"
-                src="/assets/heart.jpg"
-                alt="Vai ai liked"
-              />
-            </div>
-          </Col>
-          <Col md={3}>
-            <div className="lista-container">
-              <h3 className="lista-title">Lista spesa</h3>
+                <img
+                  onClick={() => navigate("/ricettario")}
+                  className="ricettario_img"
+                  src="/assets/ricettario.jpg"
+                  alt="Vai ai Ricettari"
+                />
+              </div>
+            </Col>
+            <Col md={3}>
+              <div className="liked-container mb-2">
+                <h3 className="liked-title">I tuoi preferiti</h3>
 
-              <img
-                onClick={() => navigate("/listaSpesa")}
-                className="listaSpesa_img"
-                src="/assets/listaSpesa.jpg"
-                alt="Vai alla lista spesa"
-              />
-            </div>
-          </Col>
-        </Row>
-      </Container>
+                <img
+                  onClick={() => navigate("/ricette/liked")}
+                  className="heart_img"
+                  src="/assets/heart.jpg"
+                  alt="Vai ai liked"
+                />
+              </div>
+            </Col>
+            <Col md={3}>
+              <div className="lista-container">
+                <h3 className="lista-title">Lista spesa</h3>
+
+                <img
+                  onClick={() => navigate("/listaSpesa")}
+                  className="listaSpesa_img"
+                  src="/assets/listaSpesa.jpg"
+                  alt="Vai alla lista spesa"
+                />
+              </div>
+            </Col>
+          </Row>
+        </Container>
       </Container>
     </div>
   );

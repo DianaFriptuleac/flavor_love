@@ -18,24 +18,23 @@
 }
 /*h2*/
 .ricetteUtenteTitle {
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-    font-family: "Poppins", sans-serif;
-    font-size: 2.5rem;
-    letter-spacing: 1px;
-    text-align: right;
-    color: #fff;
-    transition: color 0.3s ease-in-out;
-  }
-  
-  .ricetteUtenteTitle:hover {
-    color: #0f2b03;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  font-family: "Poppins", sans-serif;
+  font-size: 2.5rem;
+  letter-spacing: 1px;
+  text-align: right;
+  color: #fff;
+  transition: color 0.3s ease-in-out;
+}
 
-  }
+.ricetteUtenteTitle:hover {
+  color: #0f2b03;
+}
 
-  /* Carosello */
-.ricetteUtente-carousel{
- width: 100%; 
-position: relative;
+/* Carosello */
+.ricetteUtente-carousel {
+  width: 100%;
+  position: relative;
 }
 
 .ricetteUtente-carousel .carousel-control-prev-icon,
@@ -67,23 +66,23 @@ position: relative;
 
 .uRicette-title {
   position: absolute;
-  top: 50%; 
-  left: 50%; 
+  top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%); /* Allineo al centro */
   background-color: rgba(24, 23, 23, 0.7); /* Sfondo semitrasparente */
   padding: 10px 10px;
   border-radius: 5px;
   z-index: 2; /*titolo sopra l'immagine */
-  color:white;
+  color: white;
   text-align: center;
-  overflow: hidden; 
+  overflow: hidden;
   text-overflow: ellipsis; /* (...) */
   white-space: nowrap;
   max-width: 90%;
 }
 
-.noRicetteAlert{
-  background-color: rgba(24, 23, 23, 0.5); 
+.noRicetteAlert {
+  background-color: rgba(24, 23, 23, 0.5);
   font-weight: 500;
   font-size: 18px;
 }

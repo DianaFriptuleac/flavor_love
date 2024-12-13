@@ -20,13 +20,13 @@ import { TbChefHat } from "react-icons/tb";
 import "../css/DettagliRicetta.css";
 
 const DettagliRicetta = () => {
-  const { id } = useParams(); // ottengo id ricetta
+  const { id } = useParams(); // accedo al id ricetta
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { dettagli, loading, error } = useSelector((state) => state.ricette);
   const userId = useSelector((state) => state.auth.user?.id); //id utente
-  const token = useSelector((state) => state.auth.token); // token
+  const token = useSelector((state) => state.auth.token);
   const [notification, setNotification] = useState({
     message: "",
     variant: "",
@@ -123,117 +123,118 @@ const DettagliRicetta = () => {
   return (
     <div className="bg-dettagliRicetta">
       <Container className="dettagli-ricetta">
-      <Container>
-        {notification.message && (
-          <Alert variant={notification.variant}>{notification.message}</Alert>
-        )}
+        <Container>
+          {notification.message && (
+            <Alert variant={notification.variant}>{notification.message}</Alert>
+          )}
 
-        <Row>
-          {/* Img. /Titolo */}
-          <Col md={6}>
-            <Card className="shadow-sm border-0">
-              <Card.Img
-                variant="top"
-                src={dettagli.img?.[0]?.url || "/assets/default_ricetta.jpg"}
-                alt={dettagli.titolo}
-                className="rounded"
-              />
-            </Card>
-          </Col>
-          <Col md={6} className="mt-2">
-            <Card className="shadow-sm border-0 p-3">
-              <Card.Body>
-                <Card.Title className="titleCard display-6">
-                  {dettagli.titolo}
-                </Card.Title>
+          <Row>
+            {/* Img. /Titolo */}
+            <Col md={6}>
+              <Card className="shadow-sm border-0">
+                <Card.Img
+                  variant="top"
+                  src={dettagli.img?.[0]?.url || "/assets/default_ricetta.jpg"}
+                  alt={dettagli.titolo}
+                  className="rounded"
+                />
+              </Card>
+            </Col>
+            <Col md={6} className="mt-2">
+              <Card className="shadow-sm border-0 p-3">
+                <Card.Body>
+                  <Card.Title className="titleCard display-6">
+                    {dettagli.titolo}
+                  </Card.Title>
 
-                <ListGroup className="list-unstyled">
-                  <li className="d-flex align-items-center">
-                    <FaRegClock className="me-3" />
-                    <strong>Preparazione:</strong>{" "}
-                    {dettagli.tempoPreparazioneMinuti} min
-                  </li>
-                  <li className="d-flex align-items-center">
-                    <PiCookingPotDuotone className="me-3 " />
-                    <strong>Cottura:</strong> {dettagli.tempoCotturaMinuti} min
-                  </li>
-                  <li className="d-flex align-items-center">
-                    <TbChefHat className="me-3" />
-                    <strong>Difficoltà:</strong> {dettagli.difficoltaRicetta}
-                  </li>
-                  <li className="d-flex align-items-center">
-                    <HiOutlineCurrencyEuro className="me-3" />
-                    <strong>Costo:</strong> {dettagli.costoRicetta}
-                  </li>
-                </ListGroup>
-                {dettagli.utente?.id === userId && (
-                  <div className="mt-3 btn-container">
-                    <Button
-                      className="me-3 modifica-ricetta-btn d-flex align-items-center"
-                      onClick={() => navigate(`/ricette/${id}/update`)}
-                    >
-                      <FaEdit className="me-1" /> Modifica
-                    </Button>
-                    <Button
-                      className="me-3 elimina-ricetta-btn d-flex align-items-center"
-                      onClick={handleDelete}
-                    >
-                      <FaTrashAlt className="me-1" /> Elimina
-                    </Button>
-                  </div>
+                  <ListGroup className="list-unstyled">
+                    <li className="d-flex align-items-center">
+                      <FaRegClock className="me-3" />
+                      <strong>Preparazione:</strong>{" "}
+                      {dettagli.tempoPreparazioneMinuti} min
+                    </li>
+                    <li className="d-flex align-items-center">
+                      <PiCookingPotDuotone className="me-3 " />
+                      <strong>Cottura:</strong> {dettagli.tempoCotturaMinuti}{" "}
+                      min
+                    </li>
+                    <li className="d-flex align-items-center">
+                      <TbChefHat className="me-3" />
+                      <strong>Difficoltà:</strong> {dettagli.difficoltaRicetta}
+                    </li>
+                    <li className="d-flex align-items-center">
+                      <HiOutlineCurrencyEuro className="me-3" />
+                      <strong>Costo:</strong> {dettagli.costoRicetta}
+                    </li>
+                  </ListGroup>
+                  {dettagli.utente?.id === userId && (
+                    <div className="mt-3 btn-container">
+                      <Button
+                        className="me-3 modifica-ricetta-btn d-flex align-items-center"
+                        onClick={() => navigate(`/ricette/${id}/update`)}
+                      >
+                        <FaEdit className="me-1" /> Modifica
+                      </Button>
+                      <Button
+                        className="me-3 elimina-ricetta-btn d-flex align-items-center"
+                        onClick={handleDelete}
+                      >
+                        <FaTrashAlt className="me-1" /> Elimina
+                      </Button>
+                    </div>
+                  )}
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+          <Row></Row>
+
+          <Row className="mt-4">
+            <Col>
+              <h2 className="fw-bold ms-1">Ingredienti:</h2>
+              {ingredientiPerSezione &&
+                Object.entries(ingredientiPerSezione).map(
+                  ([sezione, ingredienti]) => (
+                    <div key={sezione} className="mb-4">
+                      <h5 className="text-secondary">{sezione}</h5>
+                      <ListGroup>
+                        {ingredienti.map((ing) => (
+                          <ListGroup.Item
+                            key={ing.id}
+                            className="d-flex justify-content-between"
+                          >
+                            <span className="fw-bold ingredienti-nome">
+                              {ing.nome}
+                            </span>
+                            <span>{ing.dosaggio}</span>
+                          </ListGroup.Item>
+                        ))}
+                      </ListGroup>
+                    </div>
+                  )
                 )}
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
-        <Row></Row>
+              <div className="d-flex justify-content-center">
+                <Button
+                  className="shoppingBtn d-flex align-items-center"
+                  onClick={aggiungiAllaListaSpesa}
+                >
+                  <FaShoppingCart className="me-1" /> Aggiungi alla lista spesa
+                </Button>
+              </div>
+            </Col>
+          </Row>
 
-        <Row className="mt-4">
-          <Col>
-            <h2 className="fw-bold ms-1">Ingredienti:</h2>
-            {ingredientiPerSezione &&
-              Object.entries(ingredientiPerSezione).map(
-                ([sezione, ingredienti]) => (
-                  <div key={sezione} className="mb-4">
-                    <h5 className="text-secondary">{sezione}</h5>
-                    <ListGroup>
-                      {ingredienti.map((ing) => (
-                        <ListGroup.Item
-                          key={ing.id}
-                          className="d-flex justify-content-between"
-                        >
-                          <span className="fw-bold ingredienti-nome">
-                            {ing.nome}
-                          </span>
-                          <span>{ing.dosaggio}</span>
-                        </ListGroup.Item>
-                      ))}
-                    </ListGroup>
-                  </div>
-                )
-              )}
-            <div className="d-flex justify-content-center">
-              <Button
-                className="shoppingBtn d-flex align-items-center"
-                onClick={aggiungiAllaListaSpesa}
-              >
-                <FaShoppingCart className="me-1" /> Aggiungi alla lista spesa
-              </Button>
-            </div>
-          </Col>
-        </Row>
-
-        <Row className="mt-4">
-          <Col>
-          <h2 className="fw-bold mb-0 ms-1">Preparazione:</h2>
-          <Card className="my-3">
-            <Card.Text className="p-3 preparazione">
-              {dettagli.procedimento}
-            </Card.Text>
-          </Card>
-          </Col>
-        </Row>
-      </Container>
+          <Row className="mt-4">
+            <Col>
+              <h2 className="fw-bold mb-0 ms-1">Preparazione:</h2>
+              <Card className="my-3">
+                <Card.Text className="p-3 preparazione">
+                  {dettagli.procedimento}
+                </Card.Text>
+              </Card>
+            </Col>
+          </Row>
+        </Container>
       </Container>
     </div>
   );

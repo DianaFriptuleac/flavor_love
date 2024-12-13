@@ -36,12 +36,13 @@
 }
 
 /*heart*/
-.heart-container{
+.heart-container {
   position: absolute;
   top: 10px;
-  right:10px;
-  z-index:10;
+  right: 10px;
+  z-index: 10;
 }
+/*card*/
 .card-img-categorie {
   height: 180px;
   object-fit: cover;
@@ -54,7 +55,7 @@
   text-align: center;
   white-space: nowrap; /* non va accapo */
   overflow: hidden;
-  text-overflow: ellipsis; /* (...) */
+  text-overflow: ellipsis;
   max-width: 100%;
   display: block;
   color: #333 !important;
@@ -74,10 +75,9 @@
 
 .categorie-btn:hover {
   background-color: #e46e7a;
-  color:#e60a20;
+  color: #e60a20;
   transform: scale(1.1);
 }
-
 
 .categorie-pagination .page-item {
   border: none;
@@ -120,13 +120,12 @@
   text-align: center;
 }
 
-  /* mediq queries mobile*/
-  @media (max-width: 768px) {
-    .categorie-title{
-        font-size: 1.5rem;
-    }
-    .card-title-categorie{
-        font-size: 1rem;
-    }
+/* mediq queries 768*/
+@media (max-width: 768px) {
+  .categorie-title {
+    font-size: 1.5rem;
   }
-  
+  .card-title-categorie {
+    font-size: 1rem;
+  }
+}

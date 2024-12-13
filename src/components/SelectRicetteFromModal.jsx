@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Modal, Button, Form, Alert } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { addRicettaToRicettario } from "../redux/actions/ricettarioActions";
@@ -6,7 +6,7 @@ import { addRicettaToRicettario } from "../redux/actions/ricettarioActions";
 const SelectRicetteFromModal = ({ show, onHide, ricettaId }) => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.auth.token);
-  const ricettari = useSelector((state) => state.ricettari.list); 
+  const ricettari = useSelector((state) => state.ricettari.list);
   const [newRicettarioName, setNewRicettarioName] = useState("");
   const [error, setError] = useState("");
 
@@ -54,7 +54,9 @@ const SelectRicetteFromModal = ({ show, onHide, ricettaId }) => {
             </Button>
           ))
         ) : (
-          <Alert variant="info">Nessun ricettario creato. Vuoi crearne uno?</Alert>
+          <Alert variant="info">
+            Nessun ricettario creato. Vuoi crearne uno?
+          </Alert>
         )}
         <Form className="mt-3">
           <Form.Group>
@@ -66,7 +68,10 @@ const SelectRicetteFromModal = ({ show, onHide, ricettaId }) => {
               onChange={(e) => setNewRicettarioName(e.target.value)}
             />
           </Form.Group>
-          <Button className="mt-2" onClick={() => console.log("Crea nuovo ricettario")}>
+          <Button
+            className="mt-2"
+            onClick={() => console.log("Crea nuovo ricettario")}
+          >
             Crea Ricettario
           </Button>
         </Form>

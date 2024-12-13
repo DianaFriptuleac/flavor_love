@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Form,
   Button,
@@ -27,6 +27,7 @@ function Register() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
   if (isAuthenticated) {
     return (
       <div className="register-background">

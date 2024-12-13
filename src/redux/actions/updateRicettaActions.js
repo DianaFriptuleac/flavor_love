@@ -124,8 +124,6 @@ export const fetchImagesByRicettaId =
 // Rimuovo un immagine
 export const removeImage =
   (ricettaId, imageId) => async (dispatch, getState) => {
-   // console.log("ID Ricetta:", ricettaId);
-    //console.log("ID Immagine:", imageId);
     const { token } = getState().auth;
 
     try {

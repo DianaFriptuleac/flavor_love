@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, Container, Row, Col, Carousel } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "../css/Home.css";
@@ -8,7 +8,9 @@ const Home = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/ricetteEsterne/allRicette?page=0&size=1000")
+    fetch(
+      "http://localhost:3001/api/ricetteEsterne/allRicette?page=0&size=1000"
+    )
       .then((response) => response.json())
       .then((data) => {
         if (data && data.content) {
@@ -56,8 +58,9 @@ const Home = () => {
                     key={ricetta.id}
                     className="mb-4"
                   >
-                    <Card className="ricetta-card"
-                    onClick={() => navigate(`/ricetteEsterne/${ricetta.id}`)} // dettagli ricetta
+                    <Card
+                      className="ricetta-card"
+                      onClick={() => navigate(`/ricetteEsterne/${ricetta.id}`)} // dettagli ricetta
                     >
                       <div className="img-container">
                         <Card.Img
@@ -68,7 +71,7 @@ const Home = () => {
                           //X URL dell'img errato o img. che non si carica -> onError x vedere img. di default
                           onError={(e) => {
                             // Previene il loop infinito
-                            e.target.onerror = null; 
+                            e.target.onerror = null;
                             e.target.src = "/assets/default_ricetta.jpg";
                           }}
                         />

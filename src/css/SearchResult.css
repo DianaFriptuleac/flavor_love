@@ -1,73 +1,71 @@
 /* bg */
 .search-background {
-    background-image: url("/public/assets/allRicette-bg.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center;
-    min-height: 100vh;
-    padding: 20px;
-  }
-  
-  /* Titolo */
-  .search-title {
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-    font-family: 'Poppins', sans-serif;
-    font-size: 2.5rem;
-    letter-spacing: 1px;
-    color: white;
-  }
-  
-  /* Card */
-  .search-card {
-    border: none;
-    border-radius: 10px;
-    transition: transform 0.3s ease-in-out;
-    box-shadow: rgba(21, 21, 21, 0.15) 1.95px 1.95px 2.6px;
-  }
-  
-  .search-card:hover {
-    transform: scale(1.05); /* zoom all'hover */
-    cursor: pointer;
-  }
-  
-  .search-card-img {
-    position: relative;
-    min-height: 18rem;
-    object-fit: cover;
-    width: 100%;
+  background-image: url("/public/assets/allRicette-bg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  min-height: 100vh;
+  padding: 20px;
+}
 
+/* Titolo */
+.search-title {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  font-family: "Poppins", sans-serif;
+  font-size: 2.5rem;
+  letter-spacing: 1px;
+  color: white;
+}
+
+/* Card */
+.search-card {
+  border: none;
+  border-radius: 10px;
+  transition: transform 0.3s ease-in-out;
+  box-shadow: rgba(21, 21, 21, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.search-card:hover {
+  transform: scale(1.05); /* zoom all'hover */
+  cursor: pointer;
+}
+
+.search-card-img {
+  position: relative;
+  min-height: 18rem;
+  object-fit: cover;
+  width: 100%;
+}
+
+.search-card-title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Allineo al centro */
+  background-color: rgba(24, 23, 23, 0.7); /* Sfondo semitrasparente */
+  padding: 10px 10px;
+  border-radius: 5px;
+  z-index: 2; /*titolo sopra l'immagine */
+  color: white;
+  text-align: center;
+}
+
+/* Nessuna Ricetta Trovata */
+.no-results {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+}
+
+/* Media Query */
+@media (max-width: 768px) {
+  .search-card-img {
+    height: auto;
   }
-  
-  .search-card-title {
-    position: absolute;
-    top: 50%; 
-    left: 50%; 
-    transform: translate(-50%, -50%); /* Allineo al centro */
-    background-color: rgba(24, 23, 23, 0.7); /* Sfondo semitrasparente */
-    padding: 10px 10px;
-    border-radius: 5px;
-    z-index: 2; /*titolo sopra l'immagine */
-    color:white;
-    text-align: center;
+
+  .search-title {
+    font-size: 2rem;
   }
-  
-  /* Nessuna Ricetta Trovata */
-  .no-results {
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-align: center;
-    color: white;
-  }
-  
-  /* Media Query */
-  @media (max-width: 768px) {
-    .search-card-img {
-      height: auto;
-    }
-  
-    .search-title {
-      font-size: 2rem; 
-    }
-  }
-  
+}

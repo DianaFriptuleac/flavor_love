@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRicette } from "../redux/actions/fetchRicetteAction";
 import {
@@ -132,7 +132,7 @@ const AllRicette = () => {
               <Col key={ricetta.id} md={6} lg={4} xl={3} className="mb-4">
                 <Card className="allRicette-card">
                   <div className="heartContainer">
-                  <Button
+                    <Button
                       className="heart-btn"
                       variant="outline-danger"
                       onClick={() => handleOpenModal(ricetta)}

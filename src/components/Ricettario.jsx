@@ -16,7 +16,7 @@ import {
   removeRicettario,
 } from "../redux/actions/ricettarioActions";
 import { useNavigate } from "react-router-dom";
-import { FaTrashAlt} from "react-icons/fa";
+import { FaTrashAlt } from "react-icons/fa";
 import "../css/Ricettario.css";
 
 const Ricettario = () => {
@@ -142,21 +142,21 @@ const Ricettario = () => {
 
   return (
     <div className="bg-ricettario">
-      <Container >
+      <Container>
         <Row className="align-items-center mb-4 justify-content-center titleContainer">
           <Col xs="auto">
-          <div>
-            <h2 className="titolo-ricettario mt-4">I miei Ricettari</h2>
+            <div>
+              <h2 className="titolo-ricettario mt-4">I miei Ricettari</h2>
             </div>
           </Col>
           <Col xs="auto">
-          <div>
-            <Button
-              className="ricettario-crea-btn mt-3"
-              onClick={() => setShowCreateModal(true)}
-            >
-              Crea Ricettario
-            </Button>
+            <div>
+              <Button
+                className="ricettario-crea-btn mt-3"
+                onClick={() => setShowCreateModal(true)}
+              >
+                Crea Ricettario
+              </Button>
             </div>
           </Col>
         </Row>
@@ -165,7 +165,14 @@ const Ricettario = () => {
         <Row className="g-3 justify-content-center">
           {Array.isArray(ricettari) && ricettari.length > 0 ? (
             ricettari.map((ricettario) => (
-              <Col xs={12} sm={6} md={4} lg={3} className="mb-4" key={ricettario.id}>
+              <Col
+                xs={12}
+                sm={6}
+                md={4}
+                lg={3}
+                className="mb-4"
+                key={ricettario.id}
+              >
                 <Card className="ricettario-card">
                   <div className="img-container">
                     <Card.Img
@@ -178,17 +185,19 @@ const Ricettario = () => {
                     <Card.Body className="ricettario-card-body">
                       <div className="d-flex justify-content-between title-btn-card">
                         <div>
-                        <Card.Title className="ricettario-card-title">
-                          {ricettario.nome}
-                        </Card.Title>
+                          <Card.Title className="ricettario-card-title">
+                            {ricettario.nome}
+                          </Card.Title>
                         </div>
                         <div>
-                        <Button 
-                        className="ricettario-elimina-btn"
-                          onClick={() => confirmDeleteRicettario(ricettario.id)}
-                        >
-                       <FaTrashAlt/>
-                        </Button>
+                          <Button
+                            className="ricettario-elimina-btn"
+                            onClick={() =>
+                              confirmDeleteRicettario(ricettario.id)
+                            }
+                          >
+                            <FaTrashAlt />
+                          </Button>
                         </div>
                       </div>
                     </Card.Body>

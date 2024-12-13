@@ -23,7 +23,7 @@
   font-size: 2.5rem;
   letter-spacing: 1px;
 }
-/*button register*/
+/*btn register*/
 .registerButton {
   background-color: #216b10;
   color: #fff;
@@ -59,7 +59,7 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   opacity: 0.8;
 }
-/*Authenticated alert!*/
+/*Authenticated alert*/
 .alert-p {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
   font-family: "Poppins", sans-serif;
@@ -81,6 +81,6 @@
 }
 .registerControl:focus {
   border-color: #216b10;
-  outline: none; /* none x outline di defaoul */
+  outline: none;
   box-shadow: 0 0 5px #184e0c;
 }

@@ -1,83 +1,83 @@
 /* background */
 .bg-dettagliRicettaEsterna {
   background-image: url("/public/assets/dettagliR.jpeg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center;
-    min-height: 100vh;
-    color: #160d08;
-    padding: 10px;
-    font-family: "Poppins", sans-serif;
-  }
-  /* titolo */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  min-height: 100vh;
+  color: #160d08;
+  padding: 10px;
+  font-family: "Poppins", sans-serif;
+}
+/* titolo */
 .titleCard {
-    font-weight: bold;
-    font-size: 2.9rem;
-    letter-spacing: 1px;
-   
-  }
-  
-  /* container dettagli */
-  .dettagli-ricetta {
-    background: rgba(255, 255, 255, 0.9); /* vetro opaco */
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
-    padding: 30px;
-    width: 100%;
-    transition: transform 0.3s ease, box-shadow 0.3s eas
-  
-  }
-  
-  .dettagli-ricetta .card {
-    background-color: rgba(255, 255, 255, 1);
-    border-radius: 5px;
-  }
-  
-  /* lista ingredienti */
-  .ingredienti-list .list-group-item {
-    border: none;
-    padding: 12px 20px;
-    border-radius: 8px;
-    background-color: #f1f3f5;
-  }
-  
-  .ingredienti-list .list-group-item:not(:last-child) {
-    margin-bottom: 10px;
-  }
-  
- /* h2 -> ingredienti, preparazione */
-  .dettagli-ricetta h2 {
-    color: #d30316;
-    border-bottom: 3px solid #d30316;
-    display: inline-block;
-    margin-bottom: 20px;
-  }
-  
-  /* icone */
-  .list-unstyled svg {
-    font-size: 1.3rem;
-    color: #d30316;
-    font-weight: bold;
-  }
-  
-  /* testo ingredienti */
-  .ingredienti-nome {
-    border-bottom: 1px solid black;
-    display: inline-block;
-  }
-  
+  font-weight: bold;
+  font-size: 2.9rem;
+  letter-spacing: 1px;
+}
+
+/* container dettagli */
+.dettagli-ricetta {
+  background: rgba(255, 255, 255, 0.9); /* vetro opaco */
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+  padding: 30px;
+  width: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s eas;
+}
+
+.dettagli-ricetta .card {
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 5px;
+}
+
+/* lista ingredienti */
+.ingredienti-list .list-group-item {
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  background-color: #f1f3f5;
+}
+
+.ingredienti-list .list-group-item:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+/* h2 -> ingredienti, preparazione */
+.dettagli-ricetta h2 {
+  color: #d30316;
+  border-bottom: 3px solid #d30316;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+/* icone */
+.list-unstyled svg {
+  font-size: 1.3rem;
+  color: #d30316;
+  font-weight: bold;
+}
+
+/* testo ingredienti */
+.ingredienti-nome {
+  border-bottom: 1px solid black;
+  display: inline-block;
+}
+
 /*  testo preparazione ricetta */
-  .preparazione {
-    word-spacing: 0.5rem;
-    line-height: 1.3;
+.preparazione {
+  word-spacing: 0.5rem;
+  line-height: 1.3;
+}
+
+/*media query mobile*/
+@media (max-width: 576px) {
+  .titleCard {
+    font-size: 1.5rem;
   }
-  @media (max-width: 576px){
-    .titleCard {
-      font-size: 1.5rem;
-    }
-    .list-unstyled svg {
-      font-size: 1.5rem;
-      color: #d30316;
-      font-weight: bold;
-    }
+  .list-unstyled svg {
+    font-size: 1.5rem;
+    color: #d30316;
+    font-weight: bold;
   }
+}
