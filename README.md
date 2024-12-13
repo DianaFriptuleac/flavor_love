@@ -77,6 +77,6 @@ Ecco le principali funzionalità offerte dall'applicazione:
 ## Roadmap di Sviluppo
 Flavor Love è un progetto in continua evoluzione.
 Ecco alcune funzionalità future che vorrei implementare:
-*Commenti per le ricette:* Gli utenti potranno lasciare recensioni e suggerimenti.
-*Sezione Ristoranti:* Una nuova area per scoprire ristoranti e leggere recensioni.
-*Deploy dell’applicazione:* Pubblicazione su una piattaforma cloud per renderla accessibile ovunque.
+- *Commenti per le ricette:* Gli utenti potranno lasciare recensioni e suggerimenti.
+- *Sezione Ristoranti:* Una nuova area per scoprire ristoranti e leggere recensioni.
+- *Deploy dell’applicazione:* Pubblicazione su una piattaforma cloud per renderla accessibile ovunque.
