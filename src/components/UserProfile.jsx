@@ -250,7 +250,7 @@ const UserProfile = () => {
           </Modal>
         </Container>
         <Container>
-          {error && <Alert variant="danger">Errore: {error}</Alert>}
+          {error && ricette.lenght === 0 && <Alert variant="danger">Errore: {error}</Alert>}
           <RicetteUtente ricette={ricette} />
         </Container>
         <Container>
