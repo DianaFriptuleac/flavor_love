@@ -132,8 +132,14 @@ const CreaRicetta = () => {
   const handleSaveAndNavigate = async () => {
     try {
       if (createdRicetta?.id && ricettaState.ingredienti.length > 0) {
+          //filtro gli ingredienti senza l'id
+          const ingredientiNonSalvati = ricettaState.ingredienti.filter(
+            (ingrediente) => !ingrediente.id
+          );
+  
+          if (ingredientiNonSalvati.length > 0) {
         // Invio un array di ingredienti
-        const ingredientiPayload = ricettaState.ingredienti.map(
+        const ingredientiPayload = ingredientiNonSalvati.map(
           (ingrediente) => ({
             nome: ingrediente.nome,
             dosaggio: ingrediente.dosaggio,
@@ -143,6 +149,7 @@ const CreaRicetta = () => {
 
         await dispatch(addIngredienti(createdRicetta.id, ingredientiPayload));
       }
+    }
 
       // Resetto i campi locali
       setRicettaData({
