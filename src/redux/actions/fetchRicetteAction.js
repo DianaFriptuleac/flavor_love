@@ -130,3 +130,50 @@ export const fetchDettagliRicetta = (id) => async (dispatch, getState) => {
     dispatch({ type: FETCH_DETTAGLI_RICETTA_ERROR, payload: error.message });
   }
 };
+/*//dettagli ricetta
+export const fetchDettagliRicetta = (id) => async (dispatch, getState) => {
+  dispatch({ type: FETCH_DETTAGLI_RICETTA_PENDING }); // Stato iniziale di caricamento
+  try {
+    const { token } = getState().auth; // Recupero il token dal Redux store
+    if (!token) throw new Error("Token mancante!");
+
+    const response = await fetch(`http://localhost:3001/api/ricette/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log("COMPONENTI RICETTA", data);
+
+      // Aggiorno lo stato "dettagli" e disabilito il caricamento
+      dispatch({
+        type: FETCH_DETTAGLI_RICETTA_SUCCESS,
+        payload: data, // Passo i dati ricevuti
+      });
+
+      // Aggiorno gli ingredienti nello stato
+      dispatch({
+        type: FETCH_SET_INGREDIENTI,
+        payload: data.ingredienti || [],
+      });
+
+      // Aggiorno le immagini
+      dispatch({
+        type: FETCH_IMAGES_SUCCESS_UPDATE,
+        payload: data.img || [],
+      });
+    } else {
+      const errorText = await response.text();
+      throw new Error(
+        errorText || "Errore nel fetch dei dettagli della ricetta"
+      );
+    }
+  } catch (error) {
+    console.error("Errore fetch dettagli ricetta:", error.message);
+    dispatch({ type: FETCH_DETTAGLI_RICETTA_ERROR, payload: error.message });
+  }
+};
+*/
