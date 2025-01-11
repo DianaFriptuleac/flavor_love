@@ -370,7 +370,7 @@ const CreaRicetta = () => {
               <ImgRicetta
                 images={ricettaState.image}
                 addImage={(file) => handleImageUpload(file)} // Passo l'upload
-                removeImage={(index) => dispatch(removeImage(index))}
+                removeImage={(imageId) => dispatch(removeImage(createdRicetta.id, imageId))}
                 isEditing={false}
               />
             ))}

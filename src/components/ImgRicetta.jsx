@@ -31,37 +31,27 @@ const ImgRicetta = ({ images = [], addImage, removeImage, isEditing }) => {
       {/* Lista img. */}
       <ListGroup className="mt-3">
         {images.length > 0 ? (
-          images.map((img, index) => {
-            // Determina l'URL in base al tipo di `img`
-            const imageUrl = typeof img === "string" ? img : img.url;
-
-            return (
-              <ListGroup.Item
-                key={img.id || index}
-                className="d-flex justify-content-between align-items-center"
+          images.map((img) => (
+            <ListGroup.Item
+              key={img.id}
+              className="d-flex justify-content-between align-items-center"
+            >
+              <img
+                src={img.url}
+                alt="immagine ricetta"
+                width="150"
+                style={{ borderRadius: "8px", objectFit: "cover" }}
+              />
+              <Button
+                className="f-flex align-items-center"
+                variant="outline-danger"
+                size="sm"
+                onClick={() => removeImage(img.id)} // creazione
               >
-                <img
-                  src={imageUrl}
-                  alt={`Immagine ${index}`}
-                  width="150"
-                  style={{ borderRadius: "8px", objectFit: "cover" }}
-                />
-                <Button
-                  className="f-flex align-items-center"
-                  variant="outline-danger"
-                  size="sm"
-                  onClick={
-                    () =>
-                      isEditing
-                        ? removeImage(img.id) // modifica
-                        : removeImage(index) // creazione
-                  }
-                >
-                  <IoTrash />
-                </Button>
-              </ListGroup.Item>
-            );
-          })
+                <IoTrash />
+              </Button>
+            </ListGroup.Item>
+          ))
         ) : (
           <p className="creaRicetta-label">Nessuna immagine caricata.</p>
         )}
@@ -69,4 +59,5 @@ const ImgRicetta = ({ images = [], addImage, removeImage, isEditing }) => {
     </div>
   );
 };
+
 export default ImgRicetta;

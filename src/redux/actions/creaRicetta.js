@@ -84,10 +84,10 @@ export const addImage = (ricettaId, file) => async (dispatch, getState) => {
     );
 
     if (resp.ok) {
-      const imgUrl = await resp.text();
+      const imgRicetta = await resp.json();
       dispatch({
         type: ADD_IMG,
-        payload: imgUrl,
+        payload: imgRicetta,
       });
     } else {
       const errMessage = await resp.text();
@@ -98,6 +98,36 @@ export const addImage = (ricettaId, file) => async (dispatch, getState) => {
     throw er;
   }
 };
+
+//remove img
+export const removeImage = (ricettaId, imageId) => async (dispatch, getState) => {
+  try{
+    const { token } = getState().auth;
+    if (!token) throw new Error("Token mancante!");
+
+    if(!imageId) throw new Error ("ID immagine mancante!");
+
+    const rsp = await fetch(
+      `http://localhost:3001/api/imgRicette/${imageId}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if(rsp.ok) {
+      dispatch({
+        type:REMOVE_IMAGE,
+        payload: imageId, //rimuovo l'img dallo stato di redux
+      });
+    }
+  } catch(error){
+    console.error("Errore durante la cancelazione del'img ", error);
+    throw error;
+  }
+}
 
 // Aggiungo ingrediente alla ricetta
 export const addIngredienti =
@@ -219,11 +249,8 @@ export const removeIngrediente =
     }
   };
 
-// Rimuovo immagine
-export const removeImage = (index) => ({
-  type: REMOVE_IMAGE,
-  payload: index,
-});
+
+
 export const removeRicetta = (index) => ({
   type: REMOVE_RICETTA,
   payload: index,

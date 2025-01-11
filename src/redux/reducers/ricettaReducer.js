@@ -65,7 +65,7 @@ const ricettaReducer = (state = initialState, action) => {
     case REMOVE_IMAGE:
       return {
         ...state,
-        image: state.image.filter((_, i) => i !== action.payload),
+        image: state.image.filter((img) => img.id !== action.payload),
       };
     case RESET_RICETTA:
       return {
