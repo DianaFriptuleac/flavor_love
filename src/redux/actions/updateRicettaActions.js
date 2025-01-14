@@ -1,13 +1,18 @@
 export const UPDATE_RICETTA_SUCCESS = "UPDATE_RICETTA_SUCCESS";
 export const UPDATE_RICETTA_ERROR = "UPDATE_RICETTA_ERROR";
-export const ADD_INGREDIENTE_SUCCESS = "ADD_INGREDIENTE_SUCCESS";
-export const REMOVE_INGREDIENTE_SUCCESS = "REMOVE_INGREDIENTE_SUCCESS";
 export const ADD_IMAGE_SUCCESS = "ADD_IMAGE_SUCCESS";
 export const REMOVE_IMAGE_SUCCESS = "REMOVE_IMAGE_SUCCESS";
 export const FETCH_IMAGES_SUCCESS = "FETCH_IMAGES_SUCCESS";
 export const FETCH_IMAGES_ERROR = "FETCH_IMAGES_ERROR";
+export const UPDATE_INGREDIENTE_SUCCESS = "UPDATE_INGREDIENTE_SUCCESS";
+export const UPDATE_INGREDIENTE_ERROR = "UPDATE_INGREDIENTE_ERROR";
+export const ADD_NEW_INGREDIENTE = "ADD_NEW_INGREDIENTE";
+export const REMOVE_INGREDIENTE_UPDATE = "REMOVE_INGREDIENTE_UPDATE";
+export const FETCH_INGREDIENTI_SUCCESS = "FETCH_INGREDIENTI_SUCCESS";
+export const FETCH_INGREDIENTI_ERROR = "FETCH_INGREDIENTI_ERROR";
 
-// Aggiorno una ricetta
+
+// up ricetta
 export const updateRicetta = (id, data) => async (dispatch, getState) => {
   const token = getState().auth.token;
   try {
@@ -29,7 +34,7 @@ export const updateRicetta = (id, data) => async (dispatch, getState) => {
 
     const result = await response.json();
     dispatch({
-      type: "UPDATE_RICETTA_SUCCESS",
+      type: UPDATE_RICETTA_SUCCESS,
       payload: result,
     });
 
@@ -39,9 +44,45 @@ export const updateRicetta = (id, data) => async (dispatch, getState) => {
       "Errore durante l'aggiornamento della ricetta:",
       error.message
     );
-    dispatch({ type: "UPDATE_RICETTA_ERROR", payload: error.message });
+    dispatch({ type: UPDATE_RICETTA_ERROR, payload: error.message });
 
     return { error: error.message };
+  }
+};
+//fatch ingredienti
+export const fetchIngredientiByRicettaId = (ricettaId) => async (dispatch, getState) => {
+  const { token } = getState().auth;
+
+  try {
+    if (!ricettaId) throw new Error("ID ricetta non valido!");
+
+    const response = await fetch(
+      `http://localhost:3001/api/ricette/${ricettaId}/ingredienti`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log("Risposta del server:", data);
+      dispatch({
+        type: FETCH_INGREDIENTI_SUCCESS,
+        payload: data.ingredienti || [], //stato Redux
+      });
+    } else {
+      const errorText = await response.text();
+      throw new Error(`Errore nel fetch degli ingredienti: ${errorText}`);
+    }
+  } catch (error) {
+    console.error("Errore durante il fetch degli ingredienti:", error.message);
+    dispatch({
+      type: FETCH_INGREDIENTI_ERROR,
+      payload: error.message,
+    });
   }
 };
 
@@ -66,8 +107,8 @@ export const updateIngrediente =
       if (response.ok) {
         const data = await response.json();
         dispatch({
-          type: "UPDATE_INGREDIENTE_SUCCESS",
-          payload: data,
+          type: UPDATE_INGREDIENTE_SUCCESS,
+          payload: data.ingredienti,
         });
         return data;
       } else {
@@ -78,7 +119,7 @@ export const updateIngrediente =
       }
     } catch (error) {
       dispatch({
-        type: "UPDATE_INGREDIENTE_ERROR",
+        type: UPDATE_INGREDIENTE_ERROR,
         payload: error.message,
       });
       console.error(
@@ -88,6 +129,72 @@ export const updateIngrediente =
       throw error;
     }
   };
+//aggiungo ingrediente
+export const addIngredientiUp = (ricettaId, ingredienti) => async (dispatch, getState) => {
+  try {
+    const { token } = getState().auth;
+    if (!ricettaId) throw new Error("ID ricetta non valido!");
+
+    const response = await fetch(
+      `http://localhost:3001/api/ricette/${ricettaId}/ingredienti`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(ingredienti),
+      }
+    );
+
+    if (response.ok) {
+      console.log('Ingrediente aggiunto correttamente, ora aggiorno gli ingredienti...');
+      dispatch({
+        type: ADD_NEW_INGREDIENTE,
+        payload: ingredienti,
+      });
+
+      await dispatch(fetchIngredientiByRicettaId(ricettaId)); // sincronizzo lo stato
+      console.log('Stato Redux aggiornato:', getState().ricetta.ingredienti); 
+    } else {
+      const errorText = await response.text();
+      throw new Error(`Errore: ${errorText}`);
+    }
+  } catch (error) {
+    console.error("Errore durante l'aggiunta degli ingredienti:", error.message);
+    throw error;
+  }
+};
+
+
+//elimino ingrediente
+export const removeIngredienteUp = (ricettaId, ingredienteId) => async (dispatch, getState) => {
+  try {
+    const { token } = getState().auth;
+    if (!ingredienteId) throw new Error("Ingrediente ID mancante!");
+
+    const response = await fetch(
+      `http://localhost:3001/api/ricette/${ricettaId}/ingredienti/${ingredienteId}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (response.ok) {
+      await dispatch(fetchIngredientiByRicettaId(ricettaId)); //  stato
+    } else {
+      const errorText = await response.text();
+      throw new Error(`Errore dal server: ${errorText}`);
+    }
+  } catch (error) {
+    console.error("Errore durante la cancellazione dell'ingrediente:", error.message);
+    throw error;
+  }
+};
+
 
 //recupero immagini
 export const fetchImagesByRicettaId =
@@ -154,3 +261,33 @@ export const removeImage =
       );
     }
   };
+
+  //aggiungo img
+  export const addUpdateImg = (ricettaId, file) => async (dispatch, getState) => {
+    const token = getState().auth.token;
+  
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+  
+      const response = await fetch(
+        `http://localhost:3001/api/imgRicette/${ricettaId}`,
+        {
+          method: "POST",
+          headers: { Authorization: `Bearer ${token}` },
+          body: formData,
+        }
+      );
+  
+      if (response.ok) {
+        const data = await response.json();
+        dispatch({ type: ADD_IMAGE_SUCCESS, payload: data });
+      } else {
+        const errorText = await response.text();
+        throw new Error(`Errore durante il caricamento: ${errorText}`);
+      }
+    } catch (err) {
+      console.error("Errore durante l'aggiunta dell'immagine: ", err.message);
+    }
+  };
+  

@@ -3,19 +3,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   updateRicetta,
-  removeImage,
   fetchImagesByRicettaId,
 } from "../redux/actions/updateRicettaActions";
-import { addImage } from "../redux/actions/creaRicetta";
+
 import { fetchDettagliRicetta } from "../redux/actions/fetchRicetteAction";
 import { Container, Form, Button, Alert, Spinner } from "react-bootstrap";
-import IngredientiRicetta from "./IngredientiRicetta";
-
-import ImgRicetta from "./ImgRicetta";
-import {
-  addIngredienti,
-  removeIngrediente,
-} from "../redux/actions/creaRicetta";
+import IngredientiUpdate from "./IngredientiUpdate";
+import ImgUpdate from "./ImgUpdate";
 import "../css/ModificaRicetta.css";
 
 const ModificaRicetta = () => {
@@ -23,8 +17,6 @@ const ModificaRicetta = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { dettagli, loading, error } = useSelector((state) => state.ricette);
-  const ingredienti = useSelector((state) => state.ricette.ingredienti || []);
-  const images = useSelector((state) => state.ricette.dettagli?.img || []);
   const token = useSelector((state) => state.auth.token);
 
   const [formData, setFormData] = useState({
@@ -48,6 +40,7 @@ const ModificaRicetta = () => {
     if (id) {
       dispatch(fetchDettagliRicetta(id));
       dispatch(fetchImagesByRicettaId(id));
+    
     }
   }, [dispatch, id]);
 
@@ -70,19 +63,6 @@ const ModificaRicetta = () => {
     console.log("Stato aggiornato:", dettagli?.img);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dettagli]);
-
-  //gestisco le immagini
-  const handleImageAdd = async (file) => {
-    setIsProcessing(true);
-    try {
-      await dispatch(addImage(id, file));
-      dispatch(fetchImagesByRicettaId(id));
-      setIsProcessing(false);
-    } catch (error) {
-      console.error("Errore aggiunta immagine:", error.message);
-      setIsProcessing(false);
-    }
-  };
 
   // Fetch categorie
   useEffect(() => {
@@ -315,26 +295,17 @@ const ModificaRicetta = () => {
 
             {/* Ingredienti */}
             {id && (
-              <IngredientiRicetta
+              <IngredientiUpdate
                 ricettaId={id}
-                ingredienti={ingredienti}
-                addIngrediente={(ingrediente) =>
-                  dispatch(addIngredienti(id, [ingrediente]))
-                }
-                removeIngrediente={(ingredienteId) =>
-                  dispatch(removeIngrediente(id, ingredienteId))
-                }
+                ingredienti = {dettagli?.ingredienti || []}
               />
             )}
 
             {/* ImgRicetta */}
             {id && (
               <Form.Group className="mb-3">
-                <ImgRicetta
-                  images={images}
-                  addImage={handleImageAdd}
-                  removeImage={(imageId) => dispatch(removeImage(id, imageId))}
-                  isEditing={true}
+                <ImgUpdate
+                ricettaId={id}
                 />
               </Form.Group>
             )}
