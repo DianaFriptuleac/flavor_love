@@ -71,7 +71,7 @@ export const ricettaReducer = (state = initialState, action) => {
           ...state,
           ricetta: {
             ...state.ricetta,
-            ingredienti: [...state.ricetta.ingredienti, ...action.payload],
+            ingredienti: [...state.ricetta.ingredienti, action.payload],
           },
         };
       

@@ -22,7 +22,7 @@ const IngredientiUpdate = ({ ricettaId, ingredienti }) => {
     (state) => state.ricetta.ingredienti || []
   );
   console.log("Ingredienti nel redux store", fetchedIngredienti);
-  const state = useSelector((state) => state);
+  const state = useSelector((state) => state.ingredienti);
   console.log("Stato completo di Redux:", state);
 
   // Agg. un ingrediente
@@ -52,7 +52,7 @@ const IngredientiUpdate = ({ ricettaId, ingredienti }) => {
   const handleDelete = (ingredienteId) => {
     dispatch(removeIngredienteUp(ricettaId, ingredienteId))
       .then(() => {
-        dispatch(fetchIngredientiByRicettaId(ricettaId)); 
+        dispatch(fetchIngredientiByRicettaId(ricettaId));
         setMessage("Ingrediente rimosso con successo!");
       })
       .catch((error) => {
@@ -69,7 +69,10 @@ const IngredientiUpdate = ({ ricettaId, ingredienti }) => {
     return acc;
   }, {});
 
-  useEffect(() => {}, [fetchedIngredienti]);
+  useEffect(() => {
+    fetchIngredientiByRicettaId();
+  }, [fetchedIngredienti]);
+  //useEffect(() => {}, [fetchedIngredienti]);
 
   return (
     <div>
