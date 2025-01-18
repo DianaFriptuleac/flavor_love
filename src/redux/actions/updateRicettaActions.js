@@ -51,6 +51,7 @@ export const updateRicetta = (id, data) => async (dispatch, getState) => {
 };
 //fatch ingredienti
 export const fetchIngredientiByRicettaId = (ricettaId) => async (dispatch, getState) => {
+  console.log("Fetching ingredienti for ricettaId:", ricettaId);
   const { token } = getState().auth;
 
   try {
@@ -69,10 +70,15 @@ export const fetchIngredientiByRicettaId = (ricettaId) => async (dispatch, getSt
     if (response.ok) {
       const data = await response.json();
       console.log("Risposta del server:", data);
+
+      const ingredienti = data; 
+  console.log("Ingredienti estratti:", ingredienti); 
+
       dispatch({
         type: FETCH_INGREDIENTI_SUCCESS,
-        payload: data.ingredienti || [], //stato Redux
+        payload: ingredienti,
       });
+      console.log("!!!!Dati inviati al reducer:", ingredienti);
     } else {
       const errorText = await response.text();
       throw new Error(`Errore nel fetch degli ingredienti: ${errorText}`);
@@ -130,51 +136,37 @@ export const updateIngrediente =
     }
   };
 //aggiungo ingrediente
-export const addIngredientiUp =   (ricettaId, ingredienti) => async (dispatch, getState) => {
-    try {
-      const { token } = getState().auth;
-      if (!ricettaId) throw new Error("ID ricetta non valido!");
-
-      const response = await fetch(
-        `http://localhost:3001/api/ricette/${ricettaId}/ingredienti`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(ingredienti),
-        }
-      );
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log("Dati ricevuti dal backend:", data);
-
-        const mappedData = data.ingredienti.map((ing) => ({
-          id: ing.id,
-          nome: ing.nome,
-          dosaggio: ing.dosaggio,
-          sezione: ing.sezione,
-        }));
-        console.log("Dati mappati per il reducer:", mappedData);
-
-        dispatch({
-          type: ADD_NEW_INGREDIENTE,
-          payload: mappedData,
-        });
-      } else {
-        const errorText = await response.text();
-        throw new Error(`Errore: ${errorText}`);
+export const addIngredientiUp = (ricettaId, ingredienti) => async (dispatch, getState) => {
+  const { token } = getState().auth;
+  try {
+    const response = await fetch(
+      `http://localhost:3001/api/ricette/${ricettaId}/ingredienti`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(ingredienti),
       }
-    } catch (error) {
-      console.error(
-        "Errore durante l'aggiunta degli ingredienti:",
-        error.message
-      );
-      throw error;
+    );
+
+    if (response.ok) {
+      console.log('Ingrediente aggiunto correttamente');
+      const data = await response.json();
+      dispatch({
+        type: ADD_NEW_INGREDIENTE,
+        payload: data,
+      });
+    } else {
+      const errorText = await response.text();
+      throw new Error(`Errore: ${errorText}`);
     }
-  };
+  } catch (error) {
+    console.error("Errore durante l'aggiunta degli ingredienti:", error.message);
+    throw error;
+  }
+};
 
 
 //elimino ingrediente

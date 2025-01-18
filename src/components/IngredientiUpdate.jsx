@@ -18,11 +18,14 @@ const IngredientiUpdate = ({ ricettaId, ingredienti }) => {
   });
   const [currentSezione, setCurrentSezione] = useState("");
   const [message, setMessage] = useState("");
-  const fetchedIngredienti = useSelector(
-    (state) => state.ricetta.ingredienti || []
-  );
-  console.log("Ingredienti nel redux store", fetchedIngredienti);
-  const state = useSelector((state) => state.ingredienti);
+
+  
+  const fetchedIngredienti = useSelector((state) => state.updateRicetta?.ingredienti || []);
+  console.log("Ingredienti letti da Redux:", fetchedIngredienti);
+  
+  
+  
+  const state = useSelector((state) => state.updateRicetta.ingredienti);
   console.log("Stato completo di Redux:", state);
 
   // Agg. un ingrediente
@@ -36,8 +39,8 @@ const IngredientiUpdate = ({ ricettaId, ingredienti }) => {
       return;
     }
 
-    const ingredienti = { ...newIngrediente, sezione: currentSezione };
-    dispatch(addIngredientiUp(ricettaId, [ingredienti]))
+    const ingrediente = { ...newIngrediente, sezione: currentSezione };
+    dispatch(addIngredientiUp(ricettaId, [ingrediente]))
       .then(() => {
         dispatch(fetchIngredientiByRicettaId(ricettaId));
         setMessage("Ingrediente aggiunto con successo!");
@@ -61,7 +64,7 @@ const IngredientiUpdate = ({ ricettaId, ingredienti }) => {
   };
 
   // ingredienti per sezione
-  const groupedIngredients = ingredienti.reduce((acc, curr) => {
+  const groupedIngredients = fetchedIngredienti.reduce((acc, curr) => {
     if (!acc[curr.sezione]) {
       acc[curr.sezione] = [];
     }
@@ -69,13 +72,16 @@ const IngredientiUpdate = ({ ricettaId, ingredienti }) => {
     return acc;
   }, {});
 
- /* useEffect(() => {
-    setNewIngrediente({nome:"", dosaggio:"", sezione:""})
-  }, [fetchedIngredienti]);
-  //useEffect(() => {}, [fetchedIngredienti]);*/
-useEffect(()=>{
-  dispatch(fetchIngredientiByRicettaId(ricettaId))
-}, [dispatch, ricettaId])
+  useEffect(() => {
+    dispatch(fetchIngredientiByRicettaId(ricettaId));
+  }, [dispatch, ricettaId]);
+  
+  if (!fetchedIngredienti || fetchedIngredienti.length === 0) {
+    return <div>Caricamento ingredienti...</div>;
+  }
+  
+  
+  
 
   return (
     <div>
@@ -123,16 +129,16 @@ useEffect(()=>{
         <div key={sezione} className="mt-4">
           <h5>Sezione: {sezione}</h5>
           <ListGroup>
-            {ingredienti.map((ingredienti) => (
+            {ingredienti.map((ingrediente) => (
               <ListGroup.Item
-                key={ingredienti.id}
+                key={ingrediente.id}
                 className="d-flex justify-content-between align-items-center"
               >
-                {`${ingredienti.nome} - ${ingredienti.dosaggio}`}
+                {`${ingrediente.nome} - ${ingrediente.dosaggio}`}
                 <Button
                   variant="outline-danger"
                   size="sm"
-                  onClick={() => handleDelete(ingredienti.id)}
+                  onClick={() => handleDelete(ingrediente.id)}
                 >
                   <IoTrash />
                 </Button>

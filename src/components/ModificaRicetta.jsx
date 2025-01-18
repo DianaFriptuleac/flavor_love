@@ -27,8 +27,8 @@ const ModificaRicetta = () => {
     tempoCotturaMinuti: 0,
     costoRicetta: "BASSO",
     nomeCategorieRicette: [],
-    ingredienti: [],
-    img: [],
+   // ingredienti: [],
+   // img: [],
   });
 
   const [categorie, setCategorie] = useState([]);

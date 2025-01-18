@@ -58,7 +58,7 @@ export const ricettaReducer = (state = initialState, action) => {
 
     // Gestisco l'aggiornamento degli ingredienti
     case ADD_NEW_INGREDIENTE:
-  console.log("Aggiungo nuovo ingrediente:", action.payload);
+  console.log("Aggiungo nuovo ingrediente:", action.payload); // Debug log
   return {
     ...state,
     ricetta: {
@@ -95,15 +95,13 @@ export const ricettaReducer = (state = initialState, action) => {
 
     // Gestisco il recupero degli ingredienti
     case FETCH_INGREDIENTI_SUCCESS:
-      console.log("Payload ricevuto per gli ingredienti:", action.payload);
+      console.log("Reducer: Stato precedente:", state);
+      console.log("Reducer: Aggiorno lo stato con:", action.payload);
       return {
         ...state,
-        ricetta: {
-          ...state.ricetta,
-          ingredienti: Array.isArray(action.payload) ? action.payload : [],
-        },
-        error: null,
+        ingredienti: Array.isArray(action.payload) ? action.payload : [],
       };
+    
 
     case FETCH_INGREDIENTI_ERROR:
       return {
