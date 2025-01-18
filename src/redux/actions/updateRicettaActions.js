@@ -130,41 +130,51 @@ export const updateIngrediente =
     }
   };
 //aggiungo ingrediente
-export const addIngredientiUp = (ricettaId, ingredienti) => async (dispatch, getState) => {
-  try {
-    const { token } = getState().auth;
-    if (!ricettaId) throw new Error("ID ricetta non valido!");
+export const addIngredientiUp =   (ricettaId, ingredienti) => async (dispatch, getState) => {
+    try {
+      const { token } = getState().auth;
+      if (!ricettaId) throw new Error("ID ricetta non valido!");
 
-    const response = await fetch(
-      `http://localhost:3001/api/ricette/${ricettaId}/ingredienti`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(ingredienti),
+      const response = await fetch(
+        `http://localhost:3001/api/ricette/${ricettaId}/ingredienti`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(ingredienti),
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Dati ricevuti dal backend:", data);
+
+        const mappedData = data.ingredienti.map((ing) => ({
+          id: ing.id,
+          nome: ing.nome,
+          dosaggio: ing.dosaggio,
+          sezione: ing.sezione,
+        }));
+        console.log("Dati mappati per il reducer:", mappedData);
+
+        dispatch({
+          type: ADD_NEW_INGREDIENTE,
+          payload: mappedData,
+        });
+      } else {
+        const errorText = await response.text();
+        throw new Error(`Errore: ${errorText}`);
       }
-    );
-
-    if (response.ok) {
-      console.log('Ingrediente aggiunto correttamente, ora aggiorno gli ingredienti...');
-      dispatch({
-        type: ADD_NEW_INGREDIENTE,
-        payload: ingredienti,
-      });
-
-      await dispatch(fetchIngredientiByRicettaId(ricettaId)); // sincronizzo lo stato
-      console.log('Stato Redux aggiornato:', getState().ricetta.ingredienti); 
-    } else {
-      const errorText = await response.text();
-      throw new Error(`Errore: ${errorText}`);
+    } catch (error) {
+      console.error(
+        "Errore durante l'aggiunta degli ingredienti:",
+        error.message
+      );
+      throw error;
     }
-  } catch (error) {
-    console.error("Errore durante l'aggiunta degli ingredienti:", error.message);
-    throw error;
-  }
-};
+  };
 
 
 //elimino ingrediente

@@ -69,10 +69,13 @@ const IngredientiUpdate = ({ ricettaId, ingredienti }) => {
     return acc;
   }, {});
 
-  useEffect(() => {
-    fetchIngredientiByRicettaId();
+ /* useEffect(() => {
+    setNewIngrediente({nome:"", dosaggio:"", sezione:""})
   }, [fetchedIngredienti]);
-  //useEffect(() => {}, [fetchedIngredienti]);
+  //useEffect(() => {}, [fetchedIngredienti]);*/
+useEffect(()=>{
+  dispatch(fetchIngredientiByRicettaId(ricettaId))
+}, [dispatch, ricettaId])
 
   return (
     <div>

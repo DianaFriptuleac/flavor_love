@@ -15,6 +15,7 @@ import {
 const initialState = {
   ricetta: {
     ingredienti: [],
+    image:[],
   },
   error: null,
   successMessage: null,
@@ -25,7 +26,7 @@ export const ricettaReducer = (state = initialState, action) => {
     case UPDATE_RICETTA_SUCCESS:
       return {
         ...state,
-        ricetta: action.payload, 
+        ricetta: action.payload,  //intera ricetta
         successMessage: "Ricetta aggiornata con successo!",
         error: null,
       };
@@ -36,7 +37,7 @@ export const ricettaReducer = (state = initialState, action) => {
         ...state,
         ricetta: {
           ...state.ricetta,
-          img: action.payload, 
+          image: Array.isArray(action.payload)? action.payload:[]
         },
       };
 
@@ -45,7 +46,7 @@ export const ricettaReducer = (state = initialState, action) => {
         ...state,
         ricetta: {
           ...state.ricetta,
-          img: state.ricetta.img.filter((img) => img.id !== action.payload),
+          image: state.ricetta.image.filter((img) => img.id !== action.payload),
         },
       };
 
@@ -56,24 +57,18 @@ export const ricettaReducer = (state = initialState, action) => {
       };
 
     // Gestisco l'aggiornamento degli ingredienti
-    case UPDATE_INGREDIENTE_SUCCESS:
-      return {
-        ...state,
-        ricetta: {
-          ...state.ricetta,
-          ingredienti: action.payload, // aggiorno gli ingredienti
-        },
-      };
+    case ADD_NEW_INGREDIENTE:
+  console.log("Aggiungo nuovo ingrediente:", action.payload);
+  return {
+    ...state,
+    ricetta: {
+      ...state.ricetta,
+      ingredienti: Array.isArray(action.payload)
+        ? [...state.ricetta.ingredienti, ...action.payload]
+        : [...state.ricetta.ingredienti, action.payload],
+    },
+  };
 
-      case ADD_NEW_INGREDIENTE:
-        console.log("Aggiungo nuovo ingrediente:", action.payload);
-        return {
-          ...state,
-          ricetta: {
-            ...state.ricetta,
-            ingredienti: [...state.ricetta.ingredienti, action.payload],
-          },
-        };
       
 
     case REMOVE_INGREDIENTE_UPDATE:
@@ -86,6 +81,17 @@ export const ricettaReducer = (state = initialState, action) => {
           ),
         },
       };
+      case UPDATE_INGREDIENTE_SUCCESS:
+        const ingredientiAggiornati = state.ricetta.ingredienti.map((ingrediente) =>
+          ingrediente.id === action.payload.id ? action.payload : ingrediente
+        );
+        return {
+          ...state,
+          ricetta: {
+            ...state.ricetta,
+            ingredienti: ingredientiAggiornati,
+          },
+        };
 
     // Gestisco il recupero degli ingredienti
     case FETCH_INGREDIENTI_SUCCESS:
