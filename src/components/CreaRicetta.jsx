@@ -101,6 +101,24 @@ const CreaRicetta = () => {
   // Gestisco la creazione della ricetta - invio dati all'API e salvo la ricetta creata
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    //lunghezza titolo
+    if(ricettaData.titolo.length < 3 || ricettaData.titolo.length > 60) {
+      setAlert({
+        message: "Il titolo deve essere compreso tra 3 e 60 caratteri!",
+        varianr: "danger",
+      });
+      return;
+    }
+
+    //lunghezza procedomento
+    if(ricettaData.procedimento.length > 10000){
+      setAlert({
+        message:"Il procedimento della ricetta può contenere al massimo 10000 caratteri!",
+        variant: "danger",
+      });
+      return;
+    }
     try {
       if (ricettaData.nomeCategorieRicette.length === 0) {
         throw new Error("Seleziona almeno una categoria!");

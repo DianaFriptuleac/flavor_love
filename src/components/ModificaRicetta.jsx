@@ -135,6 +135,26 @@ const ModificaRicetta = () => {
   const handleUpdate = async (e) => {
     e.preventDefault();
     setIsProcessing(true);
+
+        //lunghezza titolo
+        if(formData.titolo.length < 3 || formData.titolo.length > 60) {
+          setAlert({
+            message: "Il titolo deve essere compreso tra 3 e 60 caratteri!",
+            varianr: "danger",
+          });
+          setIsProcessing(false);
+          return;
+        }
+    
+        //lunghezza procedomento
+        if(formData.procedimento.length > 10000){
+          setAlert({
+            message:"Il procedimento della ricetta può contenere al massimo 10000 caratteri!",
+            variant: "danger",
+          });
+          setIsProcessing(false);
+          return;
+        }
     try {
       const payload = {
         ...formData,
