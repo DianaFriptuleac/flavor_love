@@ -24,18 +24,19 @@ const RicettePerCategorie = () => {
   const [totalPages, setTotalPages] = useState(1);
   const token = useSelector((state) => state.auth.token);
   const [likedRicette, setLikedRicette] = useState([]);
-
   useEffect(() => {
+    if (!token) {
+      setError(
+        "Per visualizzare le ricette è necessario registrarsi o effettuare il login."
+      );
+      return;
+    }
+
     const fetchRicettaByCategorie = async (page) => {
       setLoading(true);
       setError(null);
 
       try {
-        if (!token) {
-          console.error("Token mancante!");
-          throw new Error("Token mancante!");
-        }
-
         const resp = await fetch(
           `http://localhost:3001/api/ricette/categoria?categoria=${categoria}&page=${page}&size=12&sortBy=titolo`,
           {
@@ -127,6 +128,28 @@ const RicettePerCategorie = () => {
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
+
+    // se l'utente non e logato
+    if (!token) {
+      return (
+        <div className="bg-categorie">
+          <Container className="text-center mt-5">
+            <Alert variant="danger">
+              Per visualizzare le ricette è necessario registrarsi o effettuare il login.
+            </Alert>
+            <Button className="ricPerCategorieBtn me-3" onClick={() => navigate("/register")}>
+              Registrati
+            </Button>
+            <Button
+              className="ricPerCategorieBtn"
+              onClick={() => navigate("/login")}
+            >
+              Accedi
+            </Button>
+          </Container>
+        </div>
+      );
+    }
 
   return (
     <div className="bg-categorie">

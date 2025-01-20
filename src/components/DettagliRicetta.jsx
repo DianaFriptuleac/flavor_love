@@ -32,6 +32,8 @@ const DettagliRicetta = () => {
   });
   const [currentImageIndex, setCurrentImageIndex] = useState(0); //stato attuale dell'immagine
 
+
+
   const handleDelete = async () => {
     const confermaDelete = window.confirm(
       "Sei sicuro di voler cancellare questa ricetta?"
@@ -93,12 +95,38 @@ const DettagliRicetta = () => {
     }
   };
 
-  useEffect(() => {
-    if (id) {
+ 
+   // verifico se l'utente ha il token (se registrato)
+   useEffect(() => {
+    if (!token) {
+      setNotification({
+        message: "Per visualizzare i dettagli della ricetta è necessario registrarsi o effettuare il login.",
+        variant: "danger",
+      });
+    } else if (id) {
       dispatch(fetchDettagliRicetta(id));
     }
-  }, [dispatch, id]);
+  }, [dispatch, id, token]);
 
+  if (!token) {
+    return (
+      <div className="bg-dettagliRicetta">
+        <Container className="text-center mt-5">
+          <Alert variant="danger">{notification.message}</Alert>
+          <Button className="me-3 modifica-ricetta-btn" onClick={() => navigate("/register")}>
+            Registrati
+          </Button>
+          <Button
+            className="me-3 px-4 modifica-ricetta-btn"
+            onClick={() => navigate("/login")}
+          >
+            Accedi
+          </Button>
+        </Container>
+      </div>
+    );
+  }
+  
   if (loading) {
     return <Alert variant="danger">Caricamento dettagli ricetta...</Alert>;
   }
