@@ -1,6 +1,7 @@
 import {
   UPDATE_RICETTA_SUCCESS,
   UPDATE_RICETTA_ERROR,
+  ADD_IMAGE_SUCCESS,
   REMOVE_IMAGE_SUCCESS,
   FETCH_IMAGES_SUCCESS,
   FETCH_IMAGES_ERROR,
@@ -15,7 +16,7 @@ import {
 const initialState = {
   ricetta: {
     ingredienti: [],
-    image:[],
+    img:[],
   },
   error: null,
   successMessage: null,
@@ -33,20 +34,33 @@ export const ricettaReducer = (state = initialState, action) => {
 
     // Gestisco l'aggiornamento delle immagini
     case FETCH_IMAGES_SUCCESS:
+      console.log("IMG Reducer: Stato precedente:", state);
+      console.log("IMG Reducer: Aggiorno lo stato con:", action.payload);
       return {
         ...state,
         ricetta: {
           ...state.ricetta,
-          image: Array.isArray(action.payload)? action.payload:[]
+          img: Array.isArray(action.payload)? action.payload:[]
         },
       };
+
+
+      case ADD_IMAGE_SUCCESS:
+        return{
+          ...state,
+          ricetta:{
+            ...state.ricetta,
+            img: [...(state.ricetta.img || []), action.payload],
+
+          }
+        }
 
     case REMOVE_IMAGE_SUCCESS:
       return {
         ...state,
         ricetta: {
           ...state.ricetta,
-          image: state.ricetta.image.filter((img) => img.id !== action.payload),
+          img: state.ricetta.img.filter((img) => img.id !== action.payload),
         },
       };
 

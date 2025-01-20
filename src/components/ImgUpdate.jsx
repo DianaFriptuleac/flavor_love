@@ -7,7 +7,14 @@ import "../css/ModificaRicetta.css";
 
 const ImgUpdate = ({ ricettaId }) => {
   const dispatch = useDispatch();
-  const images = useSelector((state) => state.updateRicetta.dettagli?.img || []);
+//stato completo
+  const state = useSelector((state) => state);
+  console.log("IMG Stato completo di Redux:", state);
+
+  const images = useSelector((state) => state.updateRicetta?.ricetta?.img || []);
+  console.log("IMMAGINI letti da Redux:", images);
+
+ 
 
   useEffect(() => {
     console.log("Immagini caricate per la modifica:", images);

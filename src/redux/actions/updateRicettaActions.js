@@ -271,6 +271,7 @@ export const removeImage =
     try {
       const formData = new FormData();
       formData.append("file", file);
+      console.log("FormData pe IMG UPDATE contiene:", file);
   
       const response = await fetch(
         `http://localhost:3001/api/imgRicette/${ricettaId}`,

@@ -10,7 +10,7 @@ import { IoTrash } from "react-icons/io5";
 import { useEffect } from "react";
 import "../css/ModificaRicetta.css";
 
-const IngredientiUpdate = ({ ricettaId, ingredienti }) => {
+const IngredientiUpdate = ({ ricettaId }) => {
   const dispatch = useDispatch();
   const [newIngrediente, setNewIngrediente] = useState({
     nome: "",
