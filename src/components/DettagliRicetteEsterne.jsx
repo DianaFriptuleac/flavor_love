@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Container, Card, Alert, ListGroup, Row, Col } from "react-bootstrap";
+import { Container, Card, Alert, ListGroup, Row, Col, Button } from "react-bootstrap";
 import { FaRegClock } from "react-icons/fa";
 import { PiCookingPotDuotone } from "react-icons/pi";
 import { HiOutlineCurrencyEuro } from "react-icons/hi2";
 import { TbChefHat } from "react-icons/tb";
-
 import "../css/DettagliRicettaEsterna.css";
 
 const DettagliRicetteEsterne = () => {
   const { id } = useParams(); // id ricetta dai parametri URL
+  const navigate = useNavigate();
   const token = useSelector((state) => state.auth.token);
   const [dettagli, setDettagli] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -43,12 +43,40 @@ const DettagliRicetteEsterne = () => {
       setLoading(false);
     }
   };
+
+  
+  //verifico se l'utente e logato
   useEffect(() => {
-    if (id) {
+    if (!token) {
+      setError(
+        "Per visualizzare i dettagli della ricetta è necessario registrarsi o effettuare il login."
+      );
+    } else if (id) {
       fetchDettagliRicetta();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
+  }, [id, token]);
+
+  if (!token) {
+    return (
+      <div className="bg-dettagliRicettaEsterna">
+        <Container className="text-center mt-5">
+          <Alert variant="danger">
+            Per visualizzare i dettagli della ricetta è necessario registrarsi o effettuare il login.
+          </Alert>
+          <Button className="ricettaEsterna-btn me-3" onClick={() => navigate("/register")}>
+            Registrati
+          </Button>
+          <Button
+           className="ricettaEsterna-btn"
+            onClick={() => navigate("/login")}
+          >
+            Accedi
+          </Button>
+        </Container>
+      </div>
+    );
+  }
 
   //carricamento
   if (loading) {

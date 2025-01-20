@@ -120,6 +120,23 @@
   text-align: center;
 }
 
+/*btn*/
+.ricPerCategorieBtn{
+  background: linear-gradient(45deg, #0f2b03, #b6c374);
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  text-transform: uppercase;
+  padding: 10px 14px;
+  border-radius: 6px;
+  transition: background 0.3s ease-in-out, transform 0.2s ease;
+}
+
+.ricPerCategorieBtn:hover{
+  background: linear-gradient(45deg, #2a7709, #b6c374);
+  transform: translateY(-2px);
+}
+
 /* mediq queries 768*/
 @media (max-width: 768px) {
   .categorie-title {

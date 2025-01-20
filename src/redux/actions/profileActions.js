@@ -54,12 +54,15 @@ export const updateProfile = (profileData) => async (dispatch, getState) => {
         type: UPDATE_PROFILE,
         payload: updatedUser,
       });
+      return {success: true}
     } else {
-      const errorMessage = await resp.text();
-      throw new Error(`Errore dal server: ${errorMessage}`);
+      const errorData = await resp.json();
+      console.error("Errore dal server:", errorData);
+      return { success: false, message: errorData.msg || "Errore" };
     }
   } catch (error) {
-    console.error("Errore durante l'aggiornamento del profilo:", error.message);
+    console.error("Errore durante l'aggiornamento del profilo:", error.msg);
+    return{success: false, message:"Errore connessione server!"}
   }
 };
 
