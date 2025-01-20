@@ -111,10 +111,12 @@ const DettagliRicetta = () => {
     return <Alert variant="info">Nessuna ricetta trovata.</Alert>;
   }
 
-  //cambio immagini
+  //cambio immagini (Math.max -> per non andare sotto l'indice 0)
   const handlePreviusImg = () => {
     setCurrentImageIndex((prevIndex) => Math.max(prevIndex - 1, 0));
   };
+
+ // (Math.min -> per non andare oltre al indice massimo - la lunghezza dell array delle immagini)
   const handleNextImg = () => {
     setCurrentImageIndex((prevIndex) =>
       Math.min(prevIndex + 1, dettagli.img.length - 1)

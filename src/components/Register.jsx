@@ -89,7 +89,8 @@ function Register() {
         navigate("/login");
       } else {
         const errorData = await response.json();
-        setMessage(`Errore nella registrazione: ${errorData.message}`);
+        setMessage(errorData.msg || "Errore nella registrazione!");
+        console.log("Messaggio di errore: ", errorData)
         setLoading(false);
         setVariant("danger");
       }

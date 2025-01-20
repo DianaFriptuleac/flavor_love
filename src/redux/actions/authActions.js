@@ -3,7 +3,7 @@ export const REGISTER_USER = "REGISTER_USER";
 export const LOGIN_USER = "LOGIN_USER";
 export const LOGOUT_USER = "LOGOUT_USER";
 
-// Registrazione
+/*// Registrazione
 export const registerUser = (useData) => async (dispatch) => {
   try {
     const resp = await fetch("http://localhost:3001/auth/register", {
@@ -29,7 +29,7 @@ export const registerUser = (useData) => async (dispatch) => {
     throw er;
   }
 };
-
+*/
 // Login
 export const loginUser = (userCredentials) => async (dispatch) => {
   try {

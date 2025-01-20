@@ -32,6 +32,11 @@ const UserProfile = () => {
   const ricette = useSelector((state) => state.ricette?.ricette || []);
   const error = useSelector((state) => state.ricette?.error || null);
   const [isLoadingAvatar, setIsLoadingAvatar] = useState(false);
+  //per il messaggio di errore email
+  const [notification, setNotification] = useState({
+    message: "",
+    variant: "",
+  });
 
   // Stato locale per i dati utente
   const [data, setData] = useState({
@@ -95,10 +100,33 @@ const UserProfile = () => {
       email: data.email,
     };
 
-    dispatch(updateProfile(updatedData)).then(() => {
-      dispatch(fetchUserProfile()); // Aggiorno i dati utente
-      setEdit(false); // Chiudo il form
-    });
+    dispatch(updateProfile(updatedData))
+      .then((result) => {
+        if (result.success) {
+          // Aggiorno i dati utente
+          dispatch(fetchUserProfile());
+          setEdit(false); // Chiudo il form
+          setNotification({
+            message: "",
+            variant: "",
+          });
+        } else {
+          // messaggio di errore
+          setNotification({
+            message: result.message,
+            variant: "danger",
+          });
+          console.log("Stato notifica aggiornato:", result.message);
+        }
+      })
+
+      .catch((error) => {
+        setNotification({
+          message: "Si è verificato un errore imprevisto.",
+          variant: "danger",
+        });
+        console.error("Errore durante l'aggiornamento:", error);
+      });
   };
 
   const handleDelete = () => {
@@ -144,6 +172,11 @@ const UserProfile = () => {
               </div>
               <div style={{ flex: 2 }}>
                 <h2 className="text-end mb-4 me-3 profileTitle">Account</h2>
+                {notification.message && (
+                  <Alert variant={notification.variant} className="mt-3">
+                    {notification.message}
+                  </Alert>
+                )}
                 {edit ? (
                   <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3">
@@ -250,7 +283,9 @@ const UserProfile = () => {
           </Modal>
         </Container>
         <Container>
-          {error && ricette.lenght === 0 && <Alert variant="danger">Errore: {error}</Alert>}
+          {error && ricette.length === 0 && (
+            <Alert variant="danger">Errore: {error}</Alert>
+          )}
           <RicetteUtente ricette={ricette} />
         </Container>
         <Container>
