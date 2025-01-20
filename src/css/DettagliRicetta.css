@@ -113,6 +113,30 @@
   gap: 10px;
 }
 
+/* BTN- avanti- indietro per img*/
+.image-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: none;
+  padding: 2px;
+  opacity: 0.7;
+}
+
+.left-nav {
+  left: 10px;
+}
+
+.right-nav {
+  right: 10px;
+}
+
+.image-nav:disabled {
+  opacity: 0.3;
+}
+
 /*Media query card x 576px*/
 @media (max-width: 576px) {
   /* container btn modifica/ elimina*/

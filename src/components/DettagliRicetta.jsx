@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { fetchDettagliRicetta } from "../redux/actions/fetchRicetteAction";
@@ -11,12 +11,11 @@ import {
   Alert,
   ListGroup,
 } from "react-bootstrap";
-import { useState } from "react";
 import { FaRegClock, FaTrashAlt, FaEdit, FaShoppingCart } from "react-icons/fa";
 import { PiCookingPotDuotone } from "react-icons/pi";
 import { HiOutlineCurrencyEuro } from "react-icons/hi2";
 import { TbChefHat } from "react-icons/tb";
-
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import "../css/DettagliRicetta.css";
 
 const DettagliRicetta = () => {
@@ -31,6 +30,7 @@ const DettagliRicetta = () => {
     message: "",
     variant: "",
   });
+  const [currentImageIndex, setCurrentImageIndex] = useState(0); //stato attuale dell'immagine
 
   const handleDelete = async () => {
     const confermaDelete = window.confirm(
@@ -111,6 +111,16 @@ const DettagliRicetta = () => {
     return <Alert variant="info">Nessuna ricetta trovata.</Alert>;
   }
 
+  //cambio immagini
+  const handlePreviusImg = () => {
+    setCurrentImageIndex((prevIndex) => Math.max(prevIndex - 1, 0));
+  };
+  const handleNextImg = () => {
+    setCurrentImageIndex((prevIndex) =>
+      Math.min(prevIndex + 1, dettagli.img.length - 1)
+    );
+  };
+
   // Raggruppo ingredienti per sezione
   const ingredientiPerSezione = dettagli.ingredienti?.reduce((acc, ing) => {
     if (!acc[ing.sezione]) {
@@ -132,12 +142,44 @@ const DettagliRicetta = () => {
             {/* Img. /Titolo */}
             <Col md={6}>
               <Card className="shadow-sm border-0">
-                <Card.Img
-                  variant="top"
-                  src={dettagli.img?.[0]?.url || "/assets/default_ricetta.jpg"}
-                  alt={dettagli.titolo}
-                  className="rounded"
-                />
+                {/*Immagini */}
+                <div className="img-counter position-relative">
+                  {dettagli.img?.length > 0 ? (
+                    <>
+                      <Card.Img
+                        variant="top"
+                        src={dettagli.img[currentImageIndex]?.url}
+                        alt={dettagli.titolo}
+                        className="rounded"
+                      />
+                      {/*Btn img */}
+                      <Button
+                        variant="light"
+                        className="image-nav left-nav"
+                        onClick={handlePreviusImg}
+                        disabled={currentImageIndex === 0}
+                      >
+                        <FaChevronLeft />
+                      </Button>
+
+                      <Button
+                        variant="light"
+                        className="image-nav right-nav"
+                        onClick={handleNextImg}
+                        disabled={currentImageIndex === dettagli.img.length - 1}
+                      >
+                        <FaChevronRight />
+                      </Button>
+                    </>
+                  ) : (
+                    <Card.Img
+                      variant="top"
+                      src="/assets/default_ricetta.jpg"
+                      alt="Immagine di default"
+                      className="rounded"
+                    />
+                  )}
+                </div>
               </Card>
             </Col>
             <Col md={6} className="mt-2">
