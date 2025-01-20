@@ -8,6 +8,7 @@ import {
 import { Form, Button, ListGroup } from "react-bootstrap";
 import { IoTrash } from "react-icons/io5";
 import { useEffect } from "react";
+import "../css/ModificaRicetta.css";
 
 const IngredientiUpdate = ({ ricettaId, ingredienti }) => {
   const dispatch = useDispatch();
@@ -120,7 +121,7 @@ const IngredientiUpdate = ({ ricettaId, ingredienti }) => {
           }
         />
       </Form.Group>
-      <Button variant="primary" onClick={handleAdd}>
+      <Button className="salva-btn" onClick={handleAdd}>
         Aggiungi Ingrediente
       </Button>
 
