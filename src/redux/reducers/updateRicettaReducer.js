@@ -109,7 +109,7 @@ export const ricettaReducer = (state = initialState, action) => {
 
     // Gestisco il recupero degli ingredienti
     case FETCH_INGREDIENTI_SUCCESS:
-      console.log("Reducer: Stato precedente:", state);
+      console.log("REDUCER: Stato precedente:", state);
       console.log("Reducer: Aggiorno lo stato con:", action.payload);
       return {
         ...state,
