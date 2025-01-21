@@ -143,13 +143,31 @@ const Recensioni = ({ ricettaId }) => {
             <div key={recensione.id} className="my-3 p-3 border rounded">
               <div className="d-flex justify-content-between align-items-center">
                 <div>
-                  {Array.from({ length: 5 }, (_, index) => (
-                    <FaStar
-                      key={index}
-                      color={index < recensione.stelle ? "gold" : "gray"}
-                      style={{ marginRight: 5 }}
-                    />
-                  ))}
+                  {Array.from({ length: 5 }, (_, index) => {
+                    const isFullStar = recensione.stelle >= index + 1; // stella piena
+                    const isHalfStar =
+                      recensione.stelle > index &&
+                      recensione.stelle < index + 1; // mezza stella
+
+                    return (
+                      <FaStar
+                        key={index}
+                        color={
+                          isFullStar
+                            ? "gold"
+                            : isHalfStar
+                            ? "goldenrod"
+                            : "gray"
+                        } 
+                        style={{
+                          marginRight: 5,
+                          clipPath: isHalfStar
+                            ? "polygon(0 0, 50% 0, 50% 100%, 0 100%)" // mezza stella
+                            : "none",
+                        }}
+                      />
+                    );
+                  })}
                 </div>
                 {/*btn x modifica e cancella solo se create dall'utente logato */}
                 {recensione.utente.id === userId && (
@@ -202,27 +220,31 @@ const Recensioni = ({ ricettaId }) => {
               <Form.Label>Numero di Stelle</Form.Label>
               <div>
                 {Array.from({ length: 5 }, (_, index) => {
-                  const isFullStar = formData.stelle >= index + 1;
+                  //creo un array di 5 elementi x le stelle
+                  const isFullStar = formData.stelle >= index + 1; //stella piena
                   const isHalfStar =
-                    formData.stelle > index && formData.stelle < index + 1;
+                    formData.stelle > index && formData.stelle < index + 1; //stella mezza piena
 
                   return (
                     <FaStar
                       key={index}
                       color={
-                        isFullStar ? "gold" : isHalfStar ? "goldenrod" : "gray"
+                        isFullStar ? "gold" : isHalfStar ? "goldenrod" : "gray" //goldenrod -> stella mezza dorata
                       }
                       onClick={() =>
                         setFormData((prev) => ({
                           ...prev,
-                          stelle: index + 1,
+                          stelle:
+                            index + 0.5 === formData.stelle
+                              ? index + 1
+                              : index + 0.5,
                         }))
                       }
                       style={{
                         cursor: "pointer",
                         marginRight: 5,
                         clipPath: isHalfStar
-                          ? "polygon(0 0, 50% 0, 50% 100%, 0 100%)"
+                          ? "polygon(0 0, 50% 0, 50% 100%, 0 100%)" //la meta di sinistra della stella
                           : "none",
                       }}
                     />
