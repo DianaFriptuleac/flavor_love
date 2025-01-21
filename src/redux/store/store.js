@@ -10,6 +10,7 @@ import ricetteReducer from "../reducers/fetchRicetteReducer";
 import { ricettaReducer as updateRicettaReducer } from "../reducers/updateRicettaReducer";
 import ricettarioReducer from "../reducers/ricettarioReducer";
 import searchedRicette from "../reducers/searchReducer";
+import recensioniReducer from "../reducers/recensioniReducer";
 
 const persistConfig = {
   key: "root",
@@ -35,6 +36,7 @@ const rootReducer = combineReducers({
   updateRicetta: updateRicettaReducer,
   ricettari: ricettarioReducer,
   searched: searchedRicette,
+  recensioni: recensioniReducer,
 });
 
 
