@@ -17,6 +17,7 @@ import { HiOutlineCurrencyEuro } from "react-icons/hi2";
 import { TbChefHat } from "react-icons/tb";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import "../css/DettagliRicetta.css";
+import Recensioni from "./Recensioni";
 
 const DettagliRicetta = () => {
   const { id } = useParams(); // accedo al id ricetta
@@ -306,6 +307,9 @@ const DettagliRicetta = () => {
               </Card>
             </Col>
           </Row>
+        </Container>
+        <Container>
+          <Recensioni ricettaId={id} />
         </Container>
       </Container>
     </div>

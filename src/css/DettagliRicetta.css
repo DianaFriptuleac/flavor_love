@@ -136,6 +136,30 @@
 .image-nav:disabled {
   opacity: 0.3;
 }
+/*Recensioni*/
+.recensioniFocus:focus{
+  border-color: #2a7709;
+  outline: none; /* outline di default */
+  box-shadow: 0 0 10px #2a7709;
+}
+
+.recensioni-btn-edit{
+color:#2a7709;
+border-color: #2a7709;
+}
+.recensioni-btn-trash{
+  color: #d30316;
+  border-color: #d30316;
+}
+.recensioni-btn-edit:hover{
+  background: linear-gradient(45deg, #2a7709, #b6c374);
+  transform: translateY(-2px);
+  border-color: #2a7709;
+}
+.recensioni-btn-trash:hover{
+  background: linear-gradient(45deg, #f2031b, #5f0202);
+  transform: translateY(-2px);
+}
 
 /*Media query card x 576px*/
 @media (max-width: 576px) {
