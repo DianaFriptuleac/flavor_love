@@ -22,6 +22,7 @@ import SearchResults from "./components/SearchResults";
 import DettagliRicetteEsterne from "./components/DettagliRicetteEsterne";
 import ListaSpesa from "./components/ListaSpesa";
 import MyFooter from "./components/MyFooter";
+import Ristoranti from "./components/Ristoranti";
 
 
 function App() {
@@ -49,6 +50,7 @@ function App() {
           <Route path="ricette/search" element={<SearchResults/>}/>
           <Route path="/ricetteEsterne/:id" element={<DettagliRicetteEsterne/>}/>
           <Route path="/listaSpesa" element={<ListaSpesa/>}/>
+          <Route path="/ristoranti" element= {<Ristoranti/>}/>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
