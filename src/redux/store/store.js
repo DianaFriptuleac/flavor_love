@@ -11,6 +11,7 @@ import { ricettaReducer as updateRicettaReducer } from "../reducers/updateRicett
 import ricettarioReducer from "../reducers/ricettarioReducer";
 import searchedRicette from "../reducers/searchReducer";
 import recensioniReducer from "../reducers/recensioniReducer";
+import ristorantiReducer from "../reducers/ristorantiReducer";
 
 const persistConfig = {
   key: "root",
@@ -37,6 +38,7 @@ const rootReducer = combineReducers({
   ricettari: ricettarioReducer,
   searched: searchedRicette,
   recensioni: recensioniReducer,
+  ristoranti: ristorantiReducer,
 });
 
 

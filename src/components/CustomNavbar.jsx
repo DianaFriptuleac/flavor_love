@@ -98,9 +98,13 @@ const CustomNavbar = function () {
             <Link to="/" className={addActiveOrNot("home")}>
               Home
             </Link>
+            <Link to="/ristoranti" className={addActiveOrNot("ristoranti")}>
+              Ristoranti
+            </Link>
             {/*dropdown delle ricette*/}
             <DropdownRicettePerCategorie />
           </Nav>
+
           {/*search*/}
           <Form className="d-flex">
             <Form.Control
