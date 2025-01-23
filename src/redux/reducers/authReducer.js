@@ -1,5 +1,5 @@
 import { REGISTER_USER, LOGIN_USER, LOGOUT_USER } from "../actions/authActions";
-
+//funzione pura -> a parita di un input restituisce sempre lo stesso output
 const initialState = {
   userId: null,
   token: null,

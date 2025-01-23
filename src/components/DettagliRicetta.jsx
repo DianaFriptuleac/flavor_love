@@ -266,12 +266,14 @@ const DettagliRicetta = () => {
             <Col>
               <h2 className="fw-bold ms-1">Ingredienti:</h2>
               {ingredientiPerSezione &&
+              //Object.entries(ingredientiPerSezione) -> converto un oggetto in un array di coppie chiave valore: sezione, ingredienti
                 Object.entries(ingredientiPerSezione).map(
                   ([sezione, ingredienti]) => (
                     <div key={sezione} className="mb-4">
                       <h5 className="text-secondary">{sezione}</h5>
                       <ListGroup>
-                        {ingredienti.map((ing) => (
+                      
+                        {ingredienti.map((ing) => ( //itera sul array di ingredienti per ogni sezione 
                           <ListGroup.Item
                             key={ing.id}
                             className="d-flex justify-content-between"

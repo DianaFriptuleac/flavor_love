@@ -25,8 +25,9 @@ const initialState = {
           ...state,
           recensioniPerRicetta: {
             ...state.recensioniPerRicetta,
+            //chiave per indentificare la ricetta specifica
             [action.payload.ricettaId]: [
-              ...(state.recensioniPerRicetta[action.payload.ricettaId] || []),
+              ...(state.recensioniPerRicetta[action.payload.ricettaId] || []), //crea un array che include tutte le recensioni usando ...(pread operator) || array vuoto
               action.payload.recensione,
             ],
           },
