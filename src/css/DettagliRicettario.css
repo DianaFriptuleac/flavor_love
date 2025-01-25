@@ -88,11 +88,39 @@
   .nome-ricettarrio {
     font-size: 2rem;
   }
-  .img-title-container {
+ 
+  .listRicette {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+  }
+
+  /*img */
+  .img-lista {
+    width: 100%;
+    max-width: 10rem;
+    height: auto;
+    margin: 0 auto 10px;
+    object-fit: cover;
+    border-radius: 5px;
   }
   .ricetta-title {
     flex-wrap: wrap;
-    max-width: 5rem;
+    max-width: 10rem;
+  }
+   /* btn rimuovi */
+   .rimuovi-btn {
+    margin-top: 10px;
+    align-self: center;
+   
+  }
+
+  /* container */
+  .img-title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
   }
 }

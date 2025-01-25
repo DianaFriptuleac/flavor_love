@@ -33,3 +33,21 @@
     flex-direction: column;
     justify-content: space-between;
 }
+
+@media (min-width: 1199px) and (max-width: 1400px){
+    .ristorantiRow{
+        gap:30px;
+
+    }
+}
+@media (max-width: 768px) {
+    .title-AllRicette{
+        font-size: 20px;
+        margin-right: 10px;
+    }
+    .salva-btn{
+        padding:10px ;
+        font-size: 10px;
+    }
+    
+}

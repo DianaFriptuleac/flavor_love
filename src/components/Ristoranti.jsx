@@ -186,10 +186,10 @@ const Ristoranti = () => {
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button  className="rimuovi-btn" onClick={handleCloseModal}>
+            <Button  className="rimuovi-btn my-0" onClick={handleCloseModal}>
               Annulla
             </Button>
-            <Button className="tornaBtn" onClick={handleSubmit}>
+            <Button className="tornaBtn my-0" onClick={handleSubmit}>
               Salva
             </Button>
           </Modal.Footer>
@@ -197,9 +197,9 @@ const Ristoranti = () => {
         {loading ? (
           <Spinner animation="border" />
         ) : (
-          <Row className="g-3">
+          <Row className="g-3 ristorantiRow justify-content-center">
             {ristoranti.map((ristorante) => (
-              <Col key={ristorante.id} sm={12} md={4} lg={3}>
+              <Col key={ristorante.id} sm={12} md={6} lg={4} xl={3}>
                 <Card className="p-2 ristorantiCard">
                   <CardImg
                   className="ristorantiImg"
