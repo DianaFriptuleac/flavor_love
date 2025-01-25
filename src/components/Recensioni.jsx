@@ -268,12 +268,11 @@ const Recensioni = ({ ricettaId }) => {
         <Modal.Footer>
           <Button
             className="rimuovi-btn"
-            variant="secondary"
             onClick={handleCloseModal}
           >
             Annulla
           </Button>
-          <Button className="tornaBtn" variant="primary" onClick={handleSubmit}>
+          <Button className="tornaBtn" onClick={handleSubmit}>
             Salva
           </Button>
         </Modal.Footer>
