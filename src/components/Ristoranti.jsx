@@ -14,8 +14,14 @@ import {
   Container,
   Row,
   Col,
+  Card,
+  CardImg,
+  CardBody,
+  CardTitle,
+  CardText,
 } from "react-bootstrap";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
+import "../css/Ristoranti.css";
 
 const Ristoranti = () => {
   const dispatch = useDispatch();
@@ -30,7 +36,7 @@ const Ristoranti = () => {
     nome: "",
     indirizzo: "",
     citta: "",
-    categoria: "",
+    categorie: "",
     telefono: "",
     link: "",
     immagine: "",
@@ -67,7 +73,7 @@ const Ristoranti = () => {
         nome: "",
         indirizzo: "",
         citta: "",
-        categoria: "",
+        categorie: "",
         telefono: "",
         link: "",
         immagine: "",
@@ -126,63 +132,116 @@ const Ristoranti = () => {
     }
   };
   return (
-    <div>
-      <Container>
+    <div className="bg-ristoranti">
+      <Container className="mt-3">
         {" "}
-        <Row className="justify-content-center g-3">
+        <Row>
           {" "}
-          <Col>
-            <h2 className="fw-bold">Ristoranti</h2>
-            {loading ? (
-              <Spinner animation="border" />
-            ) : (
-              <div className="d-flex ">
-                {ristoranti.map((ristorante) => (
-                  <div key={ristorante.id} className="my-3 p-3 border rounded">
+          <Col className="d-flex justify-content-between align-items-center">
+            <div>
+              <h2 className="my-4 title-AllRicette">
+                Esplora la Nostra Selezione di Ristoranti
+              </h2>
+            </div>
+            <div>
+              <Button onClick={() => handleOpenModal()} className="salva-btn">
+                Aggiungi Ristorante
+              </Button>
+            </div>
+          </Col>
+        </Row>
+        <Modal
+          className="AllRicette-Modal"
+          show={showModal}
+          onHide={handleCloseModal}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>
+              {selectedRistorante ? "Modifica Ristorante" : "Nuovo Ristorante"}
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              {[
+                "nome",
+                "indirizzo",
+                "citta",
+                "categorie",
+                "telefono",
+                "link",
+                "immagine",
+              ].map((field) => (
+                <Form.Group key={field} className="mb-3">
+                  <Form.Label>
+                    {field.charAt(0).toUpperCase() + field.slice(1)}
+                  </Form.Label>
+                  <Form.Control
+                    type="text"
+                    name={field}
+                    value={formData[field]}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
+              ))}
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button  className="rimuovi-btn my-0" onClick={handleCloseModal}>
+              Annulla
+            </Button>
+            <Button className="tornaBtn my-0" onClick={handleSubmit}>
+              Salva
+            </Button>
+          </Modal.Footer>
+        </Modal>
+        {loading ? (
+          <Spinner animation="border" />
+        ) : (
+          <Row className="g-3 ristorantiRow justify-content-center">
+            {ristoranti.map((ristorante) => (
+              <Col key={ristorante.id} sm={12} md={6} lg={4} xl={3}>
+                <Card className="p-2 ristorantiCard">
+                  <CardImg
+                  className="ristorantiImg"
+                    variant="top"
+                    src={ristorante.immagine}
+                    alt={ristorante.nome}
+                  />
+                  <CardBody className="ristorantiCardBody">
+                    <CardTitle> <strong>{ristorante.nome}</strong></CardTitle>
+                    <CardText>
+                      <strong>Indirizzo:</strong> {ristorante.indirizzo}
+                    </CardText>
+                    <CardText>
+                      <strong>Città:</strong> {ristorante.citta}
+                    </CardText>
+                    <CardText>
+                      <strong>Categoria:</strong> {ristorante.categorie}
+                    </CardText>
+                    <CardText>
+                      <strong>Telefono:</strong> {ristorante.telefono}
+                    </CardText>
+                    <CardText className="pb-2">
+                      <strong>Scopri di più:</strong>{" "}
+                      <a
+                        href={ristorante.link}
+                        target="_blank" //apri in un'altra pagina
+                        rel="noopener noreferrer" //non accedere alla pagina originale e nasconde  l'URL della pag. corrente alla pag. aperta
+                      >
+                        {ristorante.link}
+                      </a>
+                    </CardText>
+
                     <div>
-                      <h5>{ristorante.nome}</h5>
-                      <img
-                        src={ristorante.immagine}
-                        alt={ristorante.nome}
-                        style={{
-                          width: "100%",
-                          maxHeight: "200px",
-                          objectFit: "cover",
-                        }}
-                      />
-                    </div>
-                    <div>
-                      <p>
-                        <strong>Indirizzo:</strong> {ristorante.indirizzo}
-                      </p>
-                      <p>
-                        <strong>Città:</strong> {ristorante.citta}
-                      </p>
-                      <p>
-                        <strong>Categoria:</strong> {ristorante.categorie}
-                      </p>
-                      <p>
-                        <strong>Telefono:</strong> {ristorante.telefono}
-                      </p>
-                      <p>
-                        <strong>Link:</strong>{" "}
-                        <a
-                          href={ristorante.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {ristorante.link}
-                        </a>
-                      </p>
-                    </div>
-                    <div className="d-flex mt-2">
                       {(ristorante.utente.id === userId ||
                         userId === "ADMIN") && (
-                        <>
+                        <div className="d-flex justify-content-between mb-2">
+                         
                           <Button
                             variant="outline-primary"
                             size="sm"
                             onClick={() => handleOpenModal(ristorante)}
+                             className="d-flex align-itens-center p-2 recensioni-btn-edit"
                           >
                             <FaEdit />
                           </Button>
@@ -190,69 +249,19 @@ const Ristoranti = () => {
                             variant="outline-danger"
                             size="sm"
                             onClick={() => handleDelete(ristorante.id)}
-                            className="ms-2"
+                            className="d-flex align-itens-center p-2 recensioni-btn-trash"
                           >
                             <FaTrashAlt />
                           </Button>
-                        </>
+                        </div>
                       )}
                     </div>
-                  </div>
-                ))}
-              </div>
-            )}
-            <Button onClick={() => handleOpenModal()} className="mt-3">
-              Aggiungi Ristorante
-            </Button>
-
-            <Modal
-              className="AllRicette-Modal"
-              show={showModal}
-              onHide={handleCloseModal}
-            >
-              <Modal.Header closeButton>
-                <Modal.Title>
-                  {selectedRistorante
-                    ? "Modifica Ristorante"
-                    : "Nuovo Ristorante"}
-                </Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                <Form>
-                  {[
-                    "nome",
-                    "indirizzo",
-                    "citta",
-                    "categoria",
-                    "telefono",
-                    "link",
-                    "immagine",
-                  ].map((field) => (
-                    <Form.Group key={field} className="mb-3">
-                      <Form.Label>
-                        {field.charAt(0).toUpperCase() + field.slice(1)}
-                      </Form.Label>
-                      <Form.Control
-                        type="text"
-                        name={field}
-                        value={formData[field]}
-                        onChange={handleChange}
-                      />
-                    </Form.Group>
-                  ))}
-                </Form>
-              </Modal.Body>
-              <Modal.Footer>
-                <Button variant="secondary" onClick={handleCloseModal}>
-                  Annulla
-                </Button>
-                <Button variant="primary" onClick={handleSubmit}>
-                  Salva
-                </Button>
-              </Modal.Footer>
-            </Modal>
-          </Col>
-        </Row>
+                  </CardBody>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+        )}
       </Container>
     </div>
   );

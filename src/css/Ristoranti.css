@@ -1,0 +1,53 @@
+.bg-ristoranti{
+    background-image: url("/public/assets/cigliege.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+        min-height: 100vh;
+        padding: 10px;
+        color: #160d08;
+        font-family: "Poppins", sans-serif;
+      
+}
+.ristorantiCard{
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+    width: 300px;
+    height: 450px;
+    overflow-y: auto; /*solo scroll verticale solo quando e necessario*/
+    overflow-x: hidden;/*nascondo lo scroll orizzontale*/
+    scrollbar-width: thin; /* barra sottile */
+    scrollbar-color: #160d08 #f1f1f1; /* Colore barra e sfondo */
+    transition: transform 0.3s ease, box-shadow 0.3s eas;
+}
+.ristorantiImg{
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+.ristorantiCardBody{
+    height: calc(100% - 150px); /* Adatto il contenuto restante sotto l'immagine */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+@media (min-width: 1199px) and (max-width: 1400px){
+    .ristorantiRow{
+        gap:30px;
+
+    }
+}
+@media (max-width: 768px) {
+    .title-AllRicette{
+        font-size: 20px;
+        margin-right: 10px;
+    }
+    .salva-btn{
+        padding:10px ;
+        font-size: 10px;
+    }
+    
+}
