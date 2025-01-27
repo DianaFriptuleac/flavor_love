@@ -53,7 +53,7 @@ const CustomNavbar = function () {
           dispatch(searchedRicetta(data.content));
           navigate("/ricette/search");
         } else {
-          console.warn("Nessun elemento trovato");
+          console.log("Nessun elemento trovato");
           dispatch(searchedRicetta([]));
         }
       } catch (error) {
@@ -63,7 +63,7 @@ const CustomNavbar = function () {
         setSearchQuery(""); // svuoto l'input
       }
     } else {
-      console.warn("La query di ricerca deve essere di almeno 2 caratteri.");
+      console.log("La query di ricerca deve essere di almeno 2 caratteri.");
     }
   };
 
