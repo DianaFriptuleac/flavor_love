@@ -34,6 +34,7 @@ const Ristoranti = () => {
   const searchRistoranti = useSelector(
     (state) => state.ristoranti.searchRistoranti
   );
+  
 
   const [searchQuery, setSearchQuery] = useState("");
   const [lastSearchQuery, setLastSearchQuery] = useState("");
@@ -55,7 +56,6 @@ const Ristoranti = () => {
       ? searchRistoranti
       : ristoranti;
 
-  useEffect(() => {
     //recupero i ristoranti
     const fetchRistoranti = async () => {
       setLoading(true);
@@ -75,9 +75,12 @@ const Ristoranti = () => {
         setLoading(false);
       }
     };
-    fetchRistoranti();
-  }, [dispatch, token]);
+  useEffect(() => {
+  fetchRistoranti(); 
+}, [dispatch, token]);
 
+
+  
   //apro modale per agg. o modificare ristorante
   const handleOpenModal = (ristorante = null) => {
     setSelectedRistorante(ristorante);
@@ -149,6 +152,7 @@ const Ristoranti = () => {
 
   //cerco ristoranti
   const handleSearch = async () => {
+    
     if (searchQuery.trim().length > 1) {
       try {
         dispatch(cercaRistoranteAction());
