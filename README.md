@@ -1,6 +1,6 @@
 # **Flavor Love**
 
-Benvenuti in **Flavor Love**, un'applicazione dedicata agli amanti della cucina e delle ricette! Questo progetto nasce dalla passione per il buon cibo e dall’idea di creare uno spazio personale dove ogni utente possa esplorare, salvare e condividere le proprie ricette preferite. **Flavor Love** è il tuo compagno perfetto per organizzare le tue ispirazioni culinarie e semplificare la tua esperienza in cucina.
+Benvenuti in **Flavor Love**, un'applicazione dedicata agli amanti della cucina e delle ricette! Questo progetto nasce dalla passione per il buon cibo e dall’idea di creare uno spazio personale dove ogni utente possa esplorare, salvare e condividere le proprie ricette preferite. Inoltre, è possibile lasciare recensioni per le ricette, aggiungere nuovi ristoranti o cercarli. **Flavor Love** è il tuo compagno perfetto per organizzare le tue ispirazioni culinarie e semplificare la tua esperienza in cucina.
 
 ---
 
@@ -54,11 +54,18 @@ Ecco le principali funzionalità offerte dall'applicazione:
 - Modifica delle ricette personali (create dall'utente autenticato).
 - Eliminazione delle ricette personali.
 
+
 ### Dettagli delle Ricette
 - Visualizzazione di tutti i dettagli della ricetta, inclusi ingredienti, procedimento, tempo di preparazione e altro.
+- Aggiungere recensioni alle ricette.
+- Modificare o cancellare le proprie recensioni.
 
 ### Profilo Utente
 - Modifica dei dati personali, inclusi nome, cognome e avatar.
+  
+### Sezione Ristoranti
+- Cercare ristoranti
+- Aggiungere nuovi ristoranti
 
 ---
 
@@ -67,7 +74,7 @@ Ecco le principali funzionalità offerte dall'applicazione:
 1. Clona la repository del backend e segui le istruzioni per avviare il server.
 2. Configura il frontend installando le dipendenze:
    ```bash
-   npm install
+   npm install 
 
 3. Avvia l’applicazione in modalità di sviluppo:
    ```bash
@@ -77,6 +84,4 @@ Ecco le principali funzionalità offerte dall'applicazione:
 ## Roadmap di Sviluppo
 Flavor Love è un progetto in continua evoluzione.
 Ecco alcune funzionalità future che vorrei implementare:
-- *Commenti per le ricette:* Gli utenti potranno lasciare recensioni e suggerimenti.
-- *Sezione Ristoranti:* Una nuova area per scoprire ristoranti e leggere recensioni.
-- *Deploy dell’applicazione:* Pubblicazione su una piattaforma cloud per renderla accessibile ovunque.
+- *Deploy dell’applicazione:* Implementazione del deploy su una piattaforma cloud, rendendo l’app accessibile ovunque.
