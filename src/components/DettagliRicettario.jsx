@@ -26,7 +26,7 @@ const DettagliRicettario = () => {
   const fetchRicettario = async (page = 0) => {
     try {
       const response = await fetch(
-        `http://localhost:3001/api/ricettari/${id}?page=${page}&size=10`,
+        `https://capstone-flavor-love-1.onrender.com/api/ricettari/${id}?page=${page}&size=10`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -59,7 +59,7 @@ const DettagliRicettario = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:3001/api/ricettari/${id}/ricette/${ricettaId}`,
+        `https://capstone-flavor-love-1.onrender.com/api/ricettari/${id}/ricette/${ricettaId}`,
         {
           method: "DELETE",
           headers: {

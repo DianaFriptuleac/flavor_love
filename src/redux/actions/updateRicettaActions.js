@@ -16,7 +16,7 @@ export const FETCH_INGREDIENTI_ERROR = "FETCH_INGREDIENTI_ERROR";
 export const updateRicetta = (id, data) => async (dispatch, getState) => {
   const token = getState().auth.token;
   try {
-    const response = await fetch(`http://localhost:3001/api/ricette/${id}`, {
+    const response = await fetch(`https://capstone-flavor-love-1.onrender.com/api/ricette/${id}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -58,7 +58,7 @@ export const fetchIngredientiByRicettaId = (ricettaId) => async (dispatch, getSt
     if (!ricettaId) throw new Error("ID ricetta non valido!");
 
     const response = await fetch(
-      `http://localhost:3001/api/ricette/${ricettaId}/ingredienti`,
+      `https://capstone-flavor-love-1.onrender.com/api/ricette/${ricettaId}/ingredienti`,
       {
         method: "GET",
         headers: {
@@ -99,7 +99,7 @@ export const updateIngrediente =
 
     try {
       const response = await fetch(
-        `http://localhost:3001/api/ricette/${ricettaId}/ingredienti/${ingredienteId}`,
+        `https://capstone-flavor-love-1.onrender.com/api/ricette/${ricettaId}/ingredienti/${ingredienteId}`,
         {
           method: "PUT",
           headers: {
@@ -140,7 +140,7 @@ export const addIngredientiUp = (ricettaId, ingredienti) => async (dispatch, get
   const { token } = getState().auth;
   try {
     const response = await fetch(
-      `http://localhost:3001/api/ricette/${ricettaId}/ingredienti`,
+      `https://capstone-flavor-love-1.onrender.com/api/ricette/${ricettaId}/ingredienti`,
       {
         method: "POST",
         headers: {
@@ -176,7 +176,7 @@ export const removeIngredienteUp = (ricettaId, ingredienteId) => async (dispatch
     if (!ingredienteId) throw new Error("Ingrediente ID mancante!");
 
     const response = await fetch(
-      `http://localhost:3001/api/ricette/${ricettaId}/ingredienti/${ingredienteId}`,
+      `https://capstone-flavor-love-1.onrender.com/api/ricette/${ricettaId}/ingredienti/${ingredienteId}`,
       {
         method: "DELETE",
         headers: {
@@ -205,7 +205,7 @@ export const fetchImagesByRicettaId =
 
     try {
       const response = await fetch(
-        `http://localhost:3001/api/imgRicette/ricetta/${ricettaId}`,
+        `https://capstone-flavor-love-1.onrender.com/api/imgRicette/ricetta/${ricettaId}`,
         {
           method: "GET",
           headers: {
@@ -237,7 +237,7 @@ export const removeImage =
 
     try {
       const response = await fetch(
-        `http://localhost:3001/api/imgRicette/${imageId}`,
+        `https://capstone-flavor-love-1.onrender.com/api/imgRicette/${imageId}`,
         {
           method: "DELETE",
           headers: {
@@ -274,7 +274,7 @@ export const removeImage =
       console.log("FormData pe IMG UPDATE contiene:", file);
   
       const response = await fetch(
-        `http://localhost:3001/api/imgRicette/${ricettaId}`,
+        `https://capstone-flavor-love-1.onrender.com/api/imgRicette/${ricettaId}`,
         {
           method: "POST",
           headers: { Authorization: `Bearer ${token}` },

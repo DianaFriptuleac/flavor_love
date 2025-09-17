@@ -9,7 +9,7 @@ const Home = () => {
 
   useEffect(() => {
     fetch(
-      "http://localhost:3001/api/ricetteEsterne/allRicette?page=0&size=1000"
+      "https://capstone-flavor-love-1.onrender.com/api/ricetteEsterne/allRicette?page=0&size=1000"
     )
       .then((response) => response.json())
       .then((data) => {

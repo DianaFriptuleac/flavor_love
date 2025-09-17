@@ -26,7 +26,7 @@ const Liked = () => {
     const fetchLikedRicette = async () => {
       try {
         setLoading(true);
-        const response = await fetch("http://localhost:3001/api/liked", {
+        const response = await fetch("https://capstone-flavor-love-1.onrender.com/api/liked", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -51,7 +51,7 @@ const Liked = () => {
       const exists = likedRicette.some((liked) => liked.id === ricetta.id);
 
       const response = await fetch(
-        `http://localhost:3001/api/liked/${ricetta.id}`,
+        `https://capstone-flavor-love-1.onrender.com/api/liked/${ricetta.id}`,
         {
           method: exists ? "DELETE" : "POST",
           headers: { Authorization: `Bearer ${token}` },

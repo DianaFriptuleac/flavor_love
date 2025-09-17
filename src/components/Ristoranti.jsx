@@ -60,7 +60,7 @@ const Ristoranti = () => {
     const fetchRistoranti = async () => {
       setLoading(true);
       try {
-        const responce = await fetch("http://localhost:3001/api/ristoranti", {
+        const responce = await fetch("https://capstone-flavor-love-1.onrender.com/api/ristoranti", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -111,8 +111,8 @@ const Ristoranti = () => {
   const handleSubmit = async () => {
     const method = selectedRistorante ? "PUT" : "POST";
     const url = selectedRistorante
-      ? `http://localhost:3001/api/ristoranti/${selectedRistorante.id}`
-      : "http://localhost:3001/api/ristoranti/crea";
+      ? `https://capstone-flavor-love-1.onrender.com/api/ristoranti/${selectedRistorante.id}`
+      : "https://capstone-flavor-love-1.onrender.com/api/ristoranti/crea";
 
     try {
       const responce = await fetch(url, {
@@ -138,7 +138,7 @@ const Ristoranti = () => {
   //cancello ristorante
   const handleDelete = async (id) => {
     try {
-      await fetch(`http://localhost:3001/api/ristoranti/${id}`, {
+      await fetch(`https://capstone-flavor-love-1.onrender.com/api/ristoranti/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -157,7 +157,7 @@ const Ristoranti = () => {
       try {
         dispatch(cercaRistoranteAction());
         // costruzione dinamica dell'URL
-        const url = `http://localhost:3001/api/ristoranti/cerca?keyword=${encodeURIComponent(
+        const url = `https://capstone-flavor-love-1.onrender.com/api/ristoranti/cerca?keyword=${encodeURIComponent(
           searchQuery
         )}&size=20`;
         const resp = await fetch(url, {

@@ -6,7 +6,7 @@ export const LOGOUT_USER = "LOGOUT_USER";
 /*// Registrazione
 export const registerUser = (useData) => async (dispatch) => {
   try {
-    const resp = await fetch("http://localhost:3001/auth/register", {
+    const resp = await fetch("https://capstone-flavor-love-1.onrender.com/auth/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -33,7 +33,7 @@ export const registerUser = (useData) => async (dispatch) => {
 // Login
 export const loginUser = (userCredentials) => async (dispatch) => {
   try {
-    const resp = await fetch("http://localhost:3001/auth/login", {
+    const resp = await fetch("https://capstone-flavor-love-1.onrender.com/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

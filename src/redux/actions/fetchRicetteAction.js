@@ -15,7 +15,7 @@ export const fetchRicette =
       if (!token) throw new Error("Token mancante!");
 
       const response = await fetch(
-        `http://localhost:3001/api/ricette?page=${page}&size=${size}`,
+        `https://capstone-flavor-love-1.onrender.com/api/ricette?page=${page}&size=${size}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -64,7 +64,7 @@ export const fetchRicetteUtente = () => async (dispatch, getState) => {
   });
 
   try {
-    const url = `http://localhost:3001/api/ricette/utente/${
+    const url = `https://capstone-flavor-love-1.onrender.com/api/ricette/utente/${
       user.id
     }?${params.toString()}`;
     console.log("URL generato:", url);
@@ -103,7 +103,7 @@ export const fetchDettagliRicetta = (id) => async (dispatch, getState) => {
     const { token } = getState().auth; // Recupero il token dal Redux store
     if (!token) throw new Error("Token mancante!");
 
-    const response = await fetch(`http://localhost:3001/api/ricette/${id}`, {
+    const response = await fetch(`https://capstone-flavor-love-1.onrender.com/api/ricette/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
@@ -137,7 +137,7 @@ export const fetchDettagliRicetta = (id) => async (dispatch, getState) => {
     const { token } = getState().auth; // Recupero il token dal Redux store
     if (!token) throw new Error("Token mancante!");
 
-    const response = await fetch(`http://localhost:3001/api/ricette/${id}`, {
+    const response = await fetch(`https://capstone-flavor-love-1.onrender.com/api/ricette/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",

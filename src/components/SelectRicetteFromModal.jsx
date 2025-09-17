@@ -13,7 +13,7 @@ const SelectRicetteFromModal = ({ show, onHide, ricettaId }) => {
   const handleAddToRicettario = async (ricettarioId) => {
     try {
       const response = await fetch(
-        `http://localhost:3001/api/ricettari/${ricettarioId}/ricette/${ricettaId}`,
+        `https://capstone-flavor-love-1.onrender.com/api/ricettari/${ricettarioId}/ricette/${ricettaId}`,
         {
           method: "POST",
           headers: {

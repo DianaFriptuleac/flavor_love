@@ -43,7 +43,7 @@ const CreaRicetta = () => {
       if (!token) throw new Error("Token mancante!");
 
       const response = await fetch(
-        "http://localhost:3001/api/categorie?page=0&size=100",
+        "https://capstone-flavor-love-1.onrender.com/api/categorie?page=0&size=100",
         {
           headers: {
             Authorization: `Bearer ${token}`,

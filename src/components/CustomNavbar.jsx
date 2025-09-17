@@ -35,7 +35,7 @@ const CustomNavbar = function () {
       try {
         dispatch(searchedRichiesta());
         const response = await fetch(
-          `http://localhost:3001/api/ricette/cerca?titolo=${searchQuery}&size=20`,
+          `https://capstone-flavor-love-1.onrender.com/api/ricette/cerca?titolo=${searchQuery}&size=20`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

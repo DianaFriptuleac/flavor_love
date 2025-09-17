@@ -32,7 +32,7 @@ const Recensioni = ({ ricettaId }) => {
       try {
         console.log("Fetching recensioni x ricettaId:", ricettaId);
         const response = await fetch(
-          `http://localhost:3001/api/recensioni/ricette/${ricettaId}?page=0&size=10`,
+          `https://capstone-flavor-love-1.onrender.com/api/recensioni/ricette/${ricettaId}?page=0&size=10`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -81,8 +81,8 @@ const Recensioni = ({ ricettaId }) => {
   const handleSubmit = async () => {
     const method = selectedRecensione ? "PUT" : "POST";
     const url = selectedRecensione
-      ? `http://localhost:3001/api/recensioni/${selectedRecensione.id}`
-      : `http://localhost:3001/api/recensioni/ricette/${ricettaId}`;
+      ? `https://capstone-flavor-love-1.onrender.com/api/recensioni/${selectedRecensione.id}`
+      : `https://capstone-flavor-love-1.onrender.com/api/recensioni/ricette/${ricettaId}`;
 
     try {
       const responce = await fetch(url, {
@@ -111,7 +111,7 @@ const Recensioni = ({ ricettaId }) => {
   const handleDelete = async (id) => {
     try {
       const responce = await fetch(
-        `http://localhost:3001/api/recensioni/${id}`,
+        `https://capstone-flavor-love-1.onrender.com/api/recensioni/${id}`,
         {
           method: "DELETE",
           headers: {

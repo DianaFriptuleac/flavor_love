@@ -41,7 +41,7 @@ const DettagliRicetta = () => {
     );
     if (!confermaDelete) return;
     try {
-      const response = await fetch(`http://localhost:3001/api/ricette/${id}`, {
+      const response = await fetch(`https://capstone-flavor-love-1.onrender.com/api/ricette/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -71,7 +71,7 @@ const DettagliRicetta = () => {
   const aggiungiAllaListaSpesa = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3001/api/lista-spesa/${id}`,
+        `https://capstone-flavor-love-1.onrender.com/api/lista-spesa/${id}`,
         {
           method: "POST",
           headers: { Authorization: `Bearer ${token}` },
