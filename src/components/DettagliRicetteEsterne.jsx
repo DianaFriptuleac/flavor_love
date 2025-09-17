@@ -22,7 +22,7 @@ const DettagliRicetteEsterne = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        `http://localhost:3001/api/ricetteEsterne/${id}`,
+        `https://capstone-flavor-love-1.onrender.com/api/ricetteEsterne/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

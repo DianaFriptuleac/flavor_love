@@ -38,7 +38,7 @@ const RicettePerCategorie = () => {
 
       try {
         const resp = await fetch(
-          `http://localhost:3001/api/ricette/categoria?categoria=${categoria}&page=${page}&size=12&sortBy=titolo`,
+          `https://capstone-flavor-love-1.onrender.com/api/ricette/categoria?categoria=${categoria}&page=${page}&size=12&sortBy=titolo`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -65,7 +65,7 @@ const RicettePerCategorie = () => {
         setTotalPages(data.totalPages || 1);
 
         // Fetch initial liked ricette
-        const likedResp = await fetch("http://localhost:3001/api/liked", {
+        const likedResp = await fetch("https://capstone-flavor-love-1.onrender.com/api/liked", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -100,7 +100,7 @@ const RicettePerCategorie = () => {
       const isCurrentlyLiked = isLiked(ricetta.id);
 
       const response = await fetch(
-        `http://localhost:3001/api/liked/${ricetta.id}`,
+        `https://capstone-flavor-love-1.onrender.com/api/liked/${ricetta.id}`,
         {
           method: isCurrentlyLiked ? "DELETE" : "POST",
           headers: { Authorization: `Bearer ${token}` },

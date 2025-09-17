@@ -40,7 +40,7 @@ const AllRicette = () => {
   //get ricettari
   const fetchRicettari = async () => {
     try {
-      const response = await fetch("http://localhost:3001/api/ricettari", {
+      const response = await fetch("https://capstone-flavor-love-1.onrender.com/api/ricettari", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -70,7 +70,7 @@ const AllRicette = () => {
   const handleAddToRicettario = async (ricettarioId) => {
     try {
       const response = await fetch(
-        `http://localhost:3001/api/ricettari/${ricettarioId}/ricette/${selectedRicetta.id}`,
+        `https://capstone-flavor-love-1.onrender.com/api/ricettari/${ricettarioId}/ricette/${selectedRicetta.id}`,
         {
           method: "POST",
           headers: {
@@ -100,7 +100,7 @@ const AllRicette = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:3001/api/ricettari", {
+      const response = await fetch("https://capstone-flavor-love-1.onrender.com/api/ricettari", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

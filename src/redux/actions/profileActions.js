@@ -8,7 +8,7 @@ export const uploadAvatar = (formData) => async (dispatch, getState) => {
     const { token } = getState().auth;
     if (!token) throw new Error("Token mancante!");
 
-    const resp = await fetch("http://localhost:3001/utenti/me/avatar", {
+    const resp = await fetch("https://capstone-flavor-love-1.onrender.com/utenti/me/avatar", {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -38,7 +38,7 @@ export const updateProfile = (profileData) => async (dispatch, getState) => {
     const { token } = getState().auth;
     if (!token) throw new Error("Token mancante!");
 
-    const resp = await fetch("http://localhost:3001/utenti/me", {
+    const resp = await fetch("https://capstone-flavor-love-1.onrender.com/utenti/me", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -71,7 +71,7 @@ export const deleteMe = () => async (dispatch, getState) => {
   try {
     const { token } = getState().auth;
 
-    const resp = await fetch(`http://localhost:3001/utenti/me`, {
+    const resp = await fetch(`https://capstone-flavor-love-1.onrender.com/utenti/me`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -98,7 +98,7 @@ export const fetchUserProfile = () => async (dispatch, getState) => {
     const { token } = getState().auth;
     if (!token) throw new Error("Token mancante!");
 
-    const resp = await fetch("http://localhost:3001/utenti/me", {
+    const resp = await fetch("https://capstone-flavor-love-1.onrender.com/utenti/me", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,

@@ -27,7 +27,7 @@ const ListaSpesa = () => {
   const fetchListaSpesa = async () => {
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:3001/api/lista-spesa", {
+      const response = await fetch("https://capstone-flavor-love-1.onrender.com/api/lista-spesa", {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -49,7 +49,7 @@ const ListaSpesa = () => {
   const handleRemoveIngrediente = async (ingredienteId) => {
     try {
       const response = await fetch(
-        `http://localhost:3001/api/lista-spesa/ingrediente/${ingredienteId}`,
+        `https://capstone-flavor-love-1.onrender.com/api/lista-spesa/ingrediente/${ingredienteId}`,
         {
           method: "DELETE",
           headers: { Authorization: `Bearer ${token}` },
@@ -73,7 +73,7 @@ const ListaSpesa = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:3001/api/lista-spesa/ingrediente/${editingIngrediente.id}`,
+        `https://capstone-flavor-love-1.onrender.com/api/lista-spesa/ingrediente/${editingIngrediente.id}`,
         {
           method: "PUT",
           headers: {
@@ -104,7 +104,7 @@ const ListaSpesa = () => {
   const handleClearListaSpesa = async () => {
     try {
       const response = await fetch(
-        "http://localhost:3001/api/lista-spesa/clear",
+        "https://capstone-flavor-love-1.onrender.com/api/lista-spesa/clear",
         {
           method: "DELETE",
           headers: { Authorization: `Bearer ${token}` },

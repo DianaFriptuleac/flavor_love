@@ -36,7 +36,7 @@ export const creaRicetta = (ricettaData) => async (dispatch, getState) => {
     const { token } = getState().auth; //recupero il token
     if (!token) throw new Error("Token mancante!");
 
-    const resp = await fetch("http://localhost:3001/api/ricette", {
+    const resp = await fetch("https://capstone-flavor-love-1.onrender.com/api/ricette", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -73,7 +73,7 @@ export const addImage = (ricettaId, file) => async (dispatch, getState) => {
     console.log("FormData contiene:", file);
 
     const resp = await fetch(
-      `http://localhost:3001/api/imgRicette/${ricettaId}`,
+      `https://capstone-flavor-love-1.onrender.com/api/imgRicette/${ricettaId}`,
       {
         method: "POST",
         headers: {
@@ -108,7 +108,7 @@ export const removeImage = (ricettaId, imageId) => async (dispatch, getState) =>
     if(!imageId) throw new Error ("ID immagine mancante!");
 
     const rsp = await fetch(
-      `http://localhost:3001/api/imgRicette/${imageId}`,
+      `https://capstone-flavor-love-1.onrender.com/api/imgRicette/${imageId}`,
       {
         method: "DELETE",
         headers: {
@@ -137,7 +137,7 @@ export const addIngredienti =
       if (!ricettaId) throw new Error("ID ricetta non valido!");
 
       const response = await fetch(
-        `http://localhost:3001/api/ricette/${ricettaId}/ingredienti`,
+        `https://capstone-flavor-love-1.onrender.com/api/ricette/${ricettaId}/ingredienti`,
         {
           method: "POST",
           headers: {
@@ -187,7 +187,7 @@ export const fetchIngredienti = (ricettaId) => async (dispatch, getState) => {
     }
 
     const response = await fetch(
-      `http://localhost:3001/api/ricette/${ricettaId}/ingredienti`,
+      `https://capstone-flavor-love-1.onrender.com/api/ricette/${ricettaId}/ingredienti`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -224,7 +224,7 @@ export const removeIngrediente =
       const { token } = getState().auth;
 
       const response = await fetch(
-        `http://localhost:3001/api/ricette/${ricettaId}/ingredienti/${ingredienteId}`,
+        `https://capstone-flavor-love-1.onrender.com/api/ricette/${ricettaId}/ingredienti/${ingredienteId}`,
         {
           method: "DELETE",
           headers: {

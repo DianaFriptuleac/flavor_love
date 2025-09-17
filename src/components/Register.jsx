@@ -70,7 +70,7 @@ function Register() {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:3001/auth/register", {
+      const response = await fetch("https://capstone-flavor-love-1.onrender.com/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
