@@ -24,6 +24,16 @@
   width: 100%;
   transition: transform 0.3s ease, box-shadow 0.3s eas;
 }
+/*Img*/
+.ricetta-img {
+  width: 100%;
+  height: auto;    
+  aspect-ratio: 4 / 3;  /*rapporto tra larghezza e altezza (se la with: 400px -> height -> 300px*/
+  object-fit: cover; 
+  object-position: center;
+  display: block;     
+  border-radius: 12px; 
+}
 
 .dettagli-ricetta .card {
   background-color: #ffffff;
