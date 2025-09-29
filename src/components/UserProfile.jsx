@@ -116,7 +116,7 @@ const UserProfile = () => {
             message: result.message,
             variant: "danger",
           });
-          console.log("Stato notifica aggiornato:", result.message);
+         // console.log("Stato notifica aggiornato:", result.message);
         }
       })
 

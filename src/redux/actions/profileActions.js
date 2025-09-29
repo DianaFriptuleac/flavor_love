@@ -18,7 +18,7 @@ export const uploadAvatar = (formData) => async (dispatch, getState) => {
 
     if (resp.ok) {
       const data = await resp.json();
-      console.log("Avatar aggiornato:", data);
+    //  console.log("Avatar aggiornato:", data);
       dispatch({
         type: UPLOAD_AVATAR,
         payload: data.avatarUrl,
@@ -49,7 +49,7 @@ export const updateProfile = (profileData) => async (dispatch, getState) => {
 
     if (resp.ok) {
       const updatedUser = await resp.json();
-      console.log("Profilo aggiornato:", updatedUser);
+    //  console.log("Profilo aggiornato:", updatedUser);
       dispatch({
         type: UPDATE_PROFILE,
         payload: updatedUser,

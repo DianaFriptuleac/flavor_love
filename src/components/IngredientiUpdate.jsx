@@ -19,20 +19,25 @@ const IngredientiUpdate = ({ ricettaId }) => {
   });
   const [currentSezione, setCurrentSezione] = useState("");
   const [message, setMessage] = useState("");
+  const [sectionMode, setSectionMode] = useState("existing"); // existing / new
+  const [selectedSection, setSelectedSection] = useState("");
+  const [renameFrom, setRenameFrom] = useState("");
+  const [renameTo, setRenameTo] = useState("");
 
   
   const fetchedIngredienti = useSelector((state) => state.updateRicetta?.ingredienti || []);
-  console.log("Ingredienti letti da Redux:", fetchedIngredienti);
+ // console.log("Ingredienti letti da Redux:", fetchedIngredienti);
   
   
   
   const state = useSelector((state) => state.updateRicetta.ingredienti);
-  console.log("Stato completo di Redux:", state);
+//  console.log("Stato completo di Redux:", state);
 
   // Agg. un ingrediente
   const handleAdd = () => {
+    const sezioneSelezionata = sectionMode === "existing" ? selectedSection : currentSezione.trim();
     if (
-      !currentSezione.trim() ||
+      !sezioneSelezionata ||
       !newIngrediente.nome.trim() ||
       !newIngrediente.dosaggio.trim()
     ) {
@@ -40,7 +45,7 @@ const IngredientiUpdate = ({ ricettaId }) => {
       return;
     }
 
-    const ingrediente = { ...newIngrediente, sezione: currentSezione };
+    const ingrediente = { ...newIngrediente, sezione: sezioneSelezionata };
     dispatch(addIngredientiUp(ricettaId, [ingrediente]))
       .then(() => {
         dispatch(fetchIngredientiByRicettaId(ricettaId));
@@ -77,12 +82,26 @@ const IngredientiUpdate = ({ ricettaId }) => {
     dispatch(fetchIngredientiByRicettaId(ricettaId));
   }, [dispatch, ricettaId]);
   
-  if (!fetchedIngredienti || fetchedIngredienti.length === 0) {
+/*   if (!fetchedIngredienti || fetchedIngredienti.length === 0) {
     return <div>Caricamento ingredienti...</div>;
   }
+   */
   
+  // elenco sezioni esistenti
+  const section = Array.from(
+    new Set((fetchedIngredienti || [])
+  .map(i=>i.sezione).filter(Boolean))
+  )
   
-  
+  //se non ci sono sezioni -> new
+  useEffect(() => {
+    if(section.length === 0){
+      setSectionMode("new");
+      setSelectedSection("");
+    } else if(!selectedSection){
+      setSelectedSection(section[0]);
+    }
+  }, [section.length]);
 
   return (
     <div>
@@ -92,12 +111,46 @@ const IngredientiUpdate = ({ ricettaId }) => {
       {/* Form per aggiungere un ingrediente */}
       <Form.Group className="mb-3">
         <Form.Label>Sezione</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="Inserisci la sezione"
-          value={currentSezione}
-          onChange={(e) => setCurrentSezione(e.target.value)}
+        <div className="ingredienti_update">
+        <Form.Check
+        type="radio"
+         name="sectionMode"
+         id="section-existing"
+         label="Seleziona una sezione esistente"
+         checked={sectionMode === "existing"}
+         disabled={section.length === 0}
+          onChange={() => setSectionMode("existing")}
         />
+          <Form.Check
+            type="radio"
+            name="sectionMode"
+            id="section-new"
+            label="Crea nuova sezione"
+            checked={sectionMode === "new"}
+            onChange={() => setSectionMode("new")}
+          />
+       
+
+        {sectionMode === "existing" ? (
+          <Form.Select
+            value={selectedSection}
+            onChange={(e) => setSelectedSection(e.target.value)}
+          >
+            {section.map((s) => (
+              <option key={s} value={s}>
+                {s}
+              </option>
+            ))}
+          </Form.Select>
+        ) : (
+          <Form.Control
+            type="text"
+            placeholder="Nuova sezione (es. Impasto, Crema...)"
+            value={currentSezione}
+            onChange={(e) => setCurrentSezione(e.target.value)}
+          />
+        )}
+         </div>
       </Form.Group>
       <Form.Group className="mb-3">
         <Form.Label>Nome</Form.Label>

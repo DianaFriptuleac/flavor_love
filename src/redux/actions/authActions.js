@@ -43,7 +43,7 @@ export const loginUser = (userCredentials) => async (dispatch) => {
 
     if (resp.ok) {
       const data = await resp.json();
-      console.log("Dati utente ricevuti:", data);
+     // console.log("Dati utente ricevuti:", data);
 
       dispatch({
         type: LOGIN_USER,

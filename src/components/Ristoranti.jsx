@@ -67,7 +67,7 @@ const Ristoranti = () => {
         });
 
         const data = await responce.json();
-        console.log("RISTORANTI DATA", data);
+       // console.log("RISTORANTI DATA", data);
         dispatch(setRistorantiAction(data.content));
       } catch (err) {
         console.log("Errore nel caricamento dei ristoranti!", err);
@@ -95,7 +95,7 @@ const Ristoranti = () => {
         immagine: "",
       }
     );
-    console.log("FormData durante il salvataggio:", formData);
+   // console.log("FormData durante il salvataggio:", formData);
 
     setShowModal(true);
   };
@@ -169,7 +169,7 @@ const Ristoranti = () => {
           throw new Error(`Errore HTTP: ${resp.status}`);
         }
         const data = await resp.json();
-        console.log("Risposta search Ristorante", data);
+       // console.log("Risposta search Ristorante", data);
 
         if (data.content && data.content.length > 0) {
           dispatch(searchedRistoranteAction(data.content));
@@ -233,7 +233,7 @@ const Ristoranti = () => {
                   value={searchQuery}
                   onChange={(e) => {
                     setSearchQuery(e.target.value);
-                    console.log("Valore di searchQuery:", e.target.value);
+                   // console.log("Valore di searchQuery:", e.target.value);
                   }}
                   onKeyDown={handleEnter}
                   className="me-2"

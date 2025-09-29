@@ -35,7 +35,7 @@ const DettagliRicettario = () => {
       );
       if (response.ok) {
         const data = await response.json();
-        console.log("RICETTE", data);
+        //console.log("RICETTE", data);
         setRicettario(data);
         setRicette(data.ricetta.content || []);
         setTotalPages(data.ricetta.totalPages || 0);

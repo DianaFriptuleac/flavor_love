@@ -144,6 +144,37 @@ option:checked {
   background-color: #c3e6cb;
   color: #155724;
 }
+/* Radio section ingredienti */
+.ingredienti_update .form-check-input[type="radio"] {
+  accent-color: #2a7709;
+}
+.ingredienti_update .form-check-input:checked,
+.ingredienti_update .form-check-input:focus {
+  background-color: #2a7709;
+  border-color: #2a7709;
+  box-shadow: 0 0 0 .25rem rgba(42,119,9,.25);
+}
+
+/* bordo/focus in verde */
+.ingredienti_update .form-select {
+  border-color: #2a7709;
+}
+.ingredienti_update .form-select:focus {
+  border-color: #2a7709;
+  box-shadow: none;  
+  outline: none;
+}
+
+/* Solo Firefox: permette di cambiare colore delle opzioni */
+@-moz-document url-prefix() {
+  .ingredienti_update .form-select option:hover,
+  .ingredienti_update .form-select option:checked {
+    background-color: #2a7709 !important;
+    color: #fff !important;
+  }
+}
+
+
 @media (max-width: 768px) {
   .titolo-modificaRicette {
     font-size: 2rem;

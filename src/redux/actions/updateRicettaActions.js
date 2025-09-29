@@ -51,7 +51,7 @@ export const updateRicetta = (id, data) => async (dispatch, getState) => {
 };
 //fatch ingredienti
 export const fetchIngredientiByRicettaId = (ricettaId) => async (dispatch, getState) => {
-  console.log("Fetching ingredienti for ricettaId:", ricettaId);
+ // console.log("Fetching ingredienti for ricettaId:", ricettaId);
   const { token } = getState().auth;
 
   try {
@@ -69,16 +69,16 @@ export const fetchIngredientiByRicettaId = (ricettaId) => async (dispatch, getSt
 
     if (response.ok) {
       const data = await response.json();
-      console.log("Risposta del server:", data);
+      //console.log("Risposta del server:", data);
 
       const ingredienti = data; 
-  console.log("Ingredienti estratti:", ingredienti); 
+ // console.log("Ingredienti estratti:", ingredienti); 
 
       dispatch({
         type: FETCH_INGREDIENTI_SUCCESS,
         payload: ingredienti,
       });
-      console.log("!!!!Dati inviati al reducer:", ingredienti);
+     // console.log("!!!!Dati inviati al reducer:", ingredienti);
     } else {
       const errorText = await response.text();
       throw new Error(`Errore nel fetch degli ingredienti: ${errorText}`);
@@ -152,7 +152,7 @@ export const addIngredientiUp = (ricettaId, ingredienti) => async (dispatch, get
     );
 
     if (response.ok) {
-      console.log('Ingrediente aggiunto correttamente');
+     // console.log('Ingrediente aggiunto correttamente');
       const data = await response.json();
       dispatch({
         type: ADD_NEW_INGREDIENTE,
@@ -215,7 +215,7 @@ export const fetchImagesByRicettaId =
       );
       if (response.ok) {
         const data = await response.json();
-        console.log("Immagini estratte dal backend:", data.content);
+       // console.log("Immagini estratte dal backend:", data.content);
         dispatch({
           type: FETCH_IMAGES_SUCCESS,
           payload: data.content,
@@ -271,7 +271,7 @@ export const removeImage =
     try {
       const formData = new FormData();
       formData.append("file", file);
-      console.log("FormData pe IMG UPDATE contiene:", file);
+     // console.log("FormData pe IMG UPDATE contiene:", file);
   
       const response = await fetch(
         `https://capstone-flavor-love-1.onrender.com/api/imgRicette/${ricettaId}`,

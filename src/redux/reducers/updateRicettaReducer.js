@@ -34,8 +34,8 @@ export const ricettaReducer = (state = initialState, action) => {
 
     // Gestisco l'aggiornamento delle immagini
     case FETCH_IMAGES_SUCCESS:
-      console.log("IMG Reducer: Stato precedente:", state);
-      console.log("IMG Reducer: Aggiorno lo stato con:", action.payload);
+     // console.log("IMG Reducer: Stato precedente:", state);
+      //console.log("IMG Reducer: Aggiorno lo stato con:", action.payload);
       return {
         ...state,
         ricetta: {
@@ -72,7 +72,7 @@ export const ricettaReducer = (state = initialState, action) => {
 
     // Gestisco l'aggiornamento degli ingredienti
     case ADD_NEW_INGREDIENTE:
-  console.log("Aggiungo nuovo ingrediente:", action.payload); // Debug log
+  //console.log("Aggiungo nuovo ingrediente:", action.payload); // Debug log
   return {
     ...state,
     ricetta: {
@@ -109,8 +109,8 @@ export const ricettaReducer = (state = initialState, action) => {
 
     // Gestisco il recupero degli ingredienti
     case FETCH_INGREDIENTI_SUCCESS:
-      console.log("REDUCER: Stato precedente:", state);
-      console.log("Reducer: Aggiorno lo stato con:", action.payload);
+      //console.log("REDUCER: Stato precedente:", state);
+      //console.log("Reducer: Aggiorno lo stato con:", action.payload);
       return {
         ...state,
         ingredienti: Array.isArray(action.payload) ? action.payload : [],

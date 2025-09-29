@@ -171,7 +171,7 @@ const DettagliRicetta = () => {
 
           <Row>
             {/* Img. /Titolo */}
-            <Col md={6}>
+            <Col md={6} className="mt-2">
               <Card className="shadow-sm border-0">
                 {/*Immagini */}
                 <div className="img-counter position-relative">
@@ -181,7 +181,7 @@ const DettagliRicetta = () => {
                         variant="top"
                         src={dettagli.img[currentImageIndex]?.url}
                         alt={dettagli.titolo}
-                        className="rounded"
+                        className="rounded ricetta-img "
                       />
                       {/*Btn img */}
                       <Button

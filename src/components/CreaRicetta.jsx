@@ -54,7 +54,7 @@ const CreaRicetta = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log("CATEGORIE", data);
+       // console.log("CATEGORIE", data);
         setCategorie(data.content);
       } else {
         throw new Error("Errore nel fetch delle categorie");
@@ -198,11 +198,11 @@ const CreaRicetta = () => {
       }
 
       setIsUploadingImage(true);
-      console.log("Caricamento immagine per ricetta ID:", createdRicetta.id);
+     // console.log("Caricamento immagine per ricetta ID:", createdRicetta.id);
 
       // Invio il file tramite addImage
       await dispatch(addImage(createdRicetta.id, file));
-      console.log("Immagini nello stato Redux:", ricettaState.image);
+     // console.log("Immagini nello stato Redux:", ricettaState.image);
       setAlert({
         message: "Immagine caricata con successo!",
         variant: "success",
