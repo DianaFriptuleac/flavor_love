@@ -5,13 +5,13 @@ import "../css/CreaRicetta.css";
 //passo 3 props-> array img, addimg e remove
 const ImgRicetta = ({ images = [], addImage, removeImage, isEditing }) => {
   useEffect(() => {
-    console.log("Immagini ricevute nel componente ImgRicetta:", images);
+   // console.log("Immagini ricevute nel componente ImgRicetta:", images);
   }, [images]);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      console.log("File selezionato:", file);
+    //  console.log("File selezionato:", file);
       addImage(file);
     }
   };

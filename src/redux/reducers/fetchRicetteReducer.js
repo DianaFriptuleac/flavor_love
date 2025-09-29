@@ -56,7 +56,7 @@ const ricetteReducer = (state = initialState, action) => {
         error: action.payload,
       };
     case FETCH_SET_INGREDIENTI:
-      console.log("Payload ricevuto per gli ingredienti:", action.payload);
+     // console.log("Payload ricevuto per gli ingredienti:", action.payload);
       return {
         ...state,
         ingredienti: Array.isArray(action.payload) ? action.payload : [],

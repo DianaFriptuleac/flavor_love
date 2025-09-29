@@ -1,13 +1,23 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Card, Container, Row, Col, Carousel } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import "../css/Home.css";
+import { fetchRicette } from "../redux/actions/fetchRicetteAction";
 
 const Home = () => {
-  const [ricette, setRicette] = useState([]);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { ricette, loading, error } = useSelector((state) => state.ricette);
 
-  useEffect(() => {
+  // ****** Ricette esterne (commentate il 29/09//2025 per inserire anche nella home le ricette del DB) ***********
+
+    //const [ricette, setRicette] = useState([]);
+ /*   const { ricette, totalPages, currentPage } = useSelector(
+      (state) => state.ricette
+    ); */
+
+ /*  useEffect(() => {
     fetch(
       "https://capstone-flavor-love-1.onrender.com/api/ricetteEsterne/allRicette?page=0&size=1000"
     )
@@ -27,7 +37,24 @@ const Home = () => {
       .catch((error) =>
         console.error("Errore nel caricamento delle ricette:", error)
       );
-  }, []);
+  }, []); */
+
+  useEffect(() => {
+    dispatch(fetchRicette(0, 1000));
+  }, [dispatch]);
+
+  //useMemo() -> hook per memorizzare le ricette(se non cambiano). 
+  //Evita di ricalcolare le ricette ad ogni render.
+  const homeRicette = useMemo(() => {
+    const list = Array.isArray(ricette) ? ricette : []; //Verifica che le ricette siano un array
+    return list.map((r) =>({    //.map -> trasforma ogni ricetta in un oggetto semplificato
+      id: r.id,
+      title: r.titolo ?? "No title",
+      image: 
+      (Array.isArray(r.img) && r.img.length ? (r.img[0]?.url ?? r.img[0]) : null) 
+      || "/assets/default_ricetta.jpg", 
+    }))
+  }, [ricette]);
 
   //divido le ricette in gruppi da 6
   const carouselRows = (ricette, ricettaPerRow) => {
@@ -39,7 +66,7 @@ const Home = () => {
   };
 
   // Righe da 6 ricette
-  const ricetteInRows = carouselRows(ricette, 6);
+  const ricetteInRows = carouselRows(homeRicette, 6);
 
   return (
     <div className="home-background">
@@ -60,7 +87,8 @@ const Home = () => {
                   >
                     <Card
                       className="ricetta-card"
-                      onClick={() => navigate(`/ricetteEsterne/${ricetta.id}`)} // dettagli ricetta
+                     // onClick={() => navigate(`/ricetteEsterne/${ricetta.id}`)} // dettagli ricetta (commentata 29/09/2025)
+                     onClick={() => navigate(`/ricette/${ricetta.id}`)}
                     >
                       <div className="img-container">
                         <Card.Img

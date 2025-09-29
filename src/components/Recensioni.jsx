@@ -14,10 +14,10 @@ const Recensioni = ({ ricettaId }) => {
   const recensioni = useSelector(
     (state) => state.recensioni.recensioniPerRicetta?.[ricettaId] || []
   );
-  console.log("RECENSIONI STATE", recensioni);
+  //console.log("RECENSIONI STATE", recensioni);
   const token = useSelector((state) => state.auth.token);
   const userId = useSelector((state) => state.auth.user?.id);
-  console.log("Utente autenticato:", userId);
+ // console.log("Utente autenticato:", userId);
 
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -30,7 +30,7 @@ const Recensioni = ({ ricettaId }) => {
       setLoading(true);
 
       try {
-        console.log("Fetching recensioni x ricettaId:", ricettaId);
+        //console.log("Fetching recensioni x ricettaId:", ricettaId);
         const response = await fetch(
           `https://capstone-flavor-love-1.onrender.com/api/recensioni/ricette/${ricettaId}?page=0&size=10`,
           {
@@ -48,7 +48,7 @@ const Recensioni = ({ ricettaId }) => {
             throw new Error("Errore nel caricamento delle recensioni!");
           }
         const data = await response.json();
-        console.log(" GET RECENSIONI", data);
+       // console.log(" GET RECENSIONI", data);
         dispatch(setRecensioni(ricettaId, data.content));
       } catch (err) {
         console.log("Errore nella chaiamta ", err);

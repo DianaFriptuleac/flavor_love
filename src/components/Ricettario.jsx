@@ -60,7 +60,7 @@ const Ricettario = () => {
       });
       if (response.ok) {
         const data = await response.json();
-        console.log("Ricettari fetch response:", data);
+        //console.log("Ricettari fetch response:", data);
         dispatch(setRicettari(data.content));
       } else if (response.status === 404) {
         console.log("Nessun ricettario trovato.");

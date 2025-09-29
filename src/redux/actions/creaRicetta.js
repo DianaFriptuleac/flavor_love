@@ -20,7 +20,7 @@ export const creaRicettaConImmagine =
         await dispatch(addImage(newRicetta.payload.id, file));
       }
 
-      console.log("Ricetta creata con successo:", newRicetta);
+     // console.log("Ricetta creata con successo:", newRicetta);
     } catch (error) {
       console.error(
         "Errore nella creazione della ricetta con immagine:",
@@ -70,7 +70,7 @@ export const addImage = (ricettaId, file) => async (dispatch, getState) => {
 
     const formData = new FormData(); //FormatData x il file img.
     formData.append("file", file);
-    console.log("FormData contiene:", file);
+   // console.log("FormData contiene:", file);
 
     const resp = await fetch(
       `https://capstone-flavor-love-1.onrender.com/api/imgRicette/${ricettaId}`,
@@ -150,7 +150,7 @@ export const addIngredienti =
 
       if (response.ok) {
         const data = await response.json();
-        console.log("Dati ricevuti dal backend:", data);
+       // console.log("Dati ricevuti dal backend:", data);
 
         const mappedData = data.ingredienti.map((ing) => ({
           id: ing.id,
@@ -158,7 +158,7 @@ export const addIngredienti =
           dosaggio: ing.dosaggio,
           sezione: ing.sezione,
         }));
-        console.log("Dati mappati per il reducer:", mappedData);
+       // console.log("Dati mappati per il reducer:", mappedData);
 
         dispatch({
           type: ADD_INGREDIENTI,
@@ -200,7 +200,7 @@ export const fetchIngredienti = (ricettaId) => async (dispatch, getState) => {
       const ingredienti = Array.isArray(data.ingredienti)
         ? data.ingredienti
         : [];
-      console.log("Ingredienti estratti:", ingredienti);
+    //  console.log("Ingredienti estratti:", ingredienti);
       dispatch({
         type: SET_INGREDIENTI,
         payload: ingredienti,

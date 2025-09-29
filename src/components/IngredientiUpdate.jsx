@@ -22,12 +22,12 @@ const IngredientiUpdate = ({ ricettaId }) => {
 
   
   const fetchedIngredienti = useSelector((state) => state.updateRicetta?.ingredienti || []);
-  console.log("Ingredienti letti da Redux:", fetchedIngredienti);
+ // console.log("Ingredienti letti da Redux:", fetchedIngredienti);
   
   
   
   const state = useSelector((state) => state.updateRicetta.ingredienti);
-  console.log("Stato completo di Redux:", state);
+//  console.log("Stato completo di Redux:", state);
 
   // Agg. un ingrediente
   const handleAdd = () => {

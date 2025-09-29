@@ -25,7 +25,7 @@ export const fetchRicette =
 
       if (response.ok) {
         const data = await response.json();
-        console.log("All ricette restituite:", data);
+       // console.log("All ricette restituite:", data);
         dispatch({
           type: FETCH_RICETTE_SUCCESS,
           payload: {
@@ -67,7 +67,7 @@ export const fetchRicetteUtente = () => async (dispatch, getState) => {
     const url = `https://capstone-flavor-love-1.onrender.com/api/ricette/utente/${
       user.id
     }?${params.toString()}`;
-    console.log("URL generato:", url);
+   // console.log("URL generato:", url);
 
     const response = await fetch(url, {
       headers: {
@@ -78,7 +78,7 @@ export const fetchRicetteUtente = () => async (dispatch, getState) => {
 
     if (response.ok) {
       const data = await response.json();
-      console.log("Ricette recuperate:", data.content);
+     // console.log("Ricette recuperate:", data.content);
       dispatch({
         type: FETCH_RICETTE_UTENTE_SUCCESS,
         payload: data.content || [],
@@ -112,7 +112,7 @@ export const fetchDettagliRicetta = (id) => async (dispatch, getState) => {
 
     if (response.ok) {
       const data = await response.json();
-      console.log("COMPONENTI RICETTA", data);
+     //.log("COMPONENTI RICETTA", data);
       dispatch({ type: FETCH_DETTAGLI_RICETTA_SUCCESS, payload: data });
       dispatch({
         type: FETCH_SET_INGREDIENTI,

@@ -19,7 +19,7 @@ const IngredientiRicetta = ({ ricettaId }) => {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    console.log("Ingredienti caricati:", ingredienti);
+   // console.log("Ingredienti caricati:", ingredienti);
   }, [ingredienti]);
 
   const handleAddIngredient = () => {

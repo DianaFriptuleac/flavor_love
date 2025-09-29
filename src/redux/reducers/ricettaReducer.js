@@ -31,7 +31,7 @@ const ricettaReducer = (state = initialState, action) => {
           (newIng) => !state.ingredienti.some((ing) => ing.id === newIng.id)
         ),
       ];
-      console.log("Reducer: Ingredienti unici aggiunti:", ingredientiUnici);
+      //console.log("Reducer: Ingredienti unici aggiunti:", ingredientiUnici);
       return {
         ...state,
         ingredienti: ingredientiUnici,
@@ -43,7 +43,7 @@ const ricettaReducer = (state = initialState, action) => {
         error: action.payload,
       };
     case SET_INGREDIENTI:
-      console.log("Payload ricevuto per gli ingredienti:", action.payload);
+     // console.log("Payload ricevuto per gli ingredienti:", action.payload);
       return {
         ...state,
         ingredienti: Array.isArray(action.payload) ? action.payload : [],

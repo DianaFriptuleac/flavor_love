@@ -32,7 +32,7 @@ const DettagliRicetteEsterne = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log("DETTAGLI RICETTE ESTERNE", data);
+       // console.log("DETTAGLI RICETTE ESTERNE", data);
         setDettagli(data);
       } else {
         throw new Error("Errore nel recupero dati delle ricette esterne.");

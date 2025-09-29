@@ -60,7 +60,7 @@ const ModificaRicetta = () => {
         img: dettagli.img || [],
       });
     }
-    console.log("Stato aggiornato:", dettagli?.img);
+   // console.log("Stato aggiornato:", dettagli?.img);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dettagli]);
 

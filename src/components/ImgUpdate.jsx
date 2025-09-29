@@ -10,22 +10,22 @@ const ImgUpdate = ({ ricettaId }) => {
   const [isLoading, setIsLoading] = useState(false)
 //stato completo
   const state = useSelector((state) => state);
-  console.log("IMG Stato completo di Redux:", state);
+  //console.log("IMG Stato completo di Redux:", state);
 
   const images = useSelector((state) => state.updateRicetta?.ricetta?.img || []);
-  console.log("IMMAGINI letti da Redux:", images);
+ // console.log("IMMAGINI letti da Redux:", images);
 
  
 
   useEffect(() => {
-    console.log("Immagini caricate per la modifica:", images);
+   // console.log("Immagini caricate per la modifica:", images);
   }, [images]);
 
   
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
-      console.log("File selezionato:", file);
+     // console.log("File selezionato:", file);
       setIsLoading(true);
       try{
         await dispatch(addUpdateImg(ricettaId, file));

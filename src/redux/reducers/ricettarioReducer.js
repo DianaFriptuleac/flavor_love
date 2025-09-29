@@ -12,7 +12,7 @@ const initialState = {
 export default function ricettarioReducer(state = initialState, action) {
   switch (action.type) {
     case SET_RICETTARI:
-      console.log("SET_RICETTARI payload:", action.payload);
+     // console.log("SET_RICETTARI payload:", action.payload);
       return { ...state, list: action.payload };
 
     case ADD_RICETTARIO:

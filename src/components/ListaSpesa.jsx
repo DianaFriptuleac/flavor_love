@@ -33,7 +33,7 @@ const ListaSpesa = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log("LISTA SPESA", data);
+      //  console.log("LISTA SPESA", data);
         setListaSpesa(data);
       } else {
         throw new Error("Errore nel recupero della lista spesa.");

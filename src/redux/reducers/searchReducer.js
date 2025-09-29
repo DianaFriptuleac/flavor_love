@@ -20,7 +20,7 @@ const searchedRicette = (state = initialState, action) => {
       };
 
     case SEARCHED_RICETTA:
-      console.log("Payload ricevuto nel reducer:", action.payload);
+      //console.log("Payload ricevuto nel reducer:", action.payload);
       return {
         ...state,
         searchResults: action.payload,
