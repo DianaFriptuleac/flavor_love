@@ -23,7 +23,7 @@ import "../css/AllRicette.css";
 const AllRicette = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { ricette, totalPages, currentPage } = useSelector(
+  const { ricette, totalPages, currentPage, loading, error } = useSelector(
     (state) => state.ricette
   );
   const ricettari = useSelector((state) => state.ricettari.list);
@@ -40,11 +40,14 @@ const AllRicette = () => {
   //get ricettari
   const fetchRicettari = async () => {
     try {
-      const response = await fetch("https://capstone-flavor-love-1.onrender.com/api/ricettari", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        "https://capstone-flavor-love-1.onrender.com/api/ricettari",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (response.ok) {
         const data = await response.json();
         dispatch(setRicettari(data.content));
@@ -100,14 +103,17 @@ const AllRicette = () => {
     }
 
     try {
-      const response = await fetch("https://capstone-flavor-love-1.onrender.com/api/ricettari", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ nome: newRicettarioName }),
-      });
+      const response = await fetch(
+        "https://capstone-flavor-love-1.onrender.com/api/ricettari",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ nome: newRicettarioName }),
+        }
+      );
 
       if (response.ok) {
         const newRicettario = await response.json();
@@ -126,6 +132,23 @@ const AllRicette = () => {
     <div className="bg-Allricette">
       <Container>
         <h2 className="mt-4 title-AllRicette">Scopri tutte le ricette</h2>
+         <div className="results-wrap">
+      <div className="results-body position-relative">
+        {loading && (
+          <div className="d-flex justify-content-center my-4">
+            <div
+              className="spinner-border"
+              style={{ width: "4rem", height: "4rem" }}
+              role="status"
+            >
+            </div>
+          </div>
+        )}
+
+        {!loading && error && <Alert variant="danger">{error}</Alert>}
+
+      
+         {!loading && !error && (
         <Row className="mt-3">
           {Array.isArray(ricette) && ricette.length > 0 ? (
             ricette.map((ricetta) => (
@@ -163,6 +186,9 @@ const AllRicette = () => {
             <Alert variant="info">Nessuna ricetta trovata.</Alert>
           )}
         </Row>
+          )}
+            {!loading && error && <Alert variant="danger" className="mt-3">{error}</Alert>}
+      </div>
         <Pagination className="justify-content-center mt-4 allRicette-pagination">
           {totalPages > 0 &&
             [...Array(totalPages).keys()].map((page) => (
@@ -170,12 +196,14 @@ const AllRicette = () => {
                 key={page}
                 className="pagination-item"
                 active={page === currentPage}
+                disabled={loading}
                 onClick={() => handlePageChange(page)}
               >
                 {page + 1}
               </Pagination.Item>
             ))}
         </Pagination>
+        </div>
         {/* Seleziono o creo un ricettario */}
         <Modal
           className="AllRicette-Modal"
@@ -238,6 +266,7 @@ const AllRicette = () => {
             </Button>
           </Modal.Footer>
         </Modal>
+      
       </Container>
     </div>
   );

@@ -115,6 +115,25 @@
   border-color: #d30316 !important; 
   z-index: 3;
 }
+/* rimuovo il bordo blu */
+.allRicette-pagination .page-link:focus {
+  outline: none !important;                  /* tolgo l’outline standard */
+  box-shadow:0 0 0 0.25rem rgba(211, 3, 22, 0.4)!important; 
+  border-color: #d30316  !important;   
+}
+
+/*Posizionamento pagination in basso al loader*/
+.results-body {
+  min-height: 70vh;     
+}
+
+.loading-overlay {
+  position: absolute;
+  inset: 0;                      /* top/right/bottom/left: 0 */
+  z-index: 2;
+}
+
+
 
 /*Modal add ricettario*/
 .AllRicette-Modal {

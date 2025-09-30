@@ -28,10 +28,11 @@ import Ristoranti from "./components/Ristoranti";
 function App() {
   return (
     <BrowserRouter>
+    <div className="app-shell">  {/* utilizzo in index.css-> per posizionare il footer */}
       <header>
         <CustomNavbar />
       </header>
-      <main>
+      <main className="flex-grow-1">
       <Routes>
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
@@ -57,6 +58,7 @@ function App() {
      <footer>
       <MyFooter/>
      </footer>
+     </div>
     </BrowserRouter>
   );
 }

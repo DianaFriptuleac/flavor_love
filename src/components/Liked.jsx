@@ -26,9 +26,12 @@ const Liked = () => {
     const fetchLikedRicette = async () => {
       try {
         setLoading(true);
-        const response = await fetch("https://capstone-flavor-love-1.onrender.com/api/liked", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await fetch(
+          "https://capstone-flavor-love-1.onrender.com/api/liked",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
 
         if (response.ok) {
           const data = await response.json();
@@ -76,8 +79,24 @@ const Liked = () => {
     }
   };
 
-  if (loading) return <Spinner animation="border" />;
-  if (error) return <Alert variant="danger">{error}</Alert>;
+  if (loading)
+    return (
+      <div className="bg-liked d-flex justify-content-center align-items-center">
+        <Spinner animation="border" style={{ width: "5rem", height: "5rem" }} />
+      </div>
+    );
+  if (error) {
+    return (
+      <div
+        className="bg-liked d-flex justify-content-center align-items-center"
+        style={{ minHeight: "100vh" }}
+      >
+        <Container className="mt-4">
+          <Alert variant="danger">{error}</Alert>
+        </Container>
+      </div>
+    );
+  }
   if (!likedRicette.length)
     return (
       <div className="bg-liked">
