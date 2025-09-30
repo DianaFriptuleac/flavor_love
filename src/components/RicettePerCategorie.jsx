@@ -35,6 +35,7 @@ const RicettePerCategorie = () => {
     const fetchRicettaByCategorie = async (page) => {
       setLoading(true);
       setError(null);
+      setRicette([]);
 
       try {
         const resp = await fetch(
@@ -65,9 +66,12 @@ const RicettePerCategorie = () => {
         setTotalPages(data.totalPages || 1);
 
         // Fetch initial liked ricette
-        const likedResp = await fetch("https://capstone-flavor-love-1.onrender.com/api/liked", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const likedResp = await fetch(
+          "https://capstone-flavor-love-1.onrender.com/api/liked",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
 
         if (likedResp.ok) {
           const likedData = await likedResp.json();
@@ -129,90 +133,103 @@ const RicettePerCategorie = () => {
     setCurrentPage(page);
   };
 
-    // se l'utente non e logato
-    if (!token) {
-      return (
-        <div className="bg-categorie">
-          <Container className="text-center mt-5">
-            <Alert variant="danger">
-              Per visualizzare le ricette è necessario registrarsi o effettuare il login.
-            </Alert>
-            <Button className="ricPerCategorieBtn me-3" onClick={() => navigate("/register")}>
-              Registrati
-            </Button>
-            <Button
-              className="ricPerCategorieBtn"
-              onClick={() => navigate("/login")}
-            >
-              Accedi
-            </Button>
-          </Container>
-        </div>
-      );
-    }
+  // se l'utente non e logato
+  if (!token) {
+    return (
+      <div className="bg-categorie">
+        <Container className="text-center mt-5">
+          <Alert variant="danger">
+            Per visualizzare le ricette è necessario registrarsi o effettuare il
+            login.
+          </Alert>
+          <Button
+            className="ricPerCategorieBtn me-3"
+            onClick={() => navigate("/register")}
+          >
+            Registrati
+          </Button>
+          <Button
+            className="ricPerCategorieBtn"
+            onClick={() => navigate("/login")}
+          >
+            Accedi
+          </Button>
+        </Container>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-categorie">
       <Container>
         <h2 className="categorie-title">Ricette per Categoria: {categoria}</h2>
-        {loading && <Spinner animation="border" />}
-        {error && (
-          <Alert variant="danger">
-            {error} <br /> Reindirizzamento a tutte le ricette...
-          </Alert>
-        )}
-        <Row className="img-card-container">
-          {ricette.map((ricetta) => (
-            <Col
-              key={ricetta.id}
-              md={6}
-              lg={4}
-              xl={3}
-              className="card-container"
-            >
-              <Card className="categorie-card mb-3">
-                <div className="heart-container">
-                  <Button
-                    className="categorie-btn"
-                    variant="light"
-                    onClick={() => toggleLike(ricetta)}
-                    style={{ color: isLiked(ricetta.id) ? "red" : "red" }}
-                  >
-                    {isLiked(ricetta.id) ? (
-                      <FaHeart className="heart-icon" />
-                    ) : (
-                      <FaRegHeart />
-                    )}
-                  </Button>
-                </div>
-                <Card.Img
-                  variant="top"
-                  className="card-img-categorie"
-                  src={ricetta.img[0]?.url || "/assets/default_ricetta.jpg"}
+        <div className="results-wrap">
+          <div className="results-body position-relative">
+            {loading && (
+              <Spinner
+                animation="border"
+                style={{ width: "5rem", height: "5rem" }}
+              />
+            )}
+            <Row className="img-card-container">
+              {ricette.map((ricetta) => (
+                <Col
                   key={ricetta.id}
-                  style={{ cursor: "pointer" }}
-                  onClick={() => navigate(`/ricette/${ricetta.id}`)}
-                />
-                <Card.Body className="card-body-categorie d-flex align-items-center flex-column p-2">
-                  <Card.Title className="card-title-categorie mb-0">
-                    {ricetta.titolo}
-                  </Card.Title>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
-        </Row>
-        <Pagination className="justify-content-center mt-4 categorie-pagination">
-          {Array.from({ length: totalPages }, (_, i) => (
-            <Pagination.Item
-              key={i}
-              active={i === currentPage}
-              onClick={() => handlePageChange(i)}
-            >
-              {i + 1}
-            </Pagination.Item>
-          ))}
-        </Pagination>
+                  md={6}
+                  lg={4}
+                  xl={3}
+                  className="card-container"
+                >
+                  <Card className="categorie-card mb-3">
+                    <div className="heart-container">
+                      <Button
+                        className="categorie-btn"
+                        variant="light"
+                        onClick={() => toggleLike(ricetta)}
+                        style={{ color: isLiked(ricetta.id) ? "red" : "red" }}
+                      >
+                        {isLiked(ricetta.id) ? (
+                          <FaHeart className="heart-icon" />
+                        ) : (
+                          <FaRegHeart />
+                        )}
+                      </Button>
+                    </div>
+                    <Card.Img
+                      variant="top"
+                      className="card-img-categorie"
+                      src={ricetta.img[0]?.url || "/assets/default_ricetta.jpg"}
+                      key={ricetta.id}
+                      style={{ cursor: "pointer" }}
+                      onClick={() => navigate(`/ricette/${ricetta.id}`)}
+                    />
+                    <Card.Body className="card-body-categorie d-flex align-items-center flex-column p-2">
+                      <Card.Title className="card-title-categorie mb-0">
+                        {ricetta.titolo}
+                      </Card.Title>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              ))}
+            </Row>
+            {error && (
+              <Alert variant="danger">
+                {error} <br /> Reindirizzamento a tutte le ricette...
+              </Alert>
+            )}
+          </div>
+          <Pagination className="justify-content-center mt-4 categorie-pagination">
+            {Array.from({ length: totalPages }, (_, i) => (
+              <Pagination.Item
+                key={i}
+                active={i === currentPage}
+                onClick={() => handlePageChange(i)}
+              >
+                {i + 1}
+              </Pagination.Item>
+            ))}
+          </Pagination>
+        </div>
       </Container>
     </div>
   );

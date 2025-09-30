@@ -27,8 +27,8 @@ const ModificaRicetta = () => {
     tempoCotturaMinuti: 0,
     costoRicetta: "BASSO",
     nomeCategorieRicette: [],
-   // ingredienti: [],
-   // img: [],
+    // ingredienti: [],
+    // img: [],
   });
 
   const [categorie, setCategorie] = useState([]);
@@ -40,7 +40,6 @@ const ModificaRicetta = () => {
     if (id) {
       dispatch(fetchDettagliRicetta(id));
       dispatch(fetchImagesByRicettaId(id));
-    
     }
   }, [dispatch, id]);
 
@@ -60,7 +59,7 @@ const ModificaRicetta = () => {
         img: dettagli.img || [],
       });
     }
-   // console.log("Stato aggiornato:", dettagli?.img);
+    // console.log("Stato aggiornato:", dettagli?.img);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dettagli]);
 
@@ -136,25 +135,26 @@ const ModificaRicetta = () => {
     e.preventDefault();
     setIsProcessing(true);
 
-        //lunghezza titolo
-        if(formData.titolo.length < 3 || formData.titolo.length > 60) {
-          setAlert({
-            message: "Il titolo deve essere compreso tra 3 e 60 caratteri!",
-            varianr: "danger",
-          });
-          setIsProcessing(false);
-          return;
-        }
-    
-        //lunghezza procedomento
-        if(formData.procedimento.length > 10000){
-          setAlert({
-            message:"Il procedimento della ricetta può contenere al massimo 10000 caratteri!",
-            variant: "danger",
-          });
-          setIsProcessing(false);
-          return;
-        }
+    //lunghezza titolo
+    if (formData.titolo.length < 3 || formData.titolo.length > 60) {
+      setAlert({
+        message: "Il titolo deve essere compreso tra 3 e 60 caratteri!",
+        varianr: "danger",
+      });
+      setIsProcessing(false);
+      return;
+    }
+
+    //lunghezza procedomento
+    if (formData.procedimento.length > 10000) {
+      setAlert({
+        message:
+          "Il procedimento della ricetta può contenere al massimo 10000 caratteri!",
+        variant: "danger",
+      });
+      setIsProcessing(false);
+      return;
+    }
     try {
       const payload = {
         ...formData,
@@ -181,13 +181,22 @@ const ModificaRicetta = () => {
 
   if (loading) {
     return (
-      <div className="d-flex justify-content-center align-items-center">
-        <Spinner animation="border" role="status" />
-        <span className="ms-2">Caricamento...</span>
+      <div className="modificaRicetta_background d-flex justify-content-center align-items-center">
+        <Spinner animation="border" style={{ width: "5rem", height: "5rem" }} />
       </div>
     );
   }
-  if (error) return <Alert variant="danger">{error}</Alert>;
+  if (error)
+    return (
+      <div
+        className="modificaRicetta_background d-flex justify-content-center align-items-center"
+        style={{ minHeight: "100vh" }}
+      >
+        <Container className="mt-4">
+          <Alert variant="danger">{error}</Alert>
+        </Container>
+      </div>
+    );
 
   return (
     <div className="modificaRicetta_background">
@@ -317,16 +326,14 @@ const ModificaRicetta = () => {
             {id && (
               <IngredientiUpdate
                 ricettaId={id}
-                ingredienti = {dettagli?.ingredienti || []}
+                ingredienti={dettagli?.ingredienti || []}
               />
             )}
 
             {/* ImgRicetta */}
             {id && (
               <Form.Group className="mb-3">
-                <ImgUpdate
-                ricettaId={id}
-                />
+                <ImgUpdate ricettaId={id} />
               </Form.Group>
             )}
             <Button className="salva-btn" type="submit" disabled={isProcessing}>

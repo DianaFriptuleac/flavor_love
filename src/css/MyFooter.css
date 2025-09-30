@@ -1,5 +1,6 @@
 .myFooter {
   background-color: #160d08 !important;
+  flex-shrink: 0;/* non permetto di stringere il box, non si riduce (default e 1) */
 }
 .mediaIcons{
   cursor: pointer;

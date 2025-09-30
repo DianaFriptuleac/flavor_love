@@ -72,6 +72,22 @@ const Home = () => {
     <div className="home-background">
       <Container className="mt-5">
         <h1 className="mb-4 text-light homeTitle">Le Nostre Ricette</h1>
+          {loading && (
+       <div className="d-flex justify-content-center my-4 carousel-container">
+            <div
+              className="spinner-border"
+              style={{ width: "4rem", height: "4rem" }}
+              role="status"
+            >
+            </div>
+          </div>
+      )}
+
+      {!loading && error && (
+        <div className="alert alert-danger">{error}</div>
+      )}
+
+      {!loading && !error && (
         <Carousel interval={null} className="carousel-container">
           {ricetteInRows.map((group, index) => (
             <Carousel.Item key={index}>
@@ -116,6 +132,7 @@ const Home = () => {
             </Carousel.Item>
           ))}
         </Carousel>
+      )}
       </Container>
     </div>
   );

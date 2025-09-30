@@ -10,6 +10,7 @@ import {
   Button,
   Alert,
   ListGroup,
+  Spinner,
 } from "react-bootstrap";
 import { FaRegClock, FaTrashAlt, FaEdit, FaShoppingCart } from "react-icons/fa";
 import { PiCookingPotDuotone } from "react-icons/pi";
@@ -33,20 +34,21 @@ const DettagliRicetta = () => {
   });
   const [currentImageIndex, setCurrentImageIndex] = useState(0); //stato attuale dell'immagine
 
-
-
   const handleDelete = async () => {
     const confermaDelete = window.confirm(
       "Sei sicuro di voler cancellare questa ricetta?"
     );
     if (!confermaDelete) return;
     try {
-      const response = await fetch(`https://capstone-flavor-love-1.onrender.com/api/ricette/${id}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `https://capstone-flavor-love-1.onrender.com/api/ricette/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (response.ok) {
         setNotification({
@@ -96,12 +98,12 @@ const DettagliRicetta = () => {
     }
   };
 
- 
-   // verifico se l'utente ha il token (se registrato)
-   useEffect(() => {
+  // verifico se l'utente ha il token (se registrato)
+  useEffect(() => {
     if (!token) {
       setNotification({
-        message: "Per visualizzare i dettagli della ricetta è necessario registrarsi o effettuare il login.",
+        message:
+          "Per visualizzare i dettagli della ricetta è necessario registrarsi o effettuare il login.",
         variant: "danger",
       });
     } else if (id) {
@@ -114,7 +116,10 @@ const DettagliRicetta = () => {
       <div className="bg-dettagliRicetta">
         <Container className="text-center mt-5">
           <Alert variant="danger">{notification.message}</Alert>
-          <Button className="me-3 modifica-ricetta-btn" onClick={() => navigate("/register")}>
+          <Button
+            className="me-3 modifica-ricetta-btn"
+            onClick={() => navigate("/register")}
+          >
             Registrati
           </Button>
           <Button
@@ -127,17 +132,39 @@ const DettagliRicetta = () => {
       </div>
     );
   }
-  
+
   if (loading) {
-    return <Alert variant="danger">Caricamento dettagli ricetta...</Alert>;
+    return (
+      <div className="bg-dettagliRicetta d-flex justify-content-center align-items-center">
+        <Spinner animation="border" style={{ width: "5rem", height: "5rem" }} />
+      </div>
+    );
   }
 
   if (error) {
-    return <Alert variant="danger">{error}</Alert>;
+    return (
+      <div
+        className="bg-dettagliRicetta d-flex justify-content-center align-items-center"
+        style={{ minHeight: "100vh" }}
+      >
+        <Container className="mt-4">
+          <Alert variant="danger">{error}</Alert>
+        </Container>
+      </div>
+    );
   }
 
   if (!dettagli) {
-    return <Alert variant="info">Nessuna ricetta trovata.</Alert>;
+    return (
+      <div
+        className="bg-dettagliRicetta d-flex justify-content-center align-items-center"
+        style={{ minHeight: "100vh" }}
+      >
+        <Container className="mt-4">
+          <Alert variant="info">Nessuna ricetta trovata.</Alert>
+        </Container>
+      </div>
+    );
   }
 
   //cambio immagini (Math.max -> per non andare sotto l'indice 0)
@@ -145,7 +172,7 @@ const DettagliRicetta = () => {
     setCurrentImageIndex((prevIndex) => Math.max(prevIndex - 1, 0));
   };
 
- // (Math.min -> per non andare oltre al indice massimo - la lunghezza dell array delle immagini)
+  // (Math.min -> per non andare oltre al indice massimo - la lunghezza dell array delle immagini)
   const handleNextImg = () => {
     setCurrentImageIndex((prevIndex) =>
       Math.min(prevIndex + 1, dettagli.img.length - 1)
@@ -266,24 +293,27 @@ const DettagliRicetta = () => {
             <Col>
               <h2 className="fw-bold ms-1">Ingredienti:</h2>
               {ingredientiPerSezione &&
-              //Object.entries(ingredientiPerSezione) -> converto un oggetto in un array di coppie chiave valore: sezione, ingredienti
+                //Object.entries(ingredientiPerSezione) -> converto un oggetto in un array di coppie chiave valore: sezione, ingredienti
                 Object.entries(ingredientiPerSezione).map(
                   ([sezione, ingredienti]) => (
                     <div key={sezione} className="mb-4">
                       <h5 className="text-secondary">{sezione}</h5>
                       <ListGroup>
-                      
-                        {ingredienti.map((ing) => ( //itera sul array di ingredienti per ogni sezione 
-                          <ListGroup.Item
-                            key={ing.id}
-                            className="d-flex justify-content-between"
-                          >
-                            <span className="fw-bold ingredienti-nome">
-                              {ing.nome}
-                            </span>
-                            <span>{ing.dosaggio}</span>
-                          </ListGroup.Item>
-                        ))}
+                        {ingredienti.map(
+                          (
+                            ing //itera sul array di ingredienti per ogni sezione
+                          ) => (
+                            <ListGroup.Item
+                              key={ing.id}
+                              className="d-flex justify-content-between"
+                            >
+                              <span className="fw-bold ingredienti-nome">
+                                {ing.nome}
+                              </span>
+                              <span>{ing.dosaggio}</span>
+                            </ListGroup.Item>
+                          )
+                        )}
                       </ListGroup>
                     </div>
                   )

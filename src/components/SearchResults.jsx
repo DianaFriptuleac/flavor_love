@@ -16,9 +16,10 @@ const SearchResults = () => {
         <h1 className="search-title">Risultati della Ricerca:</h1>
         {isLoading ? (
           <div className="d-flex justify-content-center">
-            <Spinner animation="border" role="status">
-              <span className="visually-hidden">Caricamento...</span>
-            </Spinner>
+            <Spinner
+              animation="border"
+              style={{ width: "5rem", height: "5rem" }}
+            ></Spinner>
           </div>
         ) : searchResults.length > 0 ? (
           <Row className="justify-content-center">
