@@ -16,7 +16,7 @@ const CustomNavbar = function () {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
-  const token = useSelector((state) => state.auth.token);
+ // const token = useSelector((state) => state.auth.token);  -> 06/10/25
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const [showLogoutAlert, setShowLogoutAlert] = useState(false);
 
@@ -36,11 +36,12 @@ const CustomNavbar = function () {
         dispatch(searchedRichiesta());
         const response = await fetch(
           `https://capstone-flavor-love-1.onrender.com/api/ricette/cerca?titolo=${searchQuery}&size=20`,
-          {
+          //Commentato 06/10/25 -> tutti possono cercare le ricette
+        /*   {
             headers: {
               Authorization: `Bearer ${token}`,
             },
-          }
+          } */
         );
 
         if (!response.ok) {

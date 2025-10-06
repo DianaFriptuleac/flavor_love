@@ -28,12 +28,12 @@ import "../css/Ristoranti.css";
 
 const Ristoranti = () => {
   const dispatch = useDispatch();
-  const ristoranti = useSelector((state) => state.ristoranti.ristoranti);
+  const ristoranti = useSelector((state) => state.ristoranti.ristoranti ?? []);
   const token = useSelector((state) => state.auth.token);
   const userId = useSelector((state) => state.auth.user?.id);
   const searchRistoranti = useSelector(
     (state) => state.ristoranti.searchRistoranti
-  );
+  ) ?? [];
   
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -52,18 +52,18 @@ const Ristoranti = () => {
   });
 
   const ristorantiDaVisualizzare =
-    searchRistoranti && searchRistoranti.length > 0
+    Array.isArray(searchRistoranti) && searchRistoranti.length > 0
       ? searchRistoranti
-      : ristoranti;
+      : Array.isArray(ristoranti) ? ristoranti : [];
 
     //recupero i ristoranti
     const fetchRistoranti = async () => {
       setLoading(true);
       try {
         const responce = await fetch("https://capstone-flavor-love-1.onrender.com/api/ristoranti", {
-          headers: {
+         /*  headers: {
             Authorization: `Bearer ${token}`,
-          },
+          }, */
         });
 
         const data = await responce.json();
@@ -215,9 +215,11 @@ const Ristoranti = () => {
 
             <div>
               {/*Btn- crea ristorante */}
+              {token && (
               <Button onClick={() => handleOpenModal()} className="salva-btn">
                 Aggiungi Ristorante
               </Button>
+              )}
             </div>
           </Col>
         </Row>
@@ -297,7 +299,7 @@ const Ristoranti = () => {
             <Spinner animation="border" />
           ) : (
             <Row className="g-3 ristorantiRow justify-content-center">
-              {ristorantiDaVisualizzare.map((ristorante) => (
+              {(ristorantiDaVisualizzare || []).map((ristorante) => (
                 <Col key={ristorante.id} sm={12} md={6} lg={4} xl={3}>
                   <Card className="p-2 ristorantiCard">
                     <CardImg

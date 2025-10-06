@@ -33,6 +33,8 @@ const DettagliRicetta = () => {
     variant: "",
   });
   const [currentImageIndex, setCurrentImageIndex] = useState(0); //stato attuale dell'immagine
+  const [showAuthPrompt, setShowAuthPrompt] = useState(false);     // stato per mostrare i btn register o e login
+  const [authMessage, setAuthMessage]= useState("");
 
   const handleDelete = async () => {
     const confermaDelete = window.confirm(
@@ -71,6 +73,12 @@ const DettagliRicetta = () => {
 
   //aggiungo ricetta alla lista spesa
   const aggiungiAllaListaSpesa = async () => {
+    if(!token) {
+      setAuthMessage(
+        "Per aggiungere ingredienti alla lista spesa devi accedere o registrarti.")
+      setShowAuthPrompt(true); // mostra i btn login e register
+      return;
+    }
     try {
       const response = await fetch(
         `https://capstone-flavor-love-1.onrender.com/api/lista-spesa/${id}`,
@@ -97,8 +105,10 @@ const DettagliRicetta = () => {
       });
     }
   };
-
-  // verifico se l'utente ha il token (se registrato)
+      
+  
+  // Commentato il 06/10/20025 -> per fare vedere a tutti gli utenti le ricette 
+ /* // verifico se l'utente ha il token (se registrato)
   useEffect(() => {
     if (!token) {
       setNotification({
@@ -112,6 +122,7 @@ const DettagliRicetta = () => {
   }, [dispatch, id, token]);
 
   if (!token) {
+  //  *** 06/10/25 -> riportato ner retutn
     return (
       <div className="bg-dettagliRicetta">
         <Container className="text-center mt-5">
@@ -132,7 +143,12 @@ const DettagliRicetta = () => {
       </div>
     );
   }
-
+ */
+useEffect(() => {
+  if(id){
+    dispatch(fetchDettagliRicetta(id));
+  }
+},[dispatch, id])
   if (loading) {
     return (
       <div className="bg-dettagliRicetta d-flex justify-content-center align-items-center">
@@ -190,12 +206,28 @@ const DettagliRicetta = () => {
 
   return (
     <div className="bg-dettagliRicetta">
+       {showAuthPrompt && (
+        <Container className="text-center my-3">
+          <Alert variant="danger">{authMessage}</Alert>
+          <Button
+            className="me-3 modifica-ricetta-btn"
+            onClick={() => navigate("/register")}
+          >
+            Registrati
+          </Button>
+          <Button
+            className="me-3 px-4 modifica-ricetta-btn"
+            onClick={() => navigate("/login")}
+          >
+            Accedi
+          </Button>
+        </Container>
+       )}
+       {!showAuthPrompt && notification.message && (
+        <Alert variant={notification.variant}>{notification.message}</Alert>
+       )}
       <Container className="dettagli-ricetta">
         <Container>
-          {notification.message && (
-            <Alert variant={notification.variant}>{notification.message}</Alert>
-          )}
-
           <Row>
             {/* Img. /Titolo */}
             <Col md={6} className="mt-2">
