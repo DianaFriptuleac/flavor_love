@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   addRecensione,
   removeRecensione,
   setRecensioni,
   updateRecensione,
 } from "../redux/actions/recensioniActions";
-import { Spinner, Button, Modal, Form } from "react-bootstrap";
+import { Spinner, Button, Modal, Form, Alert, Container } from "react-bootstrap";
 import { FaStar, FaEdit, FaTrashAlt } from "react-icons/fa";
 
 const Recensioni = ({ ricettaId }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const recensioni = useSelector(
     (state) => state.recensioni.recensioniPerRicetta?.[ricettaId] || []
   );
@@ -23,6 +25,10 @@ const Recensioni = ({ ricettaId }) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedRecensione, setselectedRecensione] = useState(null);
   const [formData, setFormData] = useState({ stelle: 1, commento: "" });
+
+   // stati per prompt auth (come in DettagliRicetta)
+  const [showAuthPrompt, setShowAuthPrompt] = useState(false);
+  const [authMessage, setAuthMessage] = useState("");
 
   useEffect(() => {
     //recupero le recensioni
@@ -61,6 +67,11 @@ const Recensioni = ({ ricettaId }) => {
 
   //apro il modale x creare recensione o modificare
   const handleOpenModal = (recensione = null) => {
+       if (!token) {
+      setAuthMessage("Per aggiungere una recensione devi accedere o registrarti.");
+      setShowAuthPrompt(true);
+      return;
+    }
     setselectedRecensione(recensione);
     setFormData(
       recensione
@@ -129,6 +140,25 @@ const Recensioni = ({ ricettaId }) => {
 
   return (
     <div>
+       {showAuthPrompt && (
+        <div>
+          <Container className="text-center my-3">
+            <Alert variant="danger">{authMessage}</Alert>
+            <Button
+              className="me-3 modifica-ricetta-btn"
+              onClick={() => navigate("/register")}
+            >
+              Registrati
+            </Button>
+            <Button
+              className="me-3 px-4 modifica-ricetta-btn"
+              onClick={() => navigate("/login")}
+            >
+              Accedi
+            </Button>
+          </Container>
+        </div>
+      )}
       <h2 className="fw-bold ms-1">Recensioni:</h2>
       {loading ? (
         <Spinner animation="border" />

@@ -27,7 +27,7 @@ const RicettePerCategorie = () => {
   useEffect(() => {
     if (!token) {
       setError(
-        "Per visualizzare le ricette è necessario registrarsi o effettuare il login."
+        "Per visualizzare le ricette per categorie è necessario registrarsi o effettuare il login."
       );
       return;
     }

@@ -12,17 +12,19 @@ export const fetchRicette =
   (page = 0, size = 12) =>
   async (dispatch, getState) => {
     try {
-      const { token } = getState().auth;
-      if (!token) throw new Error("Token mancante!");
+      // Commentato il 06/10/20025 -> per fare vedere a tutti gli utenti le ricette 
+    //  const { token } = getState().auth;
+     // if (!token) throw new Error("Token mancante!");
       dispatch({ type: FETCH_RICETTE_PENDING, payload: { page } });
 
       const response = await fetch(
         `https://capstone-flavor-love-1.onrender.com/api/ricette?page=${page}&size=${size}`,
-        {
+              // Commentato il 06/10/20025 -> per fare vedere a tutti gli utenti le ricette 
+      /*   {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        } */
       );
 
       if (response.ok) {
@@ -102,14 +104,15 @@ export const fetchRicetteUtente = () => async (dispatch, getState) => {
 export const fetchDettagliRicetta = (id) => async (dispatch, getState) => {
   dispatch({ type: FETCH_DETTAGLI_RICETTA_PENDING }); // Stato iniziale di caricamento
   try {
-    const { token } = getState().auth; // Recupero il token dal Redux store
-    if (!token) throw new Error("Token mancante!");
+          // Commentato il 06/10/20025 -> per fare vedere a tutti gli utenti le ricette 
+    //const { token } = getState().auth; // Recupero il token dal Redux store
+   // if (!token) throw new Error("Token mancante!");
 
     const response = await fetch(
       `https://capstone-flavor-love-1.onrender.com/api/ricette/${id}`,
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+         // Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
       }
