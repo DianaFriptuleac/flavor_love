@@ -228,6 +228,7 @@ const Ristoranti = () => {
           <Col sm={12} md={4} className="p-0">
             <div className="d-flex flex-column justify-content-between">
               {/*Search Ristoranti */}
+              {token && (
               <div className="d-flex mb-3">
                 <Form.Control
                   type="text"
@@ -244,6 +245,7 @@ const Ristoranti = () => {
                   Cerca
                 </Button>
               </div>
+              )}
             </div>
           </Col>
           {/*Modal x crea ristorante */}
