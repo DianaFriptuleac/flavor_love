@@ -178,6 +178,17 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease;
 }
+/*07/10/2025 -> stessa dimensione*/
+.ricettario_img,
+.heart_img,
+.listaSpesa_img {
+  width: 9rem;              /* stessa larghezza per tutte */
+  height: 9rem;             /* stessa altezza per tutte */
+  object-fit: cover;        /* taglia l’immagine senza deformarla */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
 
 .ricettario_img:hover,
 .heart_img:hover,

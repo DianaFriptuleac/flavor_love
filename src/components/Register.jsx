@@ -12,6 +12,7 @@ import "../css/Register.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../redux/actions/authActions";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -24,6 +25,7 @@ function Register() {
   const [message, setMessage] = useState("");
   const [variant, setVariant] = useState("success");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -70,13 +72,16 @@ function Register() {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await fetch("https://capstone-flavor-love-1.onrender.com/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        "https://capstone-flavor-love-1.onrender.com/auth/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();
@@ -90,7 +95,7 @@ function Register() {
       } else {
         const errorData = await response.json();
         setMessage(errorData.msg || "Errore nella registrazione!");
-        console.log("Messaggio di errore: ", errorData)
+        console.log("Messaggio di errore: ", errorData);
         setLoading(false);
         setVariant("danger");
       }
@@ -101,11 +106,14 @@ function Register() {
     }
   };
 
+  // Icona showPassword
+  const toggleShowPassword = () => setShowPassword((show) => !show);
+
   return (
     <div className="register-background">
       <Container>
         <Row className="justify-content-center">
-          <Col md={6}>
+          <Col md={8} lg={6}>
             <h1 className="text-light mb-0 text-center mt-2 registerTitle">
               Registrati
             </h1>
@@ -149,17 +157,27 @@ function Register() {
                 />
               </FormGroup>
 
-              <FormGroup className="mt-2">
+              <FormGroup className="mt-2 position-relative">
                 <Form.Label className="text-light">Password</Form.Label>
                 <Form.Control
                   className="registerControl"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
                   placeholder="Inserisci una password"
                   required
                 />
+                <span
+                  className="password-toggle-icon"
+                  onClick={toggleShowPassword}
+                  role="button"
+                  aria-label={
+                    showPassword ? "Nascondi password" : "Mostra password"
+                  }
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </span>
               </FormGroup>
 
               <div className="d-flex justify-content-end">

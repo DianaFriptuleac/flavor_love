@@ -291,8 +291,8 @@ const UserProfile = () => {
         <Container>
           <Row className="ricettario_row d-flex justify-content-center mt-5">
             <Col md={3}>
-              <div className="ricettario-container">
-                <h3 className="ricettario-title">I tuoi Ricettari</h3>
+              <div className="ricettario-container mb-2">
+                <h3 className="ricettario-title">I tuoi ricettari</h3>
 
                 <img
                   onClick={() => navigate("/ricettario")}

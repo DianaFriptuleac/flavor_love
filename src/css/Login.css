@@ -84,3 +84,32 @@
   outline: none; /* none x outline di default */
   box-shadow: 0 0 5px #184e0c;
 }
+
+/*07/10/2025 -> Icona occhio dentro il campo password */
+.password-toggle-icon {
+  position: absolute;
+  right: 15px;      
+  top: 68%;    
+  transform: translateY(-50%);
+  color: #216b10;  
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+.password-toggle-icon:hover {
+  color: #c20702;   
+}
+
+/* Evita che il testo si sovrapponga all’icona */
+.loginControl[type="password"],
+.loginControl[type="text"] {
+  padding-right: 2.5rem;
+}
+
+@media (max-width: 576px) {
+  .loginButton {
+ font-size: 1rem;
+ padding: 4px;
+  }
+}
